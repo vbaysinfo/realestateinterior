@@ -65,10 +65,10 @@ export default async function HomePage() {
     <div className="bg-white">
 
       {/* ═══ ABOVE-THE-FOLD: Split layout ═══ */}
-      <section className="relative min-h-[92vh] flex flex-col lg:flex-row overflow-hidden">
+      <section className="relative min-h-[60vh] flex flex-col lg:flex-row overflow-hidden">
 
         {/* Left — text + stats */}
-        <div className="relative z-10 flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-24 py-16 lg:w-1/2 bg-white">
+        <div className="relative z-10 flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-24 py-10 lg:w-1/2 bg-white">
           {/* Decorative accent */}
           <div className="absolute top-0 left-0 w-1 h-32 bg-amber-500 rounded-b-full" />
 
@@ -77,7 +77,7 @@ export default async function HomePage() {
             Plot Sales &amp; Interior Design
           </span>
 
-          <h1 className="text-4xl sm:text-5xl xl:text-6xl font-black text-slate-900 leading-[1.05] mb-6">
+          <h1 className="text-3xl sm:text-4xl xl:text-5xl font-black text-slate-900 leading-[1.05] mb-4">
             Your Dream<br />
             <span className="relative inline-block">
               <span className="relative z-10 text-white px-3">Land</span>
@@ -87,11 +87,11 @@ export default async function HomePage() {
             Here.
           </h1>
 
-          <p className="text-slate-500 text-lg leading-relaxed mb-10 max-w-md">
+          <p className="text-slate-500 text-base leading-relaxed mb-6 max-w-md">
             Discover prime plots across the city — residential, commercial, villa &amp; agricultural. Plus expert interior design to make every space extraordinary.
           </p>
 
-          <div className="flex flex-wrap gap-3 mb-12">
+          <div className="flex flex-wrap gap-3 mb-8">
             <Link href="/listings">
               <Button size="lg" className="rounded-full px-8 shadow-lg shadow-amber-200">
                 Explore Plots
