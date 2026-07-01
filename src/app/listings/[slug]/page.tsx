@@ -350,22 +350,6 @@ export default async function ListingDetailPage({ params }: Props) {
               </div>
             </div>
 
-            {/* Documents / Highlights */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {[
-                { icon: Shield, title: 'Clear Legal Title', desc: 'Verified patta & EC documents', color: 'bg-blue-50 text-blue-700' },
-                { icon: FileText, title: 'DTCP / RERA Approved', desc: 'All regulatory approvals in place', color: 'bg-emerald-50 text-emerald-700' },
-                { icon: TrendingUp, title: 'High Appreciation', desc: 'Prime location near airport zone', color: 'bg-amber-50 text-amber-700' },
-              ].map(({ icon: Icon, title, desc, color }) => (
-                <div key={title} className={`p-4 rounded-2xl border border-slate-100 ${color} bg-opacity-50 flex gap-3 items-start`}>
-                  <Icon className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-bold text-sm">{title}</p>
-                    <p className="text-xs opacity-70 mt-0.5">{desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
 
             {/* Other media links */}
             {otherLinks.length > 0 && (
