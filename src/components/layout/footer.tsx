@@ -1,15 +1,15 @@
 import Link from 'next/link'
-import { Waves, MapPin, Phone, Mail, Wind } from 'lucide-react'
+import { MapPin, Phone, Mail, Wind } from 'lucide-react'
 
 export function Footer() {
-  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'CoastalLands Vizag'
+  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'VBAYS Real Estate'
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+1234567890'
 
   return (
-    <footer className="bg-gradient-to-b from-cyan-950 to-blue-950 text-white">
-      {/* Wave divider */}
+    <footer className="bg-gradient-to-b from-stone-900 to-black text-white">
+      {/* Divider */}
       <div className="w-full overflow-hidden leading-none -mb-px">
-        <svg viewBox="0 0 1440 60" className="w-full fill-sky-50" preserveAspectRatio="none" style={{height: 40}}>
+        <svg viewBox="0 0 1440 60" className="w-full fill-stone-50" preserveAspectRatio="none" style={{height: 40}}>
           <path d="M0,30 C360,60 720,0 1080,30 C1260,45 1380,20 1440,30 L1440,0 L0,0 Z" />
         </svg>
       </div>
@@ -20,16 +20,17 @@ export function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-                <Waves className="w-5 h-5 text-white" />
-              </div>
-              <div className="leading-none">
-                <div className="font-black text-lg text-white">CoastalLands</div>
-                <div className="text-[10px] font-bold text-orange-400 tracking-widest uppercase">Vizag · Bay of Bengal</div>
-              </div>
+              <img
+                src="/vbays-logo.svg"
+                alt="VBAYS"
+                className="h-9 w-auto brightness-0 invert"
+              />
             </div>
-            <p className="text-sm leading-relaxed text-white mb-5">
-              Visakhapatnam's premier coastal real estate agency. Beachfront plots, sea view villas, and coastal land along the Bay of Bengal — where every sunrise is yours.
+            <p className="text-xs font-bold text-amber-400 tracking-widest uppercase mb-3">
+              Real Estate · Visakhapatnam
+            </p>
+            <p className="text-sm leading-relaxed text-stone-400 mb-5">
+              Visakhapatnam's premier coastal real estate agency. Beachfront plots, sea view villas, and coastal land along the Bay of Bengal.
             </p>
             <div className="flex gap-2">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
@@ -43,19 +44,21 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-bold text-white mb-4 text-sm uppercase tracking-widest">Quick Links</h3>
+            <h3 className="font-bold text-amber-400 mb-4 text-xs uppercase tracking-widest">Quick Links</h3>
             <ul className="space-y-2.5 text-sm">
               {[
                 { href: '/', label: 'Home' },
-                { href: '/listings', label: 'All Beach Properties' },
-                { href: '/listings?type=Beachfront+Plot', label: 'Beachfront Plots' },
-                { href: '/listings?type=Sea+View+Villa', label: 'Sea View Villas' },
+                { href: '/listings', label: 'All Properties' },
+                { href: '/listings?category=Open+Plots', label: 'Open Plots' },
+                { href: '/listings?category=Agriculture+Land', label: 'Agriculture Land' },
+                { href: '/listings?category=Residential', label: 'Residential' },
+                { href: '/listings?category=Commercial', label: 'Commercial' },
                 { href: '/about', label: 'About Us' },
                 { href: '/contact', label: 'Contact' },
               ].map(({ href, label }) => (
                 <li key={href}>
-                  <Link href={href} className="hover:text-orange-400 transition-colors flex items-center gap-1.5 text-white">
-                    <span className="w-1 h-1 bg-orange-400 rounded-full inline-block" />
+                  <Link href={href} className="hover:text-amber-400 transition-colors flex items-center gap-1.5 text-stone-400">
+                    <span className="w-1 h-1 bg-amber-400 rounded-full inline-block flex-shrink-0" />
                     {label}
                   </Link>
                 </li>
@@ -65,7 +68,7 @@ export function Footer() {
 
           {/* Coastal Areas */}
           <div>
-            <h3 className="font-bold text-white mb-4 text-sm uppercase tracking-widest">Coastal Areas</h3>
+            <h3 className="font-bold text-amber-400 mb-4 text-xs uppercase tracking-widest">Coastal Areas</h3>
             <ul className="space-y-2.5 text-sm">
               {[
                 'Bheemunipatnam Beach',
@@ -79,8 +82,8 @@ export function Footer() {
               ].map((area) => (
                 <li key={area}>
                   <Link href={`/listings?location=${encodeURIComponent(area)}`}
-                    className="hover:text-orange-400 transition-colors flex items-center gap-1.5 text-white">
-                    <Wind className="w-3 h-3 text-white/60 flex-shrink-0" />
+                    className="hover:text-amber-400 transition-colors flex items-center gap-1.5 text-stone-400">
+                    <Wind className="w-3 h-3 text-stone-500 flex-shrink-0" />
                     {area}
                   </Link>
                 </li>
@@ -90,33 +93,33 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="font-bold text-white mb-4 text-sm uppercase tracking-widest">Contact Us</h3>
+            <h3 className="font-bold text-amber-400 mb-4 text-xs uppercase tracking-widest">Contact Us</h3>
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-orange-400 mt-0.5 flex-shrink-0" />
-                <span className="text-white">Beach Road, Bhogapuram, Visakhapatnam Dist., AP 531163</span>
+                <MapPin className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                <span className="text-stone-400">Beach Road, Bhogapuram, Visakhapatnam Dist., AP 531163</span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                <a href={`tel:${whatsapp}`} className="hover:text-orange-400 transition-colors text-white">{whatsapp}</a>
+                <Phone className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                <a href={`tel:${whatsapp}`} className="hover:text-amber-400 transition-colors text-stone-400">{whatsapp}</a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                <a href="mailto:info@coastallandsvizag.com" className="hover:text-orange-400 transition-colors text-white">
-                  info@coastallandsvizag.com
+                <Mail className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                <a href="mailto:info@vbays.com" className="hover:text-amber-400 transition-colors text-stone-400">
+                  info@vbays.com
                 </a>
               </li>
             </ul>
             <div className="mt-5 p-4 rounded-xl bg-white/5 border border-white/10">
-              <p className="text-xs text-white mb-1 font-semibold">Office Hours</p>
+              <p className="text-xs text-stone-400 mb-1 font-semibold">Office Hours</p>
               <p className="text-sm font-bold text-white">Mon–Sat: 9 AM – 7 PM</p>
-              <p className="text-xs text-white mt-1">Site visits by appointment</p>
+              <p className="text-xs text-stone-400 mt-1">Site visits by appointment</p>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-10 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/60">
-          <p>© {new Date().getFullYear()} {siteName}. All rights reserved. | Visakhapatnam, Andhra Pradesh — Bay of Bengal Coastal Properties</p>
+        <div className="border-t border-white/10 mt-10 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-stone-500">
+          <p>© {new Date().getFullYear()} {siteName}. All rights reserved. | Visakhapatnam, Andhra Pradesh</p>
           <div className="flex gap-4">
             <Link href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</Link>
           </div>

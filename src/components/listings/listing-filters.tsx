@@ -38,10 +38,10 @@ const reset = () => router.push('/listings')
     <div className="space-y-4">
 
       {/* Search + price + clear */}
-      <div className="bg-white rounded-2xl border border-cyan-100 shadow-sm p-4">
+      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-4">
         <div className="flex flex-col sm:flex-row gap-3">
-          <div className="flex-1 flex items-center gap-2 bg-sky-50 rounded-xl px-4 py-2.5 border border-sky-100">
-            <Search className="w-4 h-4 text-sky-400 flex-shrink-0" />
+          <div className="flex-1 flex items-center gap-2 bg-stone-50 rounded-xl px-4 py-2.5 border border-stone-100">
+            <Search className="w-4 h-4 text-stone-400 flex-shrink-0" />
             <input
               type="text"
               placeholder="Search by location, area name…"
@@ -55,7 +55,7 @@ const reset = () => router.push('/listings')
             placeholder="Max price (₹)"
             defaultValue={params.get('maxPrice') || ''}
             onChange={(e) => update('maxPrice', e.target.value)}
-            className="px-4 py-2.5 bg-sky-50 border border-sky-100 rounded-xl text-sm text-slate-700 outline-none w-full sm:w-44"
+            className="px-4 py-2.5 bg-stone-50 border border-stone-100 rounded-xl text-sm text-slate-700 outline-none w-full sm:w-44"
           />
           {hasFilters && (
             <button onClick={reset}
@@ -67,15 +67,15 @@ const reset = () => router.push('/listings')
       </div>
 
       {/* Category filter */}
-      <div className="bg-white rounded-2xl border border-cyan-100 shadow-sm p-4">
-        <p className="text-xs font-bold text-cyan-900 uppercase tracking-widest mb-3">Filter by Category</p>
+      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-4">
+        <p className="text-xs font-bold text-stone-900 uppercase tracking-widest mb-3">Filter by Category</p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           <button
             onClick={() => selectCategory('')}
             className={`flex flex-col items-center gap-1 py-3 px-2 rounded-xl border-2 text-xs font-semibold transition-all ${
               !activeCategory
-                ? 'border-cyan-500 bg-cyan-50 text-cyan-800'
-                : 'border-slate-200 text-slate-500 hover:border-cyan-200 hover:text-cyan-700'
+                ? 'border-amber-500 bg-amber-50 text-amber-800'
+                : 'border-slate-200 text-slate-500 hover:border-amber-200 hover:text-amber-700'
             }`}
           >
             <span className="text-xl">🏘️</span>
@@ -86,8 +86,8 @@ const reset = () => router.push('/listings')
               onClick={() => selectCategory(label)}
               className={`flex flex-col items-center gap-1 py-3 px-2 rounded-xl border-2 text-xs font-semibold transition-all ${
                 activeCategory === label
-                  ? 'border-cyan-500 bg-cyan-50 text-cyan-800'
-                  : 'border-slate-200 text-slate-500 hover:border-cyan-200 hover:text-cyan-700'
+                  ? 'border-amber-500 bg-amber-50 text-amber-800'
+                  : 'border-slate-200 text-slate-500 hover:border-amber-200 hover:text-amber-700'
               }`}
             >
               <span className="text-xl">{emoji}</span>
@@ -99,15 +99,15 @@ const reset = () => router.push('/listings')
 
         {/* Sub-type chips when category has types */}
         {activeCategory && propertyTypes.length > 0 && (
-          <div className="mt-3 pt-3 border-t border-cyan-50">
+          <div className="mt-3 pt-3 border-t border-stone-100">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Property Type</p>
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => update('type', '')}
                 className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all ${
                   !activeType
-                    ? 'bg-cyan-600 text-white border-cyan-600'
-                    : 'bg-white text-slate-600 border-slate-200 hover:border-cyan-400 hover:text-cyan-700'
+                    ? 'bg-amber-600 text-white border-amber-600'
+                    : 'bg-white text-slate-600 border-slate-200 hover:border-amber-400 hover:text-amber-700'
                 }`}>
                 All
               </button>
@@ -116,8 +116,8 @@ const reset = () => router.push('/listings')
                   onClick={() => update('type', activeType === type ? '' : type)}
                   className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all ${
                     activeType === type
-                      ? 'bg-cyan-600 text-white border-cyan-600'
-                      : 'bg-white text-slate-600 border-slate-200 hover:border-cyan-400 hover:text-cyan-700'
+                      ? 'bg-amber-600 text-white border-amber-600'
+                      : 'bg-white text-slate-600 border-slate-200 hover:border-amber-400 hover:text-amber-700'
                   }`}>
                   {type}
                 </button>

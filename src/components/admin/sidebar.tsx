@@ -33,12 +33,8 @@ export function AdminSidebar({ userEmail }: Props) {
     <aside className="w-64 min-h-screen bg-slate-900 text-white flex flex-col flex-shrink-0">
       <div className="p-5 border-b border-slate-800">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-amber-600 rounded-lg flex items-center justify-center">
-            <Building2 className="w-4 h-4 text-white" />
-          </div>
-          <span className="font-bold text-sm">
-            <span className="text-amber-400">Prime</span>Estates Admin
-          </span>
+          <img src="/vbays-logo.svg" alt="VBAYS" className="h-7 w-auto brightness-0 invert" />
+          <span className="text-xs text-stone-400 font-medium">Admin</span>
         </Link>
       </div>
 

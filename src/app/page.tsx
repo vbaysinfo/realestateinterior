@@ -129,12 +129,12 @@ const WA_SVG = (
 )
 
 const FALLBACK_LOCATION_GROUPS = [
-  { name: 'Bheemunipatnam', emoji: '🏖️', description: 'Widest beach in AP — golden sands & lighthouse', color: 'from-cyan-500 to-blue-600' },
-  { name: 'Rushikonda', emoji: '🌊', description: 'Blue Flag beach — hills, water sports, sunrise views', color: 'from-sky-500 to-cyan-600' },
-  { name: 'Bheemili', emoji: '🐚', description: 'Serene seafront — Dutch fort, uncrowded shores', color: 'from-teal-500 to-cyan-600' },
+  { name: 'Bheemunipatnam', emoji: '🏖️', description: 'Widest beach in AP — golden sands & lighthouse', color: 'from-amber-500 to-orange-600' },
+  { name: 'Rushikonda', emoji: '🌊', description: 'Blue Flag beach — hills, water sports, sunrise views', color: 'from-stone-500 to-cyan-600' },
+  { name: 'Bheemili', emoji: '🐚', description: 'Serene seafront — Dutch fort, uncrowded shores', color: 'from-stone-600 to-stone-800' },
   { name: 'Rishikonda Hills', emoji: '⛰️', description: 'Elevated coastal plots — panoramic 180° sea views', color: 'from-blue-500 to-indigo-600' },
-  { name: 'Vizag Beach Road', emoji: '🛣️', description: 'Prime Beach Road — high-value commercial & residential', color: 'from-cyan-600 to-sky-700' },
-  { name: 'Bhogapuram Coast', emoji: '🌅', description: 'Near Airport — fastest appreciating coastal belt', color: 'from-orange-400 to-cyan-600' },
+  { name: 'Vizag Beach Road', emoji: '🛣️', description: 'Prime Beach Road — high-value commercial & residential', color: 'from-stone-700 to-black' },
+  { name: 'Bhogapuram Coast', emoji: '🌅', description: 'Near Airport — fastest appreciating coastal belt', color: 'from-amber-400 to-orange-600' },
 ]
 
 export default async function HomePage() {
@@ -148,7 +148,7 @@ export default async function HomePage() {
   // Group listings by property category
   const CATEGORY_META: Record<string, { emoji: string; color: string; unit: string }> = {
     'Agriculture Land': { emoji: '🌾', color: 'from-green-500 to-emerald-600', unit: 'Cents' },
-    'Open Plots':       { emoji: '🏞️', color: 'from-cyan-500 to-blue-600',    unit: 'Sq Yard' },
+    'Open Plots':       { emoji: '🏞️', color: 'from-amber-500 to-orange-600',    unit: 'Sq Yard' },
     'Residential':      { emoji: '🏠', color: 'from-orange-400 to-amber-500', unit: 'Sq Feet' },
     'Commercial':       { emoji: '🏢', color: 'from-violet-500 to-purple-600', unit: 'Sq Feet' },
   }
@@ -169,7 +169,7 @@ export default async function HomePage() {
     <div className="bg-sky-50">
 
       {/* ── SEARCH BAR ── */}
-      <section className="bg-white border-b border-cyan-100 shadow-sm">
+      <section className="bg-white border-b border-stone-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex flex-col sm:flex-row gap-2">
             <div className="flex-1 flex items-center gap-2 bg-sky-50 rounded-xl px-4 py-2.5 border border-sky-100">
@@ -187,7 +187,7 @@ export default async function HomePage() {
                 <option>Commercial</option>
               </select>
               <Link href="/listings"
-                className="flex items-center gap-2 bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors">
+                className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors">
                 <Search className="w-4 h-4" /> Search
               </Link>
             </div>
@@ -200,11 +200,11 @@ export default async function HomePage() {
         {/* ── PAGE TITLE ── */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-1">
-            <Waves className="w-5 h-5 text-cyan-500" />
-            <span className="text-xs font-bold tracking-widest text-cyan-600 uppercase">Bay of Bengal Coastal Properties</span>
+            <Waves className="w-5 h-5 text-amber-500" />
+            <span className="text-xs font-bold tracking-widest text-amber-600 uppercase">Bay of Bengal Coastal Properties</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-cyan-950 tracking-tight">
-            Beach & Sea View Land in <span className="text-cyan-600">Visakhapatnam</span>
+          <h1 className="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
+            Beach & Sea View Land in <span className="text-amber-600">Visakhapatnam</span>
           </h1>
           <p className="text-slate-500 text-sm mt-1">{allListings.length} verified coastal properties across {locationGroups.length}+ prime beach locations · Andhra Pradesh</p>
         </div>
@@ -213,9 +213,9 @@ export default async function HomePage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
           {PROPERTY_TYPES.map(({ label, query, emoji, desc }) => (
             <Link key={label} href={`/listings?category=${encodeURIComponent(query)}`}
-              className="group bg-white rounded-2xl border-2 border-cyan-100 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-100 transition-all p-4 text-center">
+              className="group bg-white rounded-2xl border-2 border-stone-200 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-100 transition-all p-4 text-center">
               <div className="text-3xl mb-2">{emoji}</div>
-              <div className="font-black text-cyan-900 text-sm">{label}</div>
+              <div className="font-black text-stone-900 text-sm">{label}</div>
               <div className="text-slate-400 text-xs mt-0.5">{desc}</div>
             </Link>
           ))}
@@ -232,12 +232,12 @@ export default async function HomePage() {
                     {emoji}
                   </div>
                   <div>
-                    <h2 className="text-lg font-black text-cyan-950">{area}</h2>
+                    <h2 className="text-lg font-black text-stone-900">{area}</h2>
                     <p className="text-xs text-slate-400">{listings.length} propert{listings.length === 1 ? 'y' : 'ies'} available</p>
                   </div>
                 </div>
                 <Link href={`/listings?location=${encodeURIComponent(area)}`}
-                  className="flex items-center gap-1 text-xs font-bold text-cyan-600 hover:text-cyan-800 transition-colors">
+                  className="flex items-center gap-1 text-xs font-bold text-amber-600 hover:text-amber-800 transition-colors">
                   View all <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -248,7 +248,7 @@ export default async function HomePage() {
                   const href = isLive ? `/listings/${listing.slug}` : '/listings'
                   return (
                     <article key={listing.id}
-                      className={`group bg-white rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-200/50 hover:-translate-y-1 ${listing.featured ? 'border-cyan-300 ring-2 ring-cyan-100' : 'border-cyan-100'}`}>
+                      className={`group bg-white rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-2xl hover:shadow-amber-200/50 hover:-translate-y-1 ${listing.featured ? 'border-amber-300 ring-2 ring-amber-100' : 'border-stone-200'}`}>
                       <Link href={href} className="block">
                         <div className="relative aspect-[4/3] overflow-hidden bg-sky-100">
                           {img ? (
@@ -257,17 +257,17 @@ export default async function HomePage() {
                               sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw"
                               priority={idx === 0} />
                           ) : (
-                            <div className="absolute inset-0 bg-gradient-to-br from-sky-100 to-cyan-200 flex items-center justify-center">
-                              <Waves className="w-12 h-12 text-cyan-300" />
+                            <div className="absolute inset-0 bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center">
+                              <Waves className="w-12 h-12 text-amber-300" />
                             </div>
                           )}
-                          <div className="absolute inset-0 bg-gradient-to-t from-cyan-950/60 via-transparent to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent" />
                           <div className="absolute top-3 left-3 flex gap-1.5">
                             {listing.featured && <span className="bg-orange-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full">🌊 FEATURED</span>}
-                            <span className="bg-white/90 backdrop-blur-sm text-cyan-800 text-[10px] font-bold px-2.5 py-1 rounded-full">{listing.property_type || 'Coastal Plot'}</span>
+                            <span className="bg-white/90 backdrop-blur-sm text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full">{listing.property_type || 'Coastal Plot'}</span>
                           </div>
                           <div className="absolute top-3 right-3">
-                            <span className={`text-[10px] font-black px-2.5 py-1 rounded-full backdrop-blur-sm ${listing.status === 'sale' ? 'bg-cyan-600 text-white' : 'bg-sky-400 text-white'}`}>
+                            <span className={`text-[10px] font-black px-2.5 py-1 rounded-full backdrop-blur-sm ${listing.status === 'sale' ? 'bg-amber-600 text-white' : 'bg-sky-400 text-white'}`}>
                               For {listing.status === 'sale' ? 'Sale' : 'Rent'}
                             </span>
                           </div>
@@ -276,7 +276,7 @@ export default async function HomePage() {
                           </div>
                         </div>
                         <div className="p-4 pb-3">
-                          <h3 className="font-bold text-slate-800 text-sm line-clamp-2 group-hover:text-cyan-700 transition-colors leading-snug">{listing.title}</h3>
+                          <h3 className="font-bold text-slate-800 text-sm line-clamp-2 group-hover:text-amber-700 transition-colors leading-snug">{listing.title}</h3>
                           {listing.location && (
                             <div className="flex items-center gap-1 mt-2 text-slate-400 text-xs">
                               <MapPin className="w-3 h-3 flex-shrink-0 text-orange-400" />
@@ -289,7 +289,7 @@ export default async function HomePage() {
                         <div className="flex items-center justify-between pt-3 border-t border-sky-100">
                           {listing.area_sqft ? (
                             <span className="flex items-center gap-1 text-slate-500 text-xs font-medium">
-                              <Square className="w-3.5 h-3.5 text-cyan-400" />{listing.area_sqft.toLocaleString()} sqft
+                              <Square className="w-3.5 h-3.5 text-amber-400" />{listing.area_sqft.toLocaleString()} sqft
                             </span>
                           ) : <span />}
                           <a href={getWhatsAppUrl(whatsapp, `Hi! I'm interested in "${listing.title}" (${formatPrice(listing.price, listing.currency)}) in ${area}. Please share details.`)}
@@ -313,11 +313,11 @@ export default async function HomePage() {
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center text-lg">🗺️</div>
                   <div>
-                    <h2 className="text-lg font-black text-cyan-950">More Coastal Properties</h2>
+                    <h2 className="text-lg font-black text-stone-900">More Coastal Properties</h2>
                     <p className="text-xs text-slate-400">{otherListings.length} additional propert{otherListings.length === 1 ? 'y' : 'ies'}</p>
                   </div>
                 </div>
-                <Link href="/listings" className="flex items-center gap-1 text-xs font-bold text-cyan-600 hover:text-cyan-800 transition-colors">
+                <Link href="/listings" className="flex items-center gap-1 text-xs font-bold text-amber-600 hover:text-amber-800 transition-colors">
                   View all <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -326,21 +326,21 @@ export default async function HomePage() {
                   const img = listing.image || listing.media?.find((m: any) => m.is_cover && m.type === 'image')?.url || listing.media?.[0]?.url
                   const href = isLive ? `/listings/${listing.slug}` : '/listings'
                   return (
-                    <article key={listing.id} className="group bg-white rounded-2xl overflow-hidden border border-cyan-100 hover:border-cyan-300 hover:shadow-xl transition-all hover:-translate-y-1">
+                    <article key={listing.id} className="group bg-white rounded-2xl overflow-hidden border border-stone-200 hover:border-amber-300 hover:shadow-xl transition-all hover:-translate-y-1">
                       <Link href={href} className="block">
                         <div className="relative aspect-[4/3] overflow-hidden bg-sky-100">
                           {img ? <Image src={img} alt={listing.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw" />
-                            : <div className="absolute inset-0 bg-gradient-to-br from-sky-100 to-cyan-200 flex items-center justify-center"><Waves className="w-12 h-12 text-cyan-300" /></div>}
-                          <div className="absolute inset-0 bg-gradient-to-t from-cyan-950/60 via-transparent to-transparent" />
+                            : <div className="absolute inset-0 bg-gradient-to-br from-amber-50 to-amber-100 flex items-center justify-center"><Waves className="w-12 h-12 text-amber-300" /></div>}
+                          <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-transparent to-transparent" />
                           <div className="absolute bottom-3 left-3"><p className="text-white font-black text-lg drop-shadow-lg">{formatPrice(listing.price, listing.currency)}</p></div>
                         </div>
                         <div className="p-4 pb-3">
-                          <h3 className="font-bold text-slate-800 text-sm line-clamp-2 group-hover:text-cyan-700 transition-colors">{listing.title}</h3>
+                          <h3 className="font-bold text-slate-800 text-sm line-clamp-2 group-hover:text-amber-700 transition-colors">{listing.title}</h3>
                           {listing.location && <div className="flex items-center gap-1 mt-2 text-slate-400 text-xs"><MapPin className="w-3 h-3 text-orange-400" /><span className="truncate">{listing.location}</span></div>}
                         </div>
                       </Link>
                       <div className="px-4 pb-4 pt-3 border-t border-sky-100 flex items-center justify-between">
-                        {listing.area_sqft ? <span className="flex items-center gap-1 text-slate-500 text-xs"><Square className="w-3.5 h-3.5 text-cyan-400" />{listing.area_sqft.toLocaleString()} sqft</span> : <span />}
+                        {listing.area_sqft ? <span className="flex items-center gap-1 text-slate-500 text-xs"><Square className="w-3.5 h-3.5 text-amber-400" />{listing.area_sqft.toLocaleString()} sqft</span> : <span />}
                         <a href={getWhatsAppUrl(whatsapp, `Hi! I'm interested in "${listing.title}". Please share details.`)} target="_blank" rel="noopener noreferrer"
                           className="flex items-center justify-center w-9 h-9 bg-[#25D366] hover:bg-[#1ebe5d] rounded-xl transition-colors" aria-label="WhatsApp">{WA_SVG}</a>
                       </div>
@@ -354,37 +354,37 @@ export default async function HomePage() {
 
         <div className="text-center mt-12">
           <Link href="/listings"
-            className="inline-flex items-center gap-2 bg-cyan-700 hover:bg-cyan-800 text-white font-bold px-8 py-3.5 rounded-xl text-sm transition-colors shadow-lg shadow-cyan-200">
+            className="inline-flex items-center gap-2 bg-amber-700 hover:bg-stone-800 text-white font-bold px-8 py-3.5 rounded-xl text-sm transition-colors shadow-lg shadow-amber-200">
             View All Coastal Properties <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>
 
       {/* ── BEACHES NEARBY ── */}
-      <section className="py-16 bg-gradient-to-b from-sky-50 to-cyan-100">
+      <section className="py-16 bg-gradient-to-b from-stone-50 to-amber-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Shell className="w-5 h-5 text-orange-400" />
-              <span className="text-xs font-bold tracking-widest text-cyan-700 uppercase">Pristine Shorelines Nearby</span>
+              <span className="text-xs font-bold tracking-widest text-amber-700 uppercase">Pristine Shorelines Nearby</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-cyan-950">
+            <h2 className="text-2xl sm:text-3xl font-black text-stone-900">
               World-Class Beaches at Your Doorstep
             </h2>
-            <p className="text-cyan-700 text-sm mt-2 max-w-2xl mx-auto">
+            <p className="text-amber-700 text-sm mt-2 max-w-2xl mx-auto">
               Our properties are located minutes from some of India most beautiful beaches — golden sands, clear waters, and breathtaking coastal scenery.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {BEACHES_NEARBY.map(({ name, dist, note }) => (
               <div key={name}
-                className="flex gap-4 p-5 bg-white/80 backdrop-blur rounded-2xl border border-cyan-200 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-100 transition-all">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0">
+                className="flex gap-4 p-5 bg-white/80 backdrop-blur rounded-2xl border border-amber-200 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-100 transition-all">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center flex-shrink-0">
                   <Waves className="w-5 h-5 text-white" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <h4 className="font-bold text-cyan-900 text-sm">{name}</h4>
+                    <h4 className="font-bold text-stone-900 text-sm">{name}</h4>
                     <span className="text-[10px] font-black bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full">{dist}</span>
                   </div>
                   <p className="text-slate-500 text-xs leading-relaxed">{note}</p>
@@ -401,9 +401,9 @@ export default async function HomePage() {
           <div className="text-center mb-10">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Sun className="w-5 h-5 text-orange-400" />
-              <span className="text-xs font-bold tracking-widest text-cyan-600 uppercase">Why Coastal Living?</span>
+              <span className="text-xs font-bold tracking-widest text-amber-600 uppercase">Why Coastal Living?</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-cyan-950">
+            <h2 className="text-2xl sm:text-3xl font-black text-stone-900">
               Life is Better by the Ocean
             </h2>
             <p className="text-slate-500 text-sm mt-2 max-w-2xl mx-auto">
@@ -413,11 +413,11 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {COASTAL_HIGHLIGHTS.map(({ icon: Icon, title, desc }) => (
               <div key={title}
-                className="group p-6 rounded-2xl border border-sky-100 hover:border-cyan-300 bg-sky-50 hover:bg-white hover:shadow-lg hover:shadow-cyan-100 transition-all">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                className="group p-6 rounded-2xl border border-sky-100 hover:border-amber-300 bg-sky-50 hover:bg-white hover:shadow-lg hover:shadow-amber-100 transition-all">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <Icon className="w-5 h-5 text-white" />
                 </div>
-                <h4 className="font-bold text-cyan-900 text-sm mb-2">{title}</h4>
+                <h4 className="font-bold text-stone-900 text-sm mb-2">{title}</h4>
                 <p className="text-slate-500 text-xs leading-relaxed">{desc}</p>
               </div>
             ))}
@@ -440,7 +440,7 @@ export default async function HomePage() {
               <h2 className="text-3xl sm:text-4xl font-black text-white mt-2 leading-tight">
                 Wake Up to the Sound<br />of the Ocean Every Day
               </h2>
-              <p className="text-cyan-200 text-sm mt-3 leading-relaxed">
+              <p className="text-amber-200 text-sm mt-3 leading-relaxed">
                 Our beachfront and sea view plots put you steps from the Bay of Bengal. Verified titles, legal clearance, and expert coastal real estate guidance.
               </p>
               <div className="flex gap-3 mt-6">
@@ -472,7 +472,7 @@ export default async function HomePage() {
               <div key={label} className="text-white">
                 <div className="text-2xl mb-1">{icon}</div>
                 <div className="text-3xl font-black text-white">{val}</div>
-                <div className="text-cyan-200 text-xs mt-1 font-medium">{label}</div>
+                <div className="text-amber-200 text-xs mt-1 font-medium">{label}</div>
               </div>
             ))}
           </div>
@@ -480,17 +480,17 @@ export default async function HomePage() {
       </section>
 
       {/* ── CONTACT + LEAD FORM ── */}
-      <section className="py-16 bg-sky-50 border-t border-cyan-100">
+      <section className="py-16 bg-sky-50 border-t border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Shell className="w-4 h-4 text-orange-400" />
-                <span className="text-xs font-bold tracking-widest text-cyan-600 uppercase">Get In Touch</span>
+                <span className="text-xs font-bold tracking-widest text-amber-600 uppercase">Get In Touch</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-cyan-950 mb-4">
+              <h2 className="text-2xl sm:text-3xl font-black text-stone-900 mb-4">
                 Find Your Perfect<br />
-                <span className="text-cyan-600">Beach Property</span>
+                <span className="text-amber-600">Beach Property</span>
               </h2>
               <p className="text-slate-500 text-sm mb-8 leading-relaxed">
                 Whether you're looking for a beachfront plot, sea view villa site, or a coastal investment land — our expert team will find the best options for you along the Visakhapatnam coastline.
@@ -501,14 +501,14 @@ export default async function HomePage() {
                   { Icon: Mail, label: 'Email Us', value: 'info@coastallandsvizag.com', href: 'mailto:info@coastallandsvizag.com' },
                   { Icon: MapPin, label: 'Office', value: 'Beach Road, Bhogapuram, Visakhapatnam, AP 531163', href: null },
                 ].map(({ Icon, label, value, href }) => (
-                  <div key={label} className="flex items-center gap-3 p-4 bg-white rounded-xl border border-cyan-100 shadow-sm">
-                    <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div key={label} className="flex items-center gap-3 p-4 bg-white rounded-xl border border-stone-200 shadow-sm">
+                    <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center flex-shrink-0">
                       <Icon className="w-4 h-4 text-white" />
                     </div>
                     <div>
                       <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wide">{label}</p>
                       {href ? (
-                        <a href={href} className="text-slate-800 font-bold text-sm hover:text-cyan-700 transition-colors">{value}</a>
+                        <a href={href} className="text-slate-800 font-bold text-sm hover:text-amber-700 transition-colors">{value}</a>
                       ) : (
                         <p className="text-slate-800 font-bold text-sm">{value}</p>
                       )}
@@ -519,11 +519,11 @@ export default async function HomePage() {
 
               {/* Beach area chips */}
               <div>
-                <p className="text-xs font-bold text-cyan-700 uppercase tracking-widest mb-3">Coastal Areas We Cover</p>
+                <p className="text-xs font-bold text-amber-700 uppercase tracking-widest mb-3">Coastal Areas We Cover</p>
                 <div className="flex flex-wrap gap-2">
                   {['Bheemunipatnam', 'Rushikonda', 'Bheemili', 'Rishikonda', 'Vizag Beach Road', 'Bhogapuram Coast'].map((area) => (
                     <Link key={area} href={`/listings?location=${encodeURIComponent(area)}`}
-                      className="px-3 py-1.5 bg-white border border-cyan-200 hover:bg-cyan-50 hover:border-cyan-400 text-cyan-700 text-xs font-semibold rounded-full transition-all flex items-center gap-1">
+                      className="px-3 py-1.5 bg-white border border-amber-200 hover:bg-amber-50 hover:border-amber-400 text-amber-700 text-xs font-semibold rounded-full transition-all flex items-center gap-1">
                       <Waves className="w-3 h-3" />{area}
                     </Link>
                   ))}
@@ -531,10 +531,10 @@ export default async function HomePage() {
               </div>
             </div>
 
-            <div className="bg-white rounded-3xl border border-cyan-100 shadow-xl shadow-cyan-100/50 p-8">
+            <div className="bg-white rounded-3xl border border-stone-200 shadow-xl shadow-cyan-100/50 p-8">
               <div className="flex items-center gap-2 mb-1">
-                <Waves className="w-5 h-5 text-cyan-500" />
-                <h3 className="text-xl font-black text-cyan-950">Send an Enquiry</h3>
+                <Waves className="w-5 h-5 text-amber-500" />
+                <h3 className="text-xl font-black text-stone-900">Send an Enquiry</h3>
               </div>
               <p className="text-slate-400 text-sm mb-6">Tell us your beach property dream — we'll make it real.</p>
               <LeadForm />

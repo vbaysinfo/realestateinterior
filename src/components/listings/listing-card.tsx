@@ -20,7 +20,7 @@ export function ListingCard({ listing }: ListingCardProps) {
   const categoryLabel = listing.category || listing.property_type || ''
 
   return (
-    <article className="group bg-white rounded-2xl overflow-hidden border-2 border-slate-100 hover:border-cyan-200 hover:shadow-xl transition-all duration-300">
+    <article className="group bg-white rounded-2xl overflow-hidden border-2 border-slate-100 hover:border-amber-200 hover:shadow-xl transition-all duration-300">
       <Link href={`/listings/${listing.slug}`} className="block">
         <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
           {coverImage ? (
@@ -32,8 +32,8 @@ export function ListingCard({ listing }: ListingCardProps) {
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center bg-cyan-50">
-              <Building2 className="w-12 h-12 text-cyan-200" />
+            <div className="absolute inset-0 flex items-center justify-center bg-amber-50">
+              <Building2 className="w-12 h-12 text-amber-200" />
             </div>
           )}
           <div className="absolute top-3 left-3 flex gap-1.5">
@@ -41,7 +41,7 @@ export function ListingCard({ listing }: ListingCardProps) {
               For {listing.status === 'sale' ? 'Sale' : 'Rent'}
             </span>
             {listing.featured && (
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-cyan-600 text-white">Featured</span>
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-amber-600 text-white">Featured</span>
             )}
           </div>
           {categoryLabel && (
@@ -54,11 +54,11 @@ export function ListingCard({ listing }: ListingCardProps) {
         </div>
 
         <div className="p-4">
-          <p className="text-cyan-700 font-black text-lg">
+          <p className="text-amber-700 font-black text-lg">
             {formatPrice(listing.price, listing.currency)}
             {listing.status === 'rent' && <span className="text-sm font-normal text-slate-400">/mo</span>}
           </p>
-          <h3 className="font-bold text-slate-900 mt-1 line-clamp-1 group-hover:text-cyan-700 transition-colors text-sm">
+          <h3 className="font-bold text-slate-900 mt-1 line-clamp-1 group-hover:text-amber-700 transition-colors text-sm">
             {listing.title}
           </h3>
           {listing.location && (
@@ -79,7 +79,7 @@ export function ListingCard({ listing }: ListingCardProps) {
             </span>
           )}
           {listing.category && (
-            <span className="ml-auto px-2 py-0.5 bg-cyan-50 text-cyan-700 rounded-full font-semibold text-[10px]">
+            <span className="ml-auto px-2 py-0.5 bg-amber-50 text-amber-700 rounded-full font-semibold text-[10px]">
               {listing.category}
             </span>
           )}
