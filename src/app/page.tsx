@@ -199,22 +199,26 @@ export default async function HomePage() {
           <h1 className="text-2xl sm:text-3xl font-black text-cyan-950 tracking-tight">
             Beach & Sea View Land in <span className="text-cyan-600">Visakhapatnam</span>
           </h1>
-          <p className="text-slate-500 text-sm mt-1">{allListings.length} verified coastal properties across {LOCATION_GROUPS.length}+ prime beach locations · Andhra Pradesh</p>
+          <p className="text-slate-500 text-sm mt-1">{allListings.length} verified coastal properties across {locationGroups.length}+ prime beach locations · Andhra Pradesh</p>
         </div>
 
         {/* ── LOCATION AREA QUICK LINKS ── */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-10">
-          {LOCATION_GROUPS.map(({ area, emoji, desc, color }) => (
-            <Link key={area} href={`/listings?location=${encodeURIComponent(area)}`}
-              className="group bg-white rounded-2xl border border-cyan-100 hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-100 transition-all overflow-hidden">
-              <div className={`h-1.5 bg-gradient-to-r ${color}`} />
-              <div className="p-3 text-center">
-                <div className="text-2xl mb-1">{emoji}</div>
-                <div className="font-bold text-cyan-900 text-xs leading-tight">{area}</div>
-                <div className="text-slate-400 text-[10px] mt-0.5 leading-tight line-clamp-2">{desc}</div>
-              </div>
-            </Link>
-          ))}
+          {locationGroups.map(({ name, area, emoji, description, desc, color }: any) => {
+            const label = name || area
+            const blurb = description || desc
+            return (
+              <Link key={label} href={`/listings?location=${encodeURIComponent(label)}`}
+                className="group bg-white rounded-2xl border border-cyan-100 hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-100 transition-all overflow-hidden">
+                <div className={`h-1.5 bg-gradient-to-r ${color}`} />
+                <div className="p-3 text-center">
+                  <div className="text-2xl mb-1">{emoji}</div>
+                  <div className="font-bold text-cyan-900 text-xs leading-tight">{label}</div>
+                  <div className="text-slate-400 text-[10px] mt-0.5 leading-tight line-clamp-2">{blurb}</div>
+                </div>
+              </Link>
+            )
+          })}
         </div>
 
         {/* ── LISTINGS GROUPED BY LOCATION ── */}
