@@ -2,12 +2,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {
   ArrowRight, Building2, MapPin, Square,
-  MessageCircle, Phone, Mail, Star, TrendingUp,
-  Shield, Clock, CheckCircle2, Search
+  MessageCircle, Phone, Mail, TrendingUp,
+  Shield, CheckCircle2, Search, SlidersHorizontal, Star
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { LeadForm } from '@/components/forms/lead-form'
-import { Button } from '@/components/ui/button'
 import { formatPrice, getWhatsAppUrl } from '@/lib/utils'
 import type { ListingWithMedia } from '@/types/database'
 
@@ -17,7 +16,7 @@ async function getFeaturedListings(): Promise<ListingWithMedia[]> {
     const { data } = await (supabase as any)
       .from('listings').select('*, media(*)').eq('published', true)
       .order('featured', { ascending: false })
-      .order('created_at', { ascending: false }).limit(8)
+      .order('created_at', { ascending: false }).limit(9)
     return (data as ListingWithMedia[]) || []
   } catch { return [] }
 }
@@ -59,35 +58,47 @@ const DUMMY_LISTINGS = [
     image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80',
   },
   {
-    id: 'd6', title: 'Corner Plot — Prime Location',
+    id: 'd6', title: 'Corner Plot — Prime Road Facing',
     slug: '#', price: 3800000, currency: 'INR', status: 'sale',
     location: 'Main Road, Bhogapuram', area_sqft: 2700,
     featured: false, property_type: 'Residential Plot',
     image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
   },
-]
-
-const STATS = [
-  { value: '350+', label: 'Plots Sold', icon: Building2 },
-  { value: '1,200+', label: 'Happy Clients', icon: Star },
-  { value: '12+', label: 'Years Experience', icon: TrendingUp },
-  { value: '100%', label: 'Clear Titles', icon: Shield },
+  {
+    id: 'd7', title: 'Industrial Land — Atchutapuram SEZ Zone',
+    slug: '#', price: 12000000, currency: 'INR', status: 'sale',
+    location: 'SEZ Zone, Atchutapuram', area_sqft: 50000,
+    featured: false, property_type: 'Industrial Land',
+    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+  },
+  {
+    id: 'd8', title: 'Gated Villa Plot — East Facing',
+    slug: '#', price: 5500000, currency: 'INR', status: 'sale',
+    location: 'Green Valley, Bhogapuram', area_sqft: 4000,
+    featured: false, property_type: 'Villa Plot',
+    image: 'https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&q=80',
+  },
+  {
+    id: 'd9', title: 'Budget Plot — Ideal for First-Time Buyers',
+    slug: '#', price: 950000, currency: 'INR', status: 'sale',
+    location: 'Nakkapalle Road, Bhogapuram', area_sqft: 1200,
+    featured: false, property_type: 'Open Plot',
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80',
+  },
 ]
 
 const PROPERTY_TYPES = [
-  { label: 'Residential Plots', icon: '🏘️', count: '80+ plots', color: 'bg-blue-50 hover:bg-blue-100 text-blue-800 border-blue-100' },
-  { label: 'Villa Plots', icon: '🏡', count: '45+ plots', color: 'bg-amber-50 hover:bg-amber-100 text-amber-800 border-amber-100' },
-  { label: 'Commercial Land', icon: '🏢', count: '30+ plots', color: 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-100' },
-  { label: 'Agricultural Land', icon: '🌾', count: '60+ acres', color: 'bg-orange-50 hover:bg-orange-100 text-orange-800 border-orange-100' },
+  { label: 'Residential', query: 'Residential Plot', emoji: '🏘️', count: '80+' },
+  { label: 'Villa Plots', query: 'Villa Plot', emoji: '🏡', count: '45+' },
+  { label: 'Commercial', query: 'Commercial Land', emoji: '🏢', count: '30+' },
+  { label: 'Agricultural', query: 'Agricultural Land', emoji: '🌾', count: '60+' },
 ]
 
-const WHY_US = [
-  { icon: Shield, title: 'Verified Legal Titles', desc: 'All properties with clear patta, EC documents and verified ownership — zero legal surprises.' },
-  { icon: TrendingUp, title: 'High Appreciation Zone', desc: 'Bhogapuram International Airport development has driven 3x value growth in just 5 years.' },
-  { icon: CheckCircle2, title: 'End-to-End Assistance', desc: 'From site visit to registration — we guide you through every step of your purchase journey.' },
-  { icon: Clock, title: 'Quick Documentation', desc: 'We handle all paperwork and registration formalities efficiently and transparently.' },
-  { icon: MapPin, title: 'Premium Locations', desc: 'Hand-picked plots near highway corridors, airport zones, and growing townships.' },
-  { icon: Phone, title: '24/7 Support', desc: 'Our team is always available on WhatsApp and phone to answer your questions immediately.' },
+const TRUST_BADGES = [
+  { icon: Shield, text: 'Clear Legal Titles' },
+  { icon: CheckCircle2, text: 'DTCP Approved' },
+  { icon: TrendingUp, text: '3x Appreciation' },
+  { icon: Star, text: '1,200+ Families Served' },
 ]
 
 export default async function HomePage() {
@@ -97,411 +108,268 @@ export default async function HomePage() {
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+1234567890'
 
   return (
-    <div className="bg-white">
+    <div className="bg-[#f8f7f4] min-h-screen">
 
-      {/* ═══ HERO ═══ */}
-      <section className="relative min-h-[92vh] flex items-center bg-blue-950 overflow-hidden">
-        {/* Background image */}
-        <div className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&q=85"
-            alt="Land in Bhogapuram Visakhapatnam"
-            fill className="object-cover opacity-20" priority sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-950 via-blue-950/95 to-blue-900/80" />
-        </div>
-
-        {/* Decorative circles */}
-        <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full bg-blue-800/20 blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-amber-500/10 blur-3xl" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
-          <div className="max-w-3xl">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-amber-500/15 border border-amber-500/30 rounded-full px-4 py-2 mb-8">
-              <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" />
-              <span className="text-amber-300 text-xs font-bold tracking-widest uppercase">
-                Bhogapuram · Visakhapatnam · Andhra Pradesh
-              </span>
+      {/* ── TOP SEARCH BAR ── */}
+      <section className="bg-white border-b border-stone-200 sticky top-16 z-40 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
+            <div className="flex-1 flex items-center gap-2 bg-stone-100 rounded-xl px-4 py-2.5">
+              <Search className="w-4 h-4 text-stone-400 flex-shrink-0" />
+              <input
+                type="text"
+                placeholder="Search location — Bhogapuram, Vizag, Airport Zone…"
+                className="w-full text-sm text-stone-700 placeholder:text-stone-400 bg-transparent outline-none"
+              />
             </div>
-
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.02] mb-6">
-              Find Your<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-300">
-                Dream Plot
-              </span><br />
-              in Bhogapuram
-            </h1>
-
-            <p className="text-blue-200 text-lg leading-relaxed mb-10 max-w-xl">
-              Prime residential, villa & commercial plots near Bhogapuram International Airport.
-              Clear titles, verified documents, and expert guidance.
-            </p>
-
-            {/* Search Bar */}
-            <div className="bg-white rounded-2xl shadow-2xl shadow-blue-950/50 p-3 flex flex-col sm:flex-row gap-2 mb-8 max-w-2xl">
-              <div className="flex-1 flex items-center gap-2 px-3">
-                <Search className="w-4 h-4 text-slate-400 flex-shrink-0" />
-                <input
-                  type="text"
-                  placeholder="Search by location (Bhogapuram, Vizag...)"
-                  className="w-full text-sm text-slate-700 placeholder:text-slate-400 bg-transparent outline-none py-2"
-                />
-              </div>
-              <div className="h-px sm:h-auto sm:w-px bg-slate-200" />
-              <select className="flex-none text-sm text-slate-600 bg-transparent outline-none px-3 py-2 cursor-pointer">
+            <div className="flex gap-2">
+              <select className="px-3 py-2.5 bg-stone-100 rounded-xl text-sm text-stone-600 outline-none cursor-pointer border-0">
                 <option value="">All Types</option>
                 <option>Residential Plot</option>
                 <option>Villa Plot</option>
                 <option>Commercial Land</option>
                 <option>Agricultural Land</option>
               </select>
-              <Link href="/listings">
-                <button className="w-full sm:w-auto bg-blue-700 hover:bg-blue-600 text-white font-bold px-6 py-3 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
-                  <Search className="w-4 h-4" /> Search
-                </button>
+              <Link href="/listings"
+                className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors">
+                <Search className="w-4 h-4" /> Search
+              </Link>
+              <Link href="/listings"
+                className="flex items-center gap-2 border border-stone-300 hover:border-emerald-500 text-stone-600 hover:text-emerald-700 px-3 py-2.5 rounded-xl text-sm transition-colors">
+                <SlidersHorizontal className="w-4 h-4" />
+                <span className="hidden sm:inline">Filters</span>
               </Link>
             </div>
-
-            {/* Quick type links */}
-            <div className="flex flex-wrap gap-2">
-              {['Residential Plots', 'Villa Plots', 'Commercial Land', 'Near Airport'].map((t) => (
-                <Link key={t} href={`/listings?type=${encodeURIComponent(t)}`}
-                  className="px-4 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-white text-xs font-semibold transition-colors">
-                  {t}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-blue-400">
-          <span className="text-xs font-medium tracking-widest uppercase">Explore</span>
-          <div className="w-px h-10 bg-gradient-to-b from-blue-400 to-transparent" />
-        </div>
-      </section>
-
-      {/* ═══ STATS ═══ */}
-      <section className="bg-white border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4">
-            {STATS.map(({ value, label, icon: Icon }, i) => (
-              <div key={label} className={`flex items-center gap-4 py-8 px-6 ${i < 3 ? 'border-r border-slate-100' : ''}`}>
-                <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center flex-shrink-0">
-                  <Icon className="w-5 h-5 text-blue-600" />
-                </div>
-                <div>
-                  <div className="text-3xl font-black text-blue-900">{value}</div>
-                  <div className="text-xs text-slate-500 font-medium mt-0.5">{label}</div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ PROPERTY TYPES ═══ */}
-      <section className="py-16 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <span className="text-xs font-bold tracking-widest text-blue-600 uppercase">Browse by Category</span>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mt-2">
-              What Are You Looking For?
-            </h2>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        {/* ── HEADLINE + CATEGORY PILLS ── */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
+              Plots & Land in{' '}
+              <span className="text-emerald-600">Bhogapuram</span>
+            </h1>
+            <p className="text-stone-500 text-sm mt-1">
+              {listings.length} verified properties · Visakhapatnam District, AP
+            </p>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            {PROPERTY_TYPES.map(({ label, icon, count, color }) => (
-              <Link key={label} href={`/listings?type=${encodeURIComponent(label)}`}
-                className={`group p-6 rounded-2xl border-2 transition-all duration-200 text-center ${color}`}>
-                <div className="text-4xl mb-3">{icon}</div>
-                <h3 className="font-bold text-sm mb-1">{label}</h3>
-                <p className="text-xs opacity-70 font-medium">{count}</p>
-                <div className="mt-3 flex items-center justify-center gap-1 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                  View all <ArrowRight className="w-3 h-3" />
-                </div>
+          <div className="flex flex-wrap gap-2">
+            {PROPERTY_TYPES.map(({ label, query, emoji }) => (
+              <Link key={label} href={`/listings?type=${encodeURIComponent(query)}`}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-stone-200 hover:border-emerald-400 hover:bg-emerald-50 text-stone-700 hover:text-emerald-700 rounded-full text-xs font-semibold transition-all">
+                <span>{emoji}</span>{label}
               </Link>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* ═══ FEATURED LISTINGS ═══ */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* ── MAIN LISTING GRID ── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {listings.map((listing: any, idx: number) => {
+            const img = listing.image || listing.media?.find((m: any) => m.is_cover && m.type === 'image')?.url || listing.media?.[0]?.url
+            const href = isLive ? `/listings/${listing.slug}` : '/listings'
+            const isFeatured = listing.featured
 
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
-            <div>
-              <span className="text-xs font-bold tracking-widest text-blue-600 uppercase">Latest Properties</span>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mt-2">
-                Available Plots &<br className="sm:hidden" /> <span className="text-blue-700">Land for Sale</span>
-              </h2>
-              <p className="text-slate-500 text-sm mt-2">Verified properties in Bhogapuram & Visakhapatnam region</p>
-            </div>
-            <Link href="/listings"
-              className="flex items-center gap-2 text-blue-700 hover:text-blue-900 font-bold text-sm transition-colors group flex-shrink-0">
-              View all properties
-              <span className="w-8 h-8 rounded-full border-2 border-blue-200 group-hover:border-blue-700 group-hover:bg-blue-700 group-hover:text-white flex items-center justify-center transition-all">
-                <ArrowRight className="w-4 h-4" />
-              </span>
-            </Link>
-          </div>
-
-          {/* Hero card + grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-            {/* Featured large card */}
-            {listings[0] && (
-              <Link href={isLive ? `/listings/${(listings[0] as any).slug}` : '/listings'}
-                className="lg:col-span-5 group relative rounded-3xl overflow-hidden min-h-[500px] block">
-                <Image
-                  src={(listings[0] as any).image || (listings[0] as any).media?.[0]?.url || 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800'}
-                  alt={(listings[0] as any).title} fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  sizes="(max-width:1024px)100vw,42vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                <div className="absolute top-4 left-4 flex gap-2">
-                  <span className="bg-amber-500 text-white text-xs font-black px-3 py-1 rounded-full">For Sale</span>
-                  {(listings[0] as any).featured && (
-                    <span className="bg-blue-600 text-white text-xs font-black px-3 py-1 rounded-full">Featured</span>
-                  )}
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <span className="text-amber-400 text-xs font-bold uppercase tracking-widest">
-                    {(listings[0] as any).property_type || 'Plot'}
-                  </span>
-                  <h3 className="text-white font-black text-xl mt-1 leading-tight">
-                    {(listings[0] as any).title}
-                  </h3>
-                  <div className="flex items-center gap-1 text-slate-300 text-xs mt-1.5">
-                    <MapPin className="w-3 h-3" />{(listings[0] as any).location}
-                  </div>
-                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/20">
-                    <div>
-                      <span className="text-white font-black text-2xl">
-                        {formatPrice((listings[0] as any).price, (listings[0] as any).currency)}
-                      </span>
-                      {(listings[0] as any).area_sqft && (
-                        <div className="text-slate-300 text-xs mt-0.5 flex items-center gap-1">
-                          <Square className="w-3 h-3" /> {(listings[0] as any).area_sqft.toLocaleString()} sqft
-                        </div>
+            return (
+              <article key={listing.id}
+                className={`group bg-white rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
+                  isFeatured ? 'border-emerald-200 ring-1 ring-emerald-100' : 'border-stone-200'
+                }`}>
+                <Link href={href} className="block">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+                    {img ? (
+                      <Image src={img} alt={listing.title} fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw"
+                        priority={idx < 3}
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-stone-100 to-stone-200 flex items-center justify-center">
+                        <Building2 className="w-12 h-12 text-stone-300" />
+                      </div>
+                    )}
+                    {/* Badges */}
+                    <div className="absolute top-3 left-3 flex gap-1.5">
+                      {isFeatured && (
+                        <span className="bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full tracking-wide">
+                          ★ FEATURED
+                        </span>
                       )}
+                      <span className="bg-white/95 text-stone-700 text-[10px] font-bold px-2.5 py-1 rounded-full">
+                        {listing.property_type || 'Plot'}
+                      </span>
                     </div>
-                    <a href={getWhatsAppUrl(whatsapp, `Hi! I'm interested in "${(listings[0] as any).title}". Please share details.`)}
+                    {/* Status */}
+                    <div className="absolute top-3 right-3">
+                      <span className={`text-[10px] font-black px-2.5 py-1 rounded-full ${
+                        listing.status === 'sale' ? 'bg-amber-500 text-white' : 'bg-sky-500 text-white'
+                      }`}>
+                        For {listing.status === 'sale' ? 'Sale' : 'Rent'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-4 pb-3">
+                    <p className="text-emerald-700 font-black text-xl tracking-tight">
+                      {formatPrice(listing.price, listing.currency)}
+                    </p>
+                    <h3 className="font-bold text-stone-800 text-sm mt-1 line-clamp-2 group-hover:text-emerald-700 transition-colors leading-snug">
+                      {listing.title}
+                    </h3>
+                    {listing.location && (
+                      <div className="flex items-center gap-1 mt-2 text-stone-400 text-xs">
+                        <MapPin className="w-3 h-3 flex-shrink-0" />
+                        <span className="truncate">{listing.location}</span>
+                      </div>
+                    )}
+                  </div>
+                </Link>
+
+                <div className="px-4 pb-4">
+                  <div className="flex items-center justify-between pt-3 border-t border-stone-100">
+                    {listing.area_sqft ? (
+                      <span className="flex items-center gap-1 text-stone-500 text-xs font-medium">
+                        <Square className="w-3.5 h-3.5" />
+                        {listing.area_sqft.toLocaleString()} sqft
+                      </span>
+                    ) : <span />}
+                    <a
+                      href={getWhatsAppUrl(whatsapp, `Hi! I'm interested in "${listing.title}" at ${formatPrice(listing.price, listing.currency)}. Please share more details.`)}
                       target="_blank" rel="noopener noreferrer"
-                      
-                      className="flex items-center gap-1.5 bg-green-500 hover:bg-green-400 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
+                      className="flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-colors">
                       <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
                     </a>
                   </div>
                 </div>
-              </Link>
-            )}
+              </article>
+            )
+          })}
+        </div>
 
-            {/* Grid of smaller cards */}
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {listings.slice(1, 5).map((listing: any) => {
-                const img = listing.image || listing.media?.[0]?.url
-                return (
-                  <Link
-                    key={listing.id}
-                    href={isLive ? `/listings/${listing.slug}` : '/listings'}
-                    className="group bg-white rounded-2xl overflow-hidden border-2 border-slate-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300">
-                    <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
-                      {img ? (
-                        <Image src={img} alt={listing.title} fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                          sizes="(max-width:640px)100vw,25vw" />
-                      ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
-                          <Building2 className="w-8 h-8 text-blue-200" />
-                        </div>
-                      )}
-                      <div className="absolute top-2 left-2">
-                        <span className="bg-blue-700/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-                          {listing.property_type || 'Plot'}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <p className="text-blue-700 font-black text-base">{formatPrice(listing.price, listing.currency)}</p>
-                      <h3 className="text-slate-800 font-bold text-sm mt-0.5 line-clamp-1 group-hover:text-blue-700 transition-colors">
-                        {listing.title}
-                      </h3>
-                      <div className="flex items-center gap-1 text-slate-400 text-xs mt-1.5">
-                        <MapPin className="w-3 h-3" />
-                        <span className="truncate">{listing.location}</span>
-                      </div>
-                      <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100">
-                        {listing.area_sqft ? (
-                          <span className="flex items-center gap-1 text-slate-500 text-xs">
-                            <Square className="w-3 h-3" />{listing.area_sqft.toLocaleString()} sqft
-                          </span>
-                        ) : <span />}
-                        <a href={getWhatsAppUrl(whatsapp, `Hi! Interested in "${listing.title}". Please share more info.`)}
-                          target="_blank" rel="noopener noreferrer"
-                          
-                          className="flex items-center gap-1 text-green-600 hover:text-green-500 text-xs font-bold transition-colors">
-                          <MessageCircle className="w-3.5 h-3.5" /> Enquire
-                        </a>
-                      </div>
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
-          </div>
+        {/* ── LOAD MORE ── */}
+        <div className="text-center mt-10">
+          <Link href="/listings"
+            className="inline-flex items-center gap-2 bg-stone-900 hover:bg-stone-700 text-white font-bold px-8 py-3.5 rounded-xl text-sm transition-colors">
+            View All Properties <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
 
-          {/* Row of remaining listings */}
-          {listings.length > 5 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
-              {listings.slice(5, 8).map((listing: any) => {
-                const img = listing.image || listing.media?.[0]?.url
-                return (
-                  <Link key={listing.id} href={isLive ? `/listings/${listing.slug}` : '/listings'}
-                    className="group bg-white rounded-2xl overflow-hidden border-2 border-slate-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 flex gap-4 p-3">
-                    <div className="relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0 bg-slate-100">
-                      {img ? (
-                        <Image src={img} alt={listing.title} fill className="object-cover" sizes="96px" />
-                      ) : (
-                        <div className="absolute inset-0 bg-blue-50 flex items-center justify-center">
-                          <Building2 className="w-6 h-6 text-blue-200" />
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0 py-1">
-                      <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wide">
-                        {listing.property_type || 'Plot'}
-                      </span>
-                      <h3 className="text-slate-800 font-bold text-sm line-clamp-1 group-hover:text-blue-700 transition-colors mt-0.5">
-                        {listing.title}
-                      </h3>
-                      <div className="flex items-center gap-1 text-slate-400 text-xs mt-1">
-                        <MapPin className="w-3 h-3" /><span className="truncate">{listing.location}</span>
-                      </div>
-                      <p className="text-blue-700 font-black text-sm mt-1.5">
-                        {formatPrice(listing.price, listing.currency)}
-                      </p>
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
-          )}
-
-          <div className="text-center mt-10">
-            <Link href="/listings">
-              <Button className="rounded-full px-10 bg-blue-700 hover:bg-blue-800 text-white font-bold shadow-lg shadow-blue-200">
-                View All Properties <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
+      {/* ── TRUST STRIP ── */}
+      <section className="bg-emerald-600 py-5 mt-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-12">
+            {TRUST_BADGES.map(({ icon: Icon, text }) => (
+              <div key={text} className="flex items-center gap-2 text-white">
+                <Icon className="w-4 h-4 text-emerald-200" />
+                <span className="text-sm font-semibold">{text}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ WHY US ═══ */}
-      <section className="py-20 bg-blue-950 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-blue-400 blur-3xl" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <span className="text-xs font-bold tracking-widest text-amber-400 uppercase">Why Choose Us</span>
-            <h2 className="text-3xl sm:text-4xl font-black text-white mt-2 mb-4">
-              Trusted Real Estate Partner<br />
-              <span className="text-amber-400">in Bhogapuram & Vizag</span>
-            </h2>
-            <p className="text-blue-300 max-w-xl mx-auto text-sm">
-              We combine deep local knowledge, transparent dealings, and 12+ years of experience to help you invest with confidence.
-            </p>
+      {/* ── STATS BAR ── */}
+      <section className="bg-stone-900 py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+            {[
+              { val: '350+', label: 'Plots Sold' },
+              { val: '1,200+', label: 'Happy Clients' },
+              { val: '12+', label: 'Years Experience' },
+              { val: '100%', label: 'Clear Titles' },
+            ].map(({ val, label }) => (
+              <div key={label}>
+                <div className="text-3xl font-black text-emerald-400">{val}</div>
+                <div className="text-stone-400 text-xs mt-1 font-medium">{label}</div>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {WHY_US.map(({ icon: Icon, title, desc }) => (
-              <div key={title}
-                className="group flex gap-4 p-6 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/5 hover:border-amber-500/30 transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-amber-500/15 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-500/25 transition-colors">
-                  <Icon className="w-5 h-5 text-amber-400" />
+      {/* ── WHY US ── */}
+      <section className="py-16 bg-[#f8f7f4]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <span className="text-xs font-bold tracking-widest text-emerald-600 uppercase">Why Bhogapuram Lands?</span>
+            <h2 className="text-2xl sm:text-3xl font-black text-stone-900 mt-2">
+              Your Trusted Partner Since 2012
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { icon: Shield, title: 'Verified Legal Titles', desc: 'Every plot is legally verified — patta, EC, and ownership documents checked before listing.' },
+              { icon: TrendingUp, title: '3x Appreciation Zone', desc: 'Bhogapuram International Airport corridor has seen massive land value growth in 5 years.' },
+              { icon: CheckCircle2, title: 'End-to-End Support', desc: 'From site visit to registration — we guide every step of the purchase journey.' },
+              { icon: MapPin, title: 'Premium Locations', desc: 'Hand-picked plots near highways, airport zones, and fast-growing townships.' },
+              { icon: Phone, title: '7-Day Availability', desc: 'Our team is available 7 days a week — call, email, or WhatsApp anytime.' },
+              { icon: Star, title: '1,200+ Families Served', desc: 'A decade of trust, zero disputes, and hundreds of happy investors across Vizag district.' },
+            ].map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="flex gap-4 p-5 bg-white rounded-2xl border border-stone-200 hover:border-emerald-300 hover:shadow-md transition-all">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
+                  <Icon className="w-5 h-5 text-emerald-600" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-white text-sm mb-1">{title}</h4>
-                  <p className="text-blue-300 text-xs leading-relaxed">{desc}</p>
+                  <h4 className="font-bold text-stone-900 text-sm mb-1">{title}</h4>
+                  <p className="text-stone-500 text-xs leading-relaxed">{desc}</p>
                 </div>
               </div>
             ))}
           </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
-            <Link href="/listings">
-              <Button size="lg" className="rounded-full px-8 bg-amber-500 hover:bg-amber-400 text-white font-bold border-0">
-                Browse All Plots
-              </Button>
-            </Link>
-            <a href={getWhatsAppUrl(whatsapp, 'Hi! I want to know more about plots in Bhogapuram.')}
-              target="_blank" rel="noopener noreferrer">
-              <Button size="lg" variant="outline"
-                className="rounded-full px-8 border-white/30 text-white hover:bg-white/10">
-                <MessageCircle className="w-4 h-4 mr-2" /> WhatsApp Us
-              </Button>
-            </a>
-          </div>
         </div>
       </section>
 
-      {/* ═══ CONTACT + LEAD FORM ═══ */}
-      <section className="py-20 bg-slate-50">
+      {/* ── CONTACT + LEAD FORM ── */}
+      <section className="py-16 bg-white border-t border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
-              <span className="text-xs font-bold tracking-widest text-blue-600 uppercase">Get In Touch</span>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-4">
-                Looking for the<br />
-                <span className="text-blue-700">Perfect Plot?</span>
+              <span className="text-xs font-bold tracking-widest text-emerald-600 uppercase">Get In Touch</span>
+              <h2 className="text-2xl sm:text-3xl font-black text-stone-900 mt-2 mb-4">
+                Looking for the Perfect Plot?
               </h2>
-              <p className="text-slate-500 text-sm mb-8 leading-relaxed">
-                Tell us your requirements and our team will reach out with the best available plots within 24 hours.
-                We cover Bhogapuram, Atchutapuram, Nakkapalle, and all of Visakhapatnam district.
+              <p className="text-stone-500 text-sm mb-8 leading-relaxed">
+                Share your requirements — our team will respond within 24 hours with the best available options in Bhogapuram and Visakhapatnam.
               </p>
-
-              <div className="space-y-4 mb-8">
+              <div className="space-y-3 mb-8">
                 {[
                   { Icon: Phone, label: 'Call / WhatsApp', value: whatsapp, href: `tel:${whatsapp}` },
                   { Icon: Mail, label: 'Email Us', value: 'info@bhogapuramlands.com', href: 'mailto:info@bhogapuramlands.com' },
-                  { Icon: MapPin, label: 'Office Address', value: 'Bhogapuram, Visakhapatnam Dist., AP 531163', href: null },
+                  { Icon: MapPin, label: 'Office', value: 'Bhogapuram, Visakhapatnam Dist., AP 531163', href: null },
                 ].map(({ Icon, label, value, href }) => (
-                  <div key={label} className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
-                    <div className="w-11 h-11 bg-blue-700 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-5 h-5 text-white" />
+                  <div key={label} className="flex items-center gap-3 p-4 bg-stone-50 rounded-xl border border-stone-200">
+                    <div className="w-10 h-10 bg-stone-900 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-4 h-4 text-white" />
                     </div>
                     <div>
-                      <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">{label}</p>
+                      <p className="text-[10px] text-stone-400 font-semibold uppercase tracking-wide">{label}</p>
                       {href ? (
-                        <a href={href} className="text-slate-800 font-bold text-sm hover:text-blue-700 transition-colors">{value}</a>
+                        <a href={href} className="text-stone-800 font-bold text-sm hover:text-emerald-700 transition-colors">{value}</a>
                       ) : (
-                        <p className="text-slate-800 font-bold text-sm">{value}</p>
+                        <p className="text-stone-800 font-bold text-sm">{value}</p>
                       )}
                     </div>
                   </div>
                 ))}
               </div>
-
-              {/* Area coverage */}
-              <div className="p-5 bg-blue-50 rounded-2xl border border-blue-100">
-                <p className="text-xs font-bold text-blue-700 uppercase tracking-widest mb-3">Areas We Cover</p>
-                <div className="flex flex-wrap gap-2">
-                  {['Bhogapuram', 'Atchutapuram', 'Nakkapalle', 'Anakapalle', 'Visakhapatnam', 'Near Airport'].map((area) => (
-                    <span key={area} className="px-3 py-1 bg-white border border-blue-200 text-blue-700 text-xs font-semibold rounded-full">
-                      {area}
-                    </span>
-                  ))}
-                </div>
+              <div className="flex flex-wrap gap-2">
+                {['Bhogapuram', 'Atchutapuram', 'Nakkapalle', 'Anakapalle', 'Visakhapatnam', 'Airport Zone'].map((area) => (
+                  <Link key={area} href={`/listings?location=${encodeURIComponent(area)}`}
+                    className="px-3 py-1.5 bg-stone-100 hover:bg-emerald-50 hover:text-emerald-700 border border-stone-200 hover:border-emerald-300 text-stone-600 text-xs font-semibold rounded-full transition-all">
+                    {area}
+                  </Link>
+                ))}
               </div>
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl border border-slate-100 p-8">
-              <h3 className="text-2xl font-black text-slate-900 mb-1">Send an Enquiry</h3>
-              <p className="text-slate-400 text-sm mb-6">We reply within 24 hours — usually much faster!</p>
+            <div className="bg-stone-50 rounded-3xl border border-stone-200 p-8">
+              <h3 className="text-xl font-black text-stone-900 mb-1">Send an Enquiry</h3>
+              <p className="text-stone-400 text-sm mb-6">We reply within 24 hours — usually much faster!</p>
               <LeadForm />
             </div>
           </div>
