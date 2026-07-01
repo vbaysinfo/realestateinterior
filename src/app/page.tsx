@@ -1,12 +1,12 @@
-'use server'
-
 import Link from 'next/link'
-import { Search, ArrowRight, Building2, Palette, Star, CheckCircle, MapPin, TrendingUp, Home, TreePine } from 'lucide-react'
+import Image from 'next/image'
+import { Search, ArrowRight, Building2, Palette, MapPin, Bed, Bath, Square, MessageCircle, CheckCircle, TreePine, TrendingUp, Home } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
-import { ListingCard } from '@/components/listings/listing-card'
 import { ProjectCard } from '@/components/interior/project-card'
 import { LeadForm } from '@/components/forms/lead-form'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { formatPrice, getWhatsAppUrl } from '@/lib/utils'
 import type { ListingWithMedia, ProjectWithMedia } from '@/types/database'
 
 async function getFeaturedListings(): Promise<ListingWithMedia[]> {
@@ -16,7 +16,6 @@ async function getFeaturedListings(): Promise<ListingWithMedia[]> {
       .from('listings')
       .select('*, media(*)')
       .eq('published', true)
-      .eq('featured', true)
       .order('created_at', { ascending: false })
       .limit(6)
     return (data as ListingWithMedia[]) || []
@@ -32,27 +31,79 @@ async function getFeaturedProjects(): Promise<ProjectWithMedia[]> {
       .from('interior_projects')
       .select('*, media(*)')
       .eq('published', true)
-      .eq('featured', true)
       .order('created_at', { ascending: false })
-      .limit(6)
+      .limit(3)
     return (data as ProjectWithMedia[]) || []
   } catch {
     return []
   }
 }
 
+const DUMMY_LISTINGS = [
+  {
+    id: 'd1', title: 'Prime Residential Plot — Gated Community', slug: '#',
+    price: 1200000, currency: 'USD', status: 'sale', location: 'Green Valley, Sector 12',
+    area_sqft: 4500, bedrooms: null, bathrooms: null, featured: true,
+    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80',
+    type: 'Land / Plot',
+  },
+  {
+    id: 'd2', title: 'Commercial Land Near Highway Junction', slug: '#',
+    price: 3500000, currency: 'USD', status: 'sale', location: 'Industrial Zone, Block A',
+    area_sqft: 12000, bedrooms: null, bathrooms: null, featured: false,
+    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80',
+    type: 'Commercial Land',
+  },
+  {
+    id: 'd3', title: 'Luxury Villa Plot with Lake View', slug: '#',
+    price: 850000, currency: 'USD', status: 'sale', location: 'Lakeside Residency, Phase 2',
+    area_sqft: 6000, bedrooms: null, bathrooms: null, featured: true,
+    image: 'https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=600&q=80',
+    type: 'Villa Plot',
+  },
+  {
+    id: 'd4', title: 'Agricultural Land — Irrigation Ready', slug: '#',
+    price: 420000, currency: 'USD', status: 'sale', location: 'Rural Outskirts, Farm Belt',
+    area_sqft: 43560, bedrooms: null, bathrooms: null, featured: false,
+    image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&q=80',
+    type: 'Agricultural',
+  },
+  {
+    id: 'd5', title: 'Corner Plot in Prime Downtown Area', slug: '#',
+    price: 2100000, currency: 'USD', status: 'sale', location: 'City Centre, Main Road',
+    area_sqft: 3200, bedrooms: null, bathrooms: null, featured: false,
+    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80',
+    type: 'Commercial Land',
+  },
+  {
+    id: 'd6', title: 'Affordable Residential Plot — New Township', slug: '#',
+    price: 280000, currency: 'USD', status: 'sale', location: 'New Township, East Wing',
+    area_sqft: 2400, bedrooms: null, bathrooms: null, featured: false,
+    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80',
+    type: 'Land / Plot',
+  },
+]
+
+const DUMMY_PROJECTS = [
+  {
+    id: 'p1', title: 'Modern Minimalist Living Room', slug: '#', category: 'residential',
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80',
+  },
+  {
+    id: 'p2', title: 'Luxury Master Suite Redesign', slug: '#', category: 'luxury',
+    image: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80',
+  },
+  {
+    id: 'p3', title: 'Contemporary Office Interior', slug: '#', category: 'office',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80',
+  },
+]
+
 const STATS = [
   { label: 'Plots & Lands Sold', value: '350+' },
   { label: 'Happy Clients', value: '1,200+' },
   { label: 'Design Projects', value: '300+' },
-  { label: 'Years of Experience', value: '15+' },
-]
-
-const PLOT_TYPES = [
-  { icon: TreePine, label: 'Residential Plots', desc: 'Prime locations for your dream home', href: '/listings?type=land' },
-  { icon: Building2, label: 'Commercial Land', desc: 'High-return investment opportunities', href: '/listings?type=commercial' },
-  { icon: Home, label: 'Villa Plots', desc: 'Exclusive gated community plots', href: '/listings?type=villa' },
-  { icon: TrendingUp, label: 'Investment Plots', desc: 'High-appreciation value land', href: '/listings?type=land' },
+  { label: 'Years Experience', value: '15+' },
 ]
 
 const FEATURES = [
@@ -65,188 +116,199 @@ const FEATURES = [
 ]
 
 export default async function HomePage() {
-  const [listings, projects] = await Promise.all([getFeaturedListings(), getFeaturedProjects()])
+  const [dbListings, dbProjects] = await Promise.all([getFeaturedListings(), getFeaturedProjects()])
+  const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+1234567890'
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative bg-slate-900 text-white overflow-hidden min-h-[90vh] flex items-center">
+      {/* Compact Hero */}
+      <section className="relative bg-slate-900 text-white overflow-hidden py-14 sm:py-20">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-amber-900/50" />
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/30 rounded-full px-4 py-1.5 text-amber-300 text-sm font-medium mb-6">
-              <Star className="w-3.5 h-3.5" />
-              Plot / Land Sales &amp; Interior Design Experts
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)', backgroundSize: '50px 50px' }} />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/30 rounded-full px-4 py-1.5 text-amber-300 text-xs font-medium mb-4">
+            Plot / Land Sales &amp; Interior Design Experts
+          </p>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+            Find Your Perfect <span className="text-amber-400">Plot of Land</span><br className="hidden sm:block" /> &amp; Design Dream Spaces
+          </h1>
+          <p className="text-slate-300 text-base mb-8 max-w-xl mx-auto">
+            Premium plots across prime locations — plus bespoke interior design. All in one place.
+          </p>
+          <div className="flex gap-2 max-w-lg mx-auto">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <input
+                type="text"
+                placeholder="Search location or plot type..."
+                className="w-full pl-10 pr-3 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400"
+              />
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Find Your Perfect{' '}
-              <span className="text-amber-400">Plot of Land</span>{' '}
-              &amp; Design Dream Spaces
-            </h1>
-            <p className="text-lg text-slate-300 mb-10 max-w-2xl">
-              Premium plot &amp; land sales across prime locations — plus bespoke interior design services. From choosing the right land to crafting stunning interiors, we do it all.
-            </p>
-            <div className="flex gap-3 flex-col sm:flex-row max-w-xl">
-              <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
-                <input
-                  type="text"
-                  placeholder="Search location, plot type..."
-                  className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent"
-                />
-              </div>
-              <Link href="/listings">
-                <Button size="lg" className="w-full sm:w-auto whitespace-nowrap">
-                  Search Plots
-                </Button>
+            <Link href="/listings">
+              <Button size="lg" className="whitespace-nowrap">Search</Button>
+            </Link>
+          </div>
+          <div className="flex flex-wrap justify-center gap-2 mt-5 text-xs">
+            {['Residential Plots', 'Commercial Land', 'Villa Plots', 'Agricultural Land'].map((t) => (
+              <Link key={t} href="/listings" className="bg-white/10 hover:bg-amber-500/20 border border-white/20 hover:border-amber-400/40 text-slate-300 hover:text-amber-300 px-3 py-1.5 rounded-full transition-all">
+                {t}
               </Link>
-            </div>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 mt-6 text-sm text-slate-400">
-              {['Residential', 'Commercial', 'Agricultural', 'Villa Plots'].map((t) => (
-                <Link key={t} href={`/listings?type=land`} className="hover:text-amber-400 transition-colors">
-                  {t} →
-                </Link>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white/5 to-transparent" />
       </section>
 
-      {/* Stats Bar */}
-      <section className="bg-amber-600 text-white py-10">
+      {/* Stats */}
+      <section className="bg-amber-600 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
             {STATS.map(({ label, value }) => (
               <div key={label}>
-                <div className="text-3xl font-bold">{value}</div>
-                <div className="text-amber-100 text-sm mt-1">{label}</div>
+                <div className="text-2xl sm:text-3xl font-bold">{value}</div>
+                <div className="text-amber-100 text-xs mt-0.5">{label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Plot Type Categories */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 text-amber-600 text-sm font-medium mb-2">
-            <MapPin className="w-4 h-4" />
-            Browse by Category
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Find the Right Plot for You</h2>
-          <p className="text-slate-500 mt-2 max-w-xl mx-auto">Choose from a wide range of land types across prime locations with clear titles and legal documentation.</p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {PLOT_TYPES.map(({ icon: Icon, label, desc, href }) => (
-            <Link key={label} href={href} className="group bg-white border border-slate-200 rounded-2xl p-6 hover:border-amber-400 hover:shadow-lg transition-all duration-200">
-              <div className="w-12 h-12 bg-amber-50 group-hover:bg-amber-100 rounded-xl flex items-center justify-center mb-4 transition-colors">
-                <Icon className="w-6 h-6 text-amber-600" />
-              </div>
-              <h3 className="font-semibold text-slate-900 mb-1">{label}</h3>
-              <p className="text-sm text-slate-500">{desc}</p>
-              <div className="mt-4 text-amber-600 text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                Explore <ArrowRight className="w-3.5 h-3.5" />
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Featured Listings */}
-      <section className="py-16 bg-slate-50">
+      {/* Listings */}
+      <section className="py-12 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-end justify-between mb-6">
             <div>
-              <div className="flex items-center gap-2 text-amber-600 text-sm font-medium mb-2">
-                <Building2 className="w-4 h-4" />
-                Featured Properties
+              <div className="flex items-center gap-1.5 text-amber-600 text-xs font-semibold mb-1 uppercase tracking-wide">
+                <Building2 className="w-3.5 h-3.5" /> Featured Plots &amp; Properties
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Premium Plots &amp; Listings</h2>
-              <p className="text-slate-500 text-sm mt-1">Hand-picked properties with verified titles and excellent locations</p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">Latest Listings</h2>
             </div>
-            <Link href="/listings" className="hidden sm:flex items-center gap-1 text-amber-600 hover:text-amber-700 font-medium text-sm transition-colors">
-              View all listings <ArrowRight className="w-4 h-4" />
+            <Link href="/listings" className="flex items-center gap-1 text-amber-600 hover:text-amber-700 text-sm font-medium">
+              View all <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          {listings.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {listings.map((listing) => (
-                <ListingCard key={listing.id} listing={listing} />
-              ))}
+          {dbListings.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {dbListings.map((listing) => {
+                const cover = listing.media?.find((m: any) => m.is_cover && m.type === 'image') || listing.media?.find((m: any) => m.type === 'image')
+                return (
+                  <article key={listing.id} className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:shadow-lg transition-shadow group">
+                    <Link href={`/listings/${listing.slug}`}>
+                      <div className="relative aspect-[16/10] bg-slate-100 overflow-hidden">
+                        {cover ? (
+                          <Image src={cover.url} alt={listing.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw" />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
+                            <Building2 className="w-10 h-10 text-slate-300" />
+                          </div>
+                        )}
+                        <div className="absolute top-3 left-3">
+                          <Badge variant={listing.status === 'sale' ? 'info' : 'success'}>For {listing.status === 'sale' ? 'Sale' : 'Rent'}</Badge>
+                        </div>
+                        {listing.featured && <div className="absolute top-3 right-3"><Badge variant="warning">Featured</Badge></div>}
+                      </div>
+                      <div className="p-4">
+                        <p className="text-amber-600 font-bold text-lg">{formatPrice(listing.price, listing.currency)}</p>
+                        <h3 className="font-semibold text-slate-900 mt-0.5 line-clamp-1 group-hover:text-amber-600 transition-colors">{listing.title}</h3>
+                        <div className="flex items-center gap-1 mt-1 text-slate-400 text-xs"><MapPin className="w-3 h-3" /> {listing.location}</div>
+                        {listing.area_sqft && <div className="flex items-center gap-1 mt-2 text-slate-500 text-xs"><Square className="w-3 h-3" /> {listing.area_sqft.toLocaleString()} sqft</div>}
+                      </div>
+                    </Link>
+                    <div className="px-4 pb-4">
+                      <a href={getWhatsAppUrl(whatsapp, `Hi! I'm interested in "${listing.title}". Please provide more info.`)} target="_blank" rel="noopener noreferrer"
+                        className="w-full flex items-center justify-center gap-2 bg-green-50 hover:bg-green-100 text-green-700 px-3 py-2 rounded-lg text-xs font-medium transition-colors">
+                        <MessageCircle className="w-3.5 h-3.5" /> Inquire on WhatsApp
+                      </a>
+                    </div>
+                  </article>
+                )
+              })}
             </div>
           ) : (
-            <div className="text-center py-16 bg-white border border-slate-200 rounded-2xl">
-              <Building2 className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-              <p className="text-slate-500 font-medium">No featured listings yet.</p>
-              <p className="text-slate-400 text-sm mt-1">Add your first plot or property from the admin panel.</p>
-              <Link href="/admin/listings/new" className="mt-4 inline-block text-amber-600 hover:underline text-sm font-medium">
-                Add a listing →
-              </Link>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {DUMMY_LISTINGS.map((listing) => (
+                <article key={listing.id} className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:shadow-lg transition-shadow group">
+                  <div className="relative aspect-[16/10] bg-slate-100 overflow-hidden">
+                    <Image src={listing.image} alt={listing.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw" />
+                    <div className="absolute top-3 left-3 flex gap-2">
+                      <Badge variant="info">For Sale</Badge>
+                      {listing.featured && <Badge variant="warning">Featured</Badge>}
+                    </div>
+                    <div className="absolute top-3 right-3">
+                      <span className="bg-slate-900/70 text-white text-xs px-2 py-1 rounded-full">{listing.type}</span>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <p className="text-amber-600 font-bold text-lg">{formatPrice(listing.price, listing.currency)}</p>
+                    <h3 className="font-semibold text-slate-900 mt-0.5 line-clamp-1 group-hover:text-amber-600 transition-colors">{listing.title}</h3>
+                    <div className="flex items-center gap-1 mt-1 text-slate-400 text-xs"><MapPin className="w-3 h-3" /> {listing.location}</div>
+                    <div className="flex items-center gap-1 mt-2 text-slate-500 text-xs"><Square className="w-3 h-3" /> {listing.area_sqft.toLocaleString()} sqft</div>
+                  </div>
+                  <div className="px-4 pb-4">
+                    <a href={getWhatsAppUrl(whatsapp, `Hi! I'm interested in "${listing.title}". Please provide more info.`)} target="_blank" rel="noopener noreferrer"
+                      className="w-full flex items-center justify-center gap-2 bg-green-50 hover:bg-green-100 text-green-700 px-3 py-2 rounded-lg text-xs font-medium transition-colors">
+                      <MessageCircle className="w-3.5 h-3.5" /> Inquire on WhatsApp
+                    </a>
+                  </div>
+                </article>
+              ))}
             </div>
           )}
-
-          <div className="text-center mt-8 sm:hidden">
-            <Link href="/listings">
-              <Button variant="outline">View All Listings</Button>
-            </Link>
-          </div>
         </div>
       </section>
 
-      {/* Interior Design Portfolio */}
-      <section className="py-16 bg-slate-900 text-white">
+      {/* Interior Design */}
+      <section className="py-12 bg-slate-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-end justify-between mb-6">
             <div>
-              <div className="flex items-center gap-2 text-amber-400 text-sm font-medium mb-2">
-                <Palette className="w-4 h-4" />
-                Interior Design
+              <div className="flex items-center gap-1.5 text-amber-400 text-xs font-semibold mb-1 uppercase tracking-wide">
+                <Palette className="w-3.5 h-3.5" /> Interior Design
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold">Transform Your Space</h2>
-              <p className="text-slate-400 text-sm mt-1">Award-winning interior design for homes, offices &amp; commercial spaces</p>
             </div>
-            <Link href="/portfolio" className="hidden sm:flex items-center gap-1 text-amber-400 hover:text-amber-300 font-medium text-sm transition-colors">
-              View portfolio <ArrowRight className="w-4 h-4" />
+            <Link href="/portfolio" className="flex items-center gap-1 text-amber-400 hover:text-amber-300 text-sm font-medium">
+              Full portfolio <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-
-          {projects.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {projects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16 bg-slate-800 rounded-2xl border border-slate-700">
-              <Palette className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-              <p className="text-slate-400 font-medium">No portfolio projects yet.</p>
-              <p className="text-slate-500 text-sm mt-1">Showcase your interior design work from the admin panel.</p>
-            </div>
-          )}
-
-          <div className="text-center mt-8 sm:hidden">
-            <Link href="/portfolio">
-              <Button variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-800">View Full Portfolio</Button>
-            </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {(dbProjects.length > 0 ? dbProjects : DUMMY_PROJECTS).map((project: any) => {
+              const image = dbProjects.length > 0
+                ? project.media?.find((m: any) => m.is_cover)?.url || project.media?.[0]?.url
+                : project.image
+              return (
+                <Link key={project.id} href={dbProjects.length > 0 ? `/portfolio/${project.slug}` : '/portfolio'} className="group relative rounded-2xl overflow-hidden aspect-[4/3] block">
+                  {image ? (
+                    <Image src={image} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width:640px)100vw,33vw" />
+                  ) : (
+                    <div className="absolute inset-0 bg-slate-700 flex items-center justify-center">
+                      <Palette className="w-10 h-10 text-slate-500" />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <span className="text-xs text-amber-400 font-medium capitalize">{project.category}</span>
+                    <h3 className="text-white font-semibold text-sm mt-0.5">{project.title}</h3>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us + Lead Form */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      {/* Why Us + Lead Form */}
+      <section className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div>
-            <div className="text-amber-600 text-sm font-medium mb-3">Why Choose Us</div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">
+            <div className="text-amber-600 text-xs font-semibold uppercase tracking-wide mb-2">Why Choose Us</div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
               Your Trusted Partner for Plots &amp; Beautiful Interiors
             </h2>
-            <p className="text-slate-600 mb-8">
-              We combine expertise in plot &amp; land sales with world-class interior design services — so you can find the perfect land and build the perfect space, all in one place.
+            <p className="text-slate-500 text-sm mb-7">
+              We combine expertise in plot &amp; land sales with world-class interior design — find the perfect land and build the perfect space, all in one place.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-8">
               {FEATURES.map((f) => (
                 <div key={f} className="flex items-center gap-2 text-sm text-slate-700">
                   <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
@@ -254,20 +316,14 @@ export default async function HomePage() {
                 </div>
               ))}
             </div>
-            <div className="flex gap-4 flex-wrap">
-              <Link href="/listings">
-                <Button size="lg">Browse Plots</Button>
-              </Link>
-              <Link href="/portfolio">
-                <Button size="lg" variant="outline">View Design Portfolio</Button>
-              </Link>
+            <div className="flex gap-3 flex-wrap">
+              <Link href="/listings"><Button size="lg">Browse Plots</Button></Link>
+              <Link href="/portfolio"><Button size="lg" variant="outline">Design Portfolio</Button></Link>
             </div>
           </div>
           <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 sm:p-8">
-            <div className="mb-6">
-              <h3 className="text-xl font-bold text-slate-900">Get in Touch</h3>
-              <p className="text-slate-500 text-sm mt-1">Interested in a plot or our design services? Drop us a message.</p>
-            </div>
+            <h3 className="text-lg font-bold text-slate-900 mb-1">Get in Touch</h3>
+            <p className="text-slate-400 text-sm mb-5">Interested in a plot or our design services? We'll call you back.</p>
             <LeadForm />
           </div>
         </div>
