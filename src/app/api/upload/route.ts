@@ -8,18 +8,26 @@ export async function POST(request: NextRequest) {
 
   const formData = await request.formData()
   const file = formData.get('file') as File
-  const path = formData.get('path') as string
+  const bucket = (formData.get('bucket') as string) || 'media'
+  const folder = (formData.get('folder') as string) || 'images'
+  const customPath = formData.get('path') as string | null
 
-  if (!file || !path) return NextResponse.json({ error: 'Missing file or path' }, { status: 400 })
+  if (!file) return NextResponse.json({ error: 'Missing file' }, { status: 400 })
+
+  const ext = file.name.split('.').pop() || 'jpg'
+  const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+  const path = customPath || `${folder}/${fileName}`
 
   const buffer = await file.arrayBuffer()
-  const { error } = await supabase.storage.from('media').upload(path, buffer, {
+  const { error } = await supabase.storage.from(bucket).upload(path, buffer, {
     contentType: file.type,
-    upsert: false,
+    upsert: true,
   })
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
-  const { data: { publicUrl } } = supabase.storage.from('media').getPublicUrl(path)
-  return NextResponse.json({ publicUrl, path })
+  const { data: { publicUrl } } = supabase.storage.from(bucket).getPublicUrl(path)
+
+  // Return both `url` (for media-uploader) and `publicUrl` for compatibility
+  return NextResponse.json({ url: publicUrl, publicUrl, path })
 }

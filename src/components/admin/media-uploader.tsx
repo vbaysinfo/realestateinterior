@@ -59,7 +59,10 @@ export function MediaUploader({ module, listingId, projectId }: Props) {
     formData.append('folder', file.type.startsWith('image/') ? 'images' : 'videos')
 
     const uploadRes = await fetch('/api/upload', { method: 'POST', body: formData })
-    if (!uploadRes.ok) throw new Error('Upload failed')
+    if (!uploadRes.ok) {
+      const err = await uploadRes.json().catch(() => ({}))
+      throw new Error(err.error || 'Upload failed')
+    }
 
     const { url } = await uploadRes.json()
     const type = file.type.startsWith('image/') ? 'image' : 'video'
@@ -81,13 +84,13 @@ export function MediaUploader({ module, listingId, projectId }: Props) {
 
   const onDrop = useCallback(async (accepted: File[]) => {
     setUploading(true)
-    try {
-      await Promise.all(accepted.map(uploadFile))
-      await loadMedia()
-    } catch (err) {
-      alert('Some files failed to upload')
-    } finally {
-      setUploading(false)
+    const results = await Promise.allSettled(accepted.map(uploadFile))
+    const failed = results.filter(r => r.status === 'rejected')
+    await loadMedia()
+    setUploading(false)
+    if (failed.length > 0) {
+      const reason = (failed[0] as PromiseRejectedResult).reason?.message || 'Upload failed'
+      alert(`${failed.length} file(s) failed: ${reason}\n\nMake sure the "real-estate" storage bucket exists in your Supabase project (Storage → New bucket → name: real-estate, Public: true).`)
     }
   }, [media.length, listingId, projectId, module])
 
