@@ -1,20 +1,10 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
-import { Search, MapPin, X, ChevronDown } from 'lucide-react'
+import { useCallback, useState } from 'react'
+import { Search, X } from 'lucide-react'
 import { PROPERTY_CATEGORIES, getTypesForCategory } from '@/lib/property-categories'
 
-const FALLBACK_LOCATIONS = [
-  { name: 'Bheemunipatnam', emoji: '🏖️' },
-  { name: 'Rushikonda', emoji: '🌊' },
-  { name: 'Bheemili', emoji: '🐚' },
-  { name: 'Rishikonda Hills', emoji: '⛰️' },
-  { name: 'Vizag Beach Road', emoji: '🛣️' },
-  { name: 'Bhogapuram Coast', emoji: '🌅' },
-  { name: 'Nakkapalle Coast', emoji: '🌴' },
-  { name: 'Airport Zone', emoji: '✈️' },
-]
 
 export function ListingFilters() {
   const router = useRouter()
@@ -23,16 +13,7 @@ export function ListingFilters() {
   const activeCategory = params.get('category') || ''
   const activeType = params.get('type') || ''
 
-  const [locations, setLocations] = useState<{ name: string; emoji: string }[]>(FALLBACK_LOCATIONS)
-
-  useEffect(() => {
-    fetch('/api/locations')
-      .then(r => r.json())
-      .then(({ data }) => { if (data && data.length > 0) setLocations(data) })
-      .catch(() => {})
-  }, [])
-
-  const update = useCallback((key: string, value: string) => {
+const update = useCallback((key: string, value: string) => {
     const p = new URLSearchParams(params.toString())
     if (value) p.set(key, value)
     else p.delete(key)
@@ -49,11 +30,7 @@ export function ListingFilters() {
     router.push(`/listings?${p.toString()}`)
   }
 
-  const toggleLocation = (loc: string) => {
-    update('location', activeLocation === loc ? '' : loc)
-  }
-
-  const reset = () => router.push('/listings')
+const reset = () => router.push('/listings')
   const hasFilters = params.toString().length > 0
   const propertyTypes = getTypesForCategory(activeCategory)
 
@@ -150,35 +127,6 @@ export function ListingFilters() {
         )}
       </div>
 
-      {/* Location chips */}
-      <div className="bg-white rounded-2xl border border-cyan-100 shadow-sm p-4">
-        <div className="flex items-center gap-2 mb-3">
-          <MapPin className="w-4 h-4 text-orange-400" />
-          <span className="text-xs font-bold text-cyan-900 uppercase tracking-widest">Filter by Area</span>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => update('location', '')}
-            className={`px-4 py-2 rounded-full text-xs font-bold border transition-all ${
-              !activeLocation
-                ? 'bg-cyan-600 text-white border-cyan-600 shadow-md shadow-cyan-200'
-                : 'bg-white text-slate-600 border-slate-200 hover:border-cyan-400 hover:text-cyan-700'
-            }`}>
-            🌊 All Areas
-          </button>
-          {locations.map(({ name, emoji }) => (
-            <button key={name}
-              onClick={() => toggleLocation(name)}
-              className={`px-4 py-2 rounded-full text-xs font-bold border transition-all ${
-                activeLocation === name
-                  ? 'bg-cyan-600 text-white border-cyan-600 shadow-md shadow-cyan-200'
-                  : 'bg-white text-slate-600 border-slate-200 hover:border-cyan-400 hover:text-cyan-700'
-              }`}>
-              {emoji} {name}
-            </button>
-          ))}
-        </div>
-      </div>
 
     </div>
   )
