@@ -112,11 +112,38 @@ const BEACHES_NEARBY = [
   { name: 'Mangamaripeta Beach', dist: '6 km', note: 'Peaceful fishing village beach, raw coastal charm' },
 ]
 
+const WA_SVG = (
+  <svg viewBox="0 0 24 24" className="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+)
+
+const LOCATION_GROUPS = [
+  { area: 'Bheemunipatnam', emoji: '🏖️', desc: 'Widest beach in AP — golden sands & lighthouse', color: 'from-cyan-500 to-blue-600' },
+  { area: 'Rushikonda', emoji: '🌊', desc: 'Blue Flag beach — hills, water sports, sunrise views', color: 'from-sky-500 to-cyan-600' },
+  { area: 'Bheemili', emoji: '🐚', desc: 'Serene seafront — Dutch fort, uncrowded shores', color: 'from-teal-500 to-cyan-600' },
+  { area: 'Rishikonda Hills', emoji: '⛰️', desc: 'Elevated coastal plots — panoramic 180° sea views', color: 'from-blue-500 to-indigo-600' },
+  { area: 'Vizag Beach Road', emoji: '🛣️', desc: 'Prime Beach Road — high-value commercial & residential', color: 'from-cyan-600 to-sky-700' },
+  { area: 'Bhogapuram Coast', emoji: '🌅', desc: 'Near Airport — fastest appreciating coastal belt', color: 'from-orange-400 to-cyan-600' },
+]
+
 export default async function HomePage() {
   const dbListings = await getFeaturedListings()
-  const listings = dbListings.length > 0 ? dbListings : DUMMY_LISTINGS
+  const allListings = dbListings.length > 0 ? dbListings : DUMMY_LISTINGS
   const isLive = dbListings.length > 0
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+1234567890'
+
+  // Group listings by location area
+  const grouped = LOCATION_GROUPS.map(({ area, emoji, desc, color }) => ({
+    area, emoji, desc, color,
+    listings: allListings.filter((l: any) =>
+      (l.location || '').toLowerCase().includes(area.toLowerCase())
+    ),
+  })).filter(g => g.listings.length > 0)
+
+  // Ungrouped listings that don't match any defined area
+  const groupedIds = new Set(grouped.flatMap(g => g.listings.map((l: any) => l.id)))
+  const otherListings = allListings.filter((l: any) => !groupedIds.has(l.id))
 
   return (
     <div className="bg-sky-50">
@@ -144,11 +171,6 @@ export default async function HomePage() {
                 className="flex items-center gap-2 bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors">
                 <Search className="w-4 h-4" /> Search
               </Link>
-              <Link href="/listings"
-                className="flex items-center gap-2 border border-cyan-200 hover:bg-cyan-50 text-cyan-700 px-3 py-2.5 rounded-xl text-sm transition-colors">
-                <SlidersHorizontal className="w-4 h-4" />
-                <span className="hidden sm:inline">Filters</span>
-              </Link>
             </div>
           </div>
         </div>
@@ -156,122 +178,165 @@ export default async function HomePage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        {/* ── PAGE TITLE + FILTERS ── */}
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <Waves className="w-5 h-5 text-cyan-500" />
-              <span className="text-xs font-bold tracking-widest text-cyan-600 uppercase">Bay of Bengal Coastal Properties</span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-cyan-950 tracking-tight">
-              Beach & Sea View Land in{' '}
-              <span className="text-cyan-600">Visakhapatnam</span>
-            </h1>
-            <p className="text-slate-500 text-sm mt-1">
-              {listings.length} verified coastal properties · Andhra Pradesh
-            </p>
+        {/* ── PAGE TITLE ── */}
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-1">
+            <Waves className="w-5 h-5 text-cyan-500" />
+            <span className="text-xs font-bold tracking-widest text-cyan-600 uppercase">Bay of Bengal Coastal Properties</span>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {PROPERTY_TYPES.map(({ label, query, emoji }) => (
-              <Link key={label} href={`/listings?type=${encodeURIComponent(query)}`}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-cyan-200 hover:border-cyan-400 hover:bg-cyan-50 text-slate-600 hover:text-cyan-700 rounded-full text-xs font-semibold transition-all">
-                <span>{emoji}</span>{label}
-              </Link>
-            ))}
-          </div>
+          <h1 className="text-2xl sm:text-3xl font-black text-cyan-950 tracking-tight">
+            Beach & Sea View Land in <span className="text-cyan-600">Visakhapatnam</span>
+          </h1>
+          <p className="text-slate-500 text-sm mt-1">{allListings.length} verified coastal properties across {LOCATION_GROUPS.length}+ prime beach locations · Andhra Pradesh</p>
         </div>
 
-        {/* ── LISTINGS GRID ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {listings.map((listing: any, idx: number) => {
-            const img = listing.image || listing.media?.find((m: any) => m.is_cover && m.type === 'image')?.url || listing.media?.[0]?.url
-            const href = isLive ? `/listings/${listing.slug}` : '/listings'
+        {/* ── LOCATION AREA QUICK LINKS ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-10">
+          {LOCATION_GROUPS.map(({ area, emoji, desc, color }) => (
+            <Link key={area} href={`/listings?location=${encodeURIComponent(area)}`}
+              className="group bg-white rounded-2xl border border-cyan-100 hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-100 transition-all overflow-hidden">
+              <div className={`h-1.5 bg-gradient-to-r ${color}`} />
+              <div className="p-3 text-center">
+                <div className="text-2xl mb-1">{emoji}</div>
+                <div className="font-bold text-cyan-900 text-xs leading-tight">{area}</div>
+                <div className="text-slate-400 text-[10px] mt-0.5 leading-tight line-clamp-2">{desc}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
 
-            return (
-              <article key={listing.id}
-                className={`group bg-white rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-200/50 hover:-translate-y-1 ${
-                  listing.featured ? 'border-cyan-300 ring-2 ring-cyan-100' : 'border-cyan-100'
-                }`}>
-                <Link href={href} className="block">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-sky-100">
-                    {img ? (
-                      <Image src={img} alt={listing.title} fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-700"
-                        sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw"
-                        priority={idx < 3} />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-sky-100 to-cyan-200 flex items-center justify-center">
-                        <Waves className="w-12 h-12 text-cyan-300" />
-                      </div>
-                    )}
-
-                    {/* Gradient overlay at bottom */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-cyan-950/60 via-transparent to-transparent" />
-
-                    {/* Top badges */}
-                    <div className="absolute top-3 left-3 flex gap-1.5">
-                      {listing.featured && (
-                        <span className="bg-orange-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full">
-                          🌊 FEATURED
-                        </span>
-                      )}
-                      <span className="bg-white/90 backdrop-blur-sm text-cyan-800 text-[10px] font-bold px-2.5 py-1 rounded-full">
-                        {listing.property_type || 'Coastal Plot'}
-                      </span>
-                    </div>
-
-                    {/* Status badge */}
-                    <div className="absolute top-3 right-3">
-                      <span className={`text-[10px] font-black px-2.5 py-1 rounded-full backdrop-blur-sm ${
-                        listing.status === 'sale' ? 'bg-cyan-600 text-white' : 'bg-sky-400 text-white'
-                      }`}>
-                        For {listing.status === 'sale' ? 'Sale' : 'Rent'}
-                      </span>
-                    </div>
-
-                    {/* Price overlay at bottom of image */}
-                    <div className="absolute bottom-3 left-3">
-                      <p className="text-white font-black text-lg drop-shadow-lg">
-                        {formatPrice(listing.price, listing.currency)}
-                      </p>
-                    </div>
+        {/* ── LISTINGS GROUPED BY LOCATION ── */}
+        <div className="space-y-12">
+          {grouped.map(({ area, emoji, color, listings }) => (
+            <div key={area}>
+              {/* Location heading */}
+              <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center text-lg`}>
+                    {emoji}
                   </div>
-
-                  <div className="p-4 pb-3">
-                    <h3 className="font-bold text-slate-800 text-sm line-clamp-2 group-hover:text-cyan-700 transition-colors leading-snug">
-                      {listing.title}
-                    </h3>
-                    {listing.location && (
-                      <div className="flex items-center gap-1 mt-2 text-slate-400 text-xs">
-                        <MapPin className="w-3 h-3 flex-shrink-0 text-orange-400" />
-                        <span className="truncate">{listing.location}</span>
-                      </div>
-                    )}
-                  </div>
-                </Link>
-
-                <div className="px-4 pb-4">
-                  <div className="flex items-center justify-between pt-3 border-t border-sky-100">
-                    {listing.area_sqft ? (
-                      <span className="flex items-center gap-1 text-slate-500 text-xs font-medium">
-                        <Square className="w-3.5 h-3.5 text-cyan-400" />
-                        {listing.area_sqft.toLocaleString()} sqft
-                      </span>
-                    ) : <span />}
-                    <a
-                      href={getWhatsAppUrl(whatsapp, `Hi! I'm interested in "${listing.title}" (${formatPrice(listing.price, listing.currency)}) near Visakhapatnam coast. Please share more details.`)}
-                      target="_blank" rel="noopener noreferrer"
-                      className="flex items-center justify-center w-9 h-9 bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-xl transition-colors" aria-label="WhatsApp">
-                      <svg viewBox="0 0 24 24" className="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    </a>
+                  <div>
+                    <h2 className="text-lg font-black text-cyan-950">{area}</h2>
+                    <p className="text-xs text-slate-400">{listings.length} propert{listings.length === 1 ? 'y' : 'ies'} available</p>
                   </div>
                 </div>
-              </article>
-            )
-          })}
+                <Link href={`/listings?location=${encodeURIComponent(area)}`}
+                  className="flex items-center gap-1 text-xs font-bold text-cyan-600 hover:text-cyan-800 transition-colors">
+                  View all <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {listings.slice(0, 3).map((listing: any, idx: number) => {
+                  const img = listing.image || listing.media?.find((m: any) => m.is_cover && m.type === 'image')?.url || listing.media?.[0]?.url
+                  const href = isLive ? `/listings/${listing.slug}` : '/listings'
+                  return (
+                    <article key={listing.id}
+                      className={`group bg-white rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-200/50 hover:-translate-y-1 ${listing.featured ? 'border-cyan-300 ring-2 ring-cyan-100' : 'border-cyan-100'}`}>
+                      <Link href={href} className="block">
+                        <div className="relative aspect-[4/3] overflow-hidden bg-sky-100">
+                          {img ? (
+                            <Image src={img} alt={listing.title} fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-700"
+                              sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw"
+                              priority={idx === 0} />
+                          ) : (
+                            <div className="absolute inset-0 bg-gradient-to-br from-sky-100 to-cyan-200 flex items-center justify-center">
+                              <Waves className="w-12 h-12 text-cyan-300" />
+                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-cyan-950/60 via-transparent to-transparent" />
+                          <div className="absolute top-3 left-3 flex gap-1.5">
+                            {listing.featured && <span className="bg-orange-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full">🌊 FEATURED</span>}
+                            <span className="bg-white/90 backdrop-blur-sm text-cyan-800 text-[10px] font-bold px-2.5 py-1 rounded-full">{listing.property_type || 'Coastal Plot'}</span>
+                          </div>
+                          <div className="absolute top-3 right-3">
+                            <span className={`text-[10px] font-black px-2.5 py-1 rounded-full backdrop-blur-sm ${listing.status === 'sale' ? 'bg-cyan-600 text-white' : 'bg-sky-400 text-white'}`}>
+                              For {listing.status === 'sale' ? 'Sale' : 'Rent'}
+                            </span>
+                          </div>
+                          <div className="absolute bottom-3 left-3">
+                            <p className="text-white font-black text-lg drop-shadow-lg">{formatPrice(listing.price, listing.currency)}</p>
+                          </div>
+                        </div>
+                        <div className="p-4 pb-3">
+                          <h3 className="font-bold text-slate-800 text-sm line-clamp-2 group-hover:text-cyan-700 transition-colors leading-snug">{listing.title}</h3>
+                          {listing.location && (
+                            <div className="flex items-center gap-1 mt-2 text-slate-400 text-xs">
+                              <MapPin className="w-3 h-3 flex-shrink-0 text-orange-400" />
+                              <span className="truncate">{listing.location}</span>
+                            </div>
+                          )}
+                        </div>
+                      </Link>
+                      <div className="px-4 pb-4">
+                        <div className="flex items-center justify-between pt-3 border-t border-sky-100">
+                          {listing.area_sqft ? (
+                            <span className="flex items-center gap-1 text-slate-500 text-xs font-medium">
+                              <Square className="w-3.5 h-3.5 text-cyan-400" />{listing.area_sqft.toLocaleString()} sqft
+                            </span>
+                          ) : <span />}
+                          <a href={getWhatsAppUrl(whatsapp, `Hi! I'm interested in "${listing.title}" (${formatPrice(listing.price, listing.currency)}) in ${area}. Please share details.`)}
+                            target="_blank" rel="noopener noreferrer"
+                            className="flex items-center justify-center w-9 h-9 bg-[#25D366] hover:bg-[#1ebe5d] rounded-xl transition-colors" aria-label="WhatsApp">
+                            {WA_SVG}
+                          </a>
+                        </div>
+                      </div>
+                    </article>
+                  )
+                })}
+              </div>
+            </div>
+          ))}
+
+          {/* Other listings not matching a defined area */}
+          {otherListings.length > 0 && (
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center text-lg">🗺️</div>
+                  <div>
+                    <h2 className="text-lg font-black text-cyan-950">More Coastal Properties</h2>
+                    <p className="text-xs text-slate-400">{otherListings.length} additional propert{otherListings.length === 1 ? 'y' : 'ies'}</p>
+                  </div>
+                </div>
+                <Link href="/listings" className="flex items-center gap-1 text-xs font-bold text-cyan-600 hover:text-cyan-800 transition-colors">
+                  View all <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {otherListings.slice(0, 3).map((listing: any) => {
+                  const img = listing.image || listing.media?.find((m: any) => m.is_cover && m.type === 'image')?.url || listing.media?.[0]?.url
+                  const href = isLive ? `/listings/${listing.slug}` : '/listings'
+                  return (
+                    <article key={listing.id} className="group bg-white rounded-2xl overflow-hidden border border-cyan-100 hover:border-cyan-300 hover:shadow-xl transition-all hover:-translate-y-1">
+                      <Link href={href} className="block">
+                        <div className="relative aspect-[4/3] overflow-hidden bg-sky-100">
+                          {img ? <Image src={img} alt={listing.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw" />
+                            : <div className="absolute inset-0 bg-gradient-to-br from-sky-100 to-cyan-200 flex items-center justify-center"><Waves className="w-12 h-12 text-cyan-300" /></div>}
+                          <div className="absolute inset-0 bg-gradient-to-t from-cyan-950/60 via-transparent to-transparent" />
+                          <div className="absolute bottom-3 left-3"><p className="text-white font-black text-lg drop-shadow-lg">{formatPrice(listing.price, listing.currency)}</p></div>
+                        </div>
+                        <div className="p-4 pb-3">
+                          <h3 className="font-bold text-slate-800 text-sm line-clamp-2 group-hover:text-cyan-700 transition-colors">{listing.title}</h3>
+                          {listing.location && <div className="flex items-center gap-1 mt-2 text-slate-400 text-xs"><MapPin className="w-3 h-3 text-orange-400" /><span className="truncate">{listing.location}</span></div>}
+                        </div>
+                      </Link>
+                      <div className="px-4 pb-4 pt-3 border-t border-sky-100 flex items-center justify-between">
+                        {listing.area_sqft ? <span className="flex items-center gap-1 text-slate-500 text-xs"><Square className="w-3.5 h-3.5 text-cyan-400" />{listing.area_sqft.toLocaleString()} sqft</span> : <span />}
+                        <a href={getWhatsAppUrl(whatsapp, `Hi! I'm interested in "${listing.title}". Please share details.`)} target="_blank" rel="noopener noreferrer"
+                          className="flex items-center justify-center w-9 h-9 bg-[#25D366] hover:bg-[#1ebe5d] rounded-xl transition-colors" aria-label="WhatsApp">{WA_SVG}</a>
+                      </div>
+                    </article>
+                  )
+                })}
+              </div>
+            </div>
+          )}
         </div>
 
-        <div className="text-center mt-10">
+        <div className="text-center mt-12">
           <Link href="/listings"
             className="inline-flex items-center gap-2 bg-cyan-700 hover:bg-cyan-800 text-white font-bold px-8 py-3.5 rounded-xl text-sm transition-colors shadow-lg shadow-cyan-200">
             View All Coastal Properties <ArrowRight className="w-4 h-4" />
