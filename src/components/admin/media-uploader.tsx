@@ -67,19 +67,23 @@ export function MediaUploader({ module, listingId, projectId }: Props) {
     const { url } = await uploadRes.json()
     const type = file.type.startsWith('image/') ? 'image' : 'video'
 
-    await fetch('/api/media', {
+    const mediaRes = await fetch('/api/media', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        module,
         type,
         url,
-        listing_id: listingId,
-        project_id: projectId,
+        listing_id: listingId || null,
+        project_id: projectId || null,
         sort_order: media.length,
         is_cover: media.length === 0,
+        is_external: false,
       }),
     })
+    if (!mediaRes.ok) {
+      const err = await mediaRes.json().catch(() => ({}))
+      throw new Error(err.error || 'Failed to save media record')
+    }
   }
 
   const onDrop = useCallback(async (accepted: File[]) => {
@@ -108,15 +112,15 @@ export function MediaUploader({ module, listingId, projectId }: Props) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        module,
         type: 'link',
         url: linkUrl,
         thumbnail_url: thumbnail,
         alt_text: linkAlt || null,
-        listing_id: listingId,
-        project_id: projectId,
+        listing_id: listingId || null,
+        project_id: projectId || null,
         sort_order: media.length,
         is_cover: false,
+        is_external: true,
       }),
     })
 
