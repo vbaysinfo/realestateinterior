@@ -25,7 +25,6 @@ async function getListing(slug: string): Promise<ListingWithMedia | null> {
     .from('listings')
     .select('*, media(*)')
     .eq('slug', slug)
-    .eq('published', true)
     .single()
   return data as ListingWithMedia | null
 }

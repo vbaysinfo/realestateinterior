@@ -62,7 +62,7 @@ export function ListingForm({ listing }: Props) {
       property_type: '',
       area_unit: 'Sq Yard',
       featured: false,
-      published: false,
+      published: true,
     },
   })
 
