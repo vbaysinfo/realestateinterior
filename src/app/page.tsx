@@ -98,10 +98,10 @@ const DUMMY_LISTINGS = [
 ]
 
 const PROPERTY_TYPES = [
-  { label: 'Beachfront Plots', query: 'Beachfront Plot', emoji: '🏖️', desc: 'Direct beach access' },
-  { label: 'Sea View Villas', query: 'Sea View Villa Plot', emoji: '🌊', desc: 'Panoramic ocean views' },
-  { label: 'Coastal Residential', query: 'Coastal Residential', emoji: '🐚', desc: 'Gated beach communities' },
-  { label: 'Resort / Tourism', query: 'Tourism', emoji: '⛵', desc: 'Development land' },
+  { label: 'Agriculture Land', query: 'Agriculture Land', emoji: '🌾', desc: 'Measured in Cents' },
+  { label: 'Open Plots', query: 'Open Plots', emoji: '🏞️', desc: 'Measured in Sq Yard' },
+  { label: 'Residential', query: 'Residential', emoji: '🏠', desc: 'Flats, Villas, Houses' },
+  { label: 'Commercial', query: 'Commercial', emoji: '🏢', desc: 'Office, Shop, Warehouse' },
 ]
 
 const COASTAL_HIGHLIGHTS = [
@@ -172,12 +172,11 @@ export default async function HomePage() {
             </div>
             <div className="flex gap-2">
               <select className="px-3 py-2.5 bg-sky-50 border border-sky-100 rounded-xl text-sm text-slate-600 outline-none cursor-pointer">
-                <option value="">All Types</option>
-                <option>Beachfront Plot</option>
-                <option>Sea View Villa Plot</option>
-                <option>Coastal Residential</option>
-                <option>Commercial Coastal</option>
-                <option>Tourism / Resort Land</option>
+                <option value="">All Categories</option>
+                <option>Agriculture Land</option>
+                <option>Open Plots</option>
+                <option>Residential</option>
+                <option>Commercial</option>
               </select>
               <Link href="/listings"
                 className="flex items-center gap-2 bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors">
@@ -200,6 +199,18 @@ export default async function HomePage() {
             Beach & Sea View Land in <span className="text-cyan-600">Visakhapatnam</span>
           </h1>
           <p className="text-slate-500 text-sm mt-1">{allListings.length} verified coastal properties across {locationGroups.length}+ prime beach locations · Andhra Pradesh</p>
+        </div>
+
+        {/* ── CATEGORY QUICK LINKS ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+          {PROPERTY_TYPES.map(({ label, query, emoji, desc }) => (
+            <Link key={label} href={`/listings?category=${encodeURIComponent(query)}`}
+              className="group bg-white rounded-2xl border-2 border-cyan-100 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-100 transition-all p-4 text-center">
+              <div className="text-3xl mb-2">{emoji}</div>
+              <div className="font-black text-cyan-900 text-sm">{label}</div>
+              <div className="text-slate-400 text-xs mt-0.5">{desc}</div>
+            </Link>
+          ))}
         </div>
 
         {/* ── LOCATION AREA QUICK LINKS ── */}

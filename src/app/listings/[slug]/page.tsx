@@ -11,6 +11,7 @@ import {
   Shield, FileText, TrendingUp
 } from 'lucide-react'
 import { formatPrice } from '@/lib/utils'
+import { getUnitForCategory } from '@/lib/property-categories'
 import type { ListingWithMedia } from '@/types/database'
 import { format } from 'date-fns'
 
@@ -83,6 +84,7 @@ export default async function ListingDetailPage({ params }: Props) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+1234567890'
   const waMessage = `Hi! I'm interested in "${listing.title}" (${formatPrice(listing.price, listing.currency)}) at ${listing.location}. Please send me more details.`
+  const areaUnit = (listing as any).area_unit || getUnitForCategory((listing as any).category || '') || 'Sq Feet'
 
   const similar = await getSimilarListings(listing)
 
@@ -184,7 +186,7 @@ export default async function ListingDetailPage({ params }: Props) {
                   </div>
                   {listing.area_sqft && (
                     <p className="text-slate-400 text-sm mt-1">
-                      ≈ {formatPrice(Math.round(listing.price / listing.area_sqft), listing.currency)}/sqft
+                      ≈ {formatPrice(Math.round(listing.price / listing.area_sqft), listing.currency)}/{areaUnit}
                     </p>
                   )}
                 </div>
@@ -201,9 +203,9 @@ export default async function ListingDetailPage({ params }: Props) {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-100">
                 {listing.area_sqft !== null && (
                   <div className="text-center p-3 bg-slate-50 rounded-2xl">
-                    <Square className="w-5 h-5 text-blue-600 mx-auto mb-1" />
+                    <Square className="w-5 h-5 text-cyan-600 mx-auto mb-1" />
                     <div className="font-black text-slate-900 text-sm">{listing.area_sqft.toLocaleString()}</div>
-                    <div className="text-xs text-slate-400">sq ft area</div>
+                    <div className="text-xs text-slate-400">{areaUnit}</div>
                   </div>
                 )}
                 {listing.bedrooms !== null && (

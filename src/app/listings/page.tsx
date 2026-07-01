@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 import { ListingFilters } from '@/components/listings/listing-filters'
 import { Building2, MapPin, Square, Search } from 'lucide-react'
 import { formatPrice, getWhatsAppUrl } from '@/lib/utils'
+import { getUnitForCategory } from '@/lib/property-categories'
 import type { ListingWithMedia } from '@/types/database'
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 }
 
 interface PageProps {
-  searchParams: Promise<{ status?: string; type?: string; location?: string; maxPrice?: string; page?: string }>
+  searchParams: Promise<{ status?: string; category?: string; type?: string; location?: string; maxPrice?: string; page?: string }>
 }
 
 async function ListingsGrid({ searchParams }: { searchParams: Awaited<PageProps['searchParams']> }) {
@@ -23,7 +24,7 @@ async function ListingsGrid({ searchParams }: { searchParams: Awaited<PageProps[
   const limit = 12
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+1234567890'
 
-  let query = supabase
+  let query = (supabase as any)
     .from('listings')
     .select('*, media(*)', { count: 'exact' })
     .eq('published', true)
@@ -32,6 +33,7 @@ async function ListingsGrid({ searchParams }: { searchParams: Awaited<PageProps[
     .range((page - 1) * limit, page * limit - 1)
 
   if (searchParams.status) query = query.eq('status', searchParams.status)
+  if (searchParams.category) query = query.ilike('category', `%${searchParams.category}%`)
   if (searchParams.type) query = query.ilike('property_type', `%${searchParams.type}%`)
   if (searchParams.location) query = query.ilike('location', `%${searchParams.location}%`)
   if (searchParams.maxPrice) query = query.lte('price', parseFloat(searchParams.maxPrice))
@@ -117,7 +119,12 @@ async function ListingsGrid({ searchParams }: { searchParams: Awaited<PageProps[
                   {listing.area_sqft !== null && (
                     <span className="flex items-center gap-1">
                       <Square className="w-3.5 h-3.5 text-slate-400" />
-                      {listing.area_sqft.toLocaleString()} sqft
+                      {listing.area_sqft.toLocaleString()} {(listing as any).area_unit || getUnitForCategory((listing as any).category || '')}
+                    </span>
+                  )}
+                  {(listing as any).category && (
+                    <span className="ml-auto px-2 py-0.5 bg-cyan-50 text-cyan-700 rounded-full font-semibold text-[10px]">
+                      {(listing as any).category}
                     </span>
                   )}
                 </div>

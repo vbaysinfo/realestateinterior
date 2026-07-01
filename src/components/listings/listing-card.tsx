@@ -2,10 +2,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Square, MapPin, Building2 } from 'lucide-react'
 import { formatPrice, getWhatsAppUrl } from '@/lib/utils'
+import { getUnitForCategory } from '@/lib/property-categories'
 import type { ListingWithMedia } from '@/types/database'
 
 interface ListingCardProps {
-  listing: ListingWithMedia
+  listing: ListingWithMedia & { category?: string; area_unit?: string }
 }
 
 export function ListingCard({ listing }: ListingCardProps) {
@@ -14,9 +15,12 @@ export function ListingCard({ listing }: ListingCardProps) {
 
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+1234567890'
   const waMessage = `Hi! I'm interested in "${listing.title}" at ${formatPrice(listing.price, listing.currency)}. Please share more details.`
+  const areaUnit = listing.area_unit || getUnitForCategory(listing.category || '') || 'Sq Feet'
+
+  const categoryLabel = listing.category || listing.property_type || ''
 
   return (
-    <article className="group bg-white rounded-2xl overflow-hidden border-2 border-slate-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300">
+    <article className="group bg-white rounded-2xl overflow-hidden border-2 border-slate-100 hover:border-cyan-200 hover:shadow-xl transition-all duration-300">
       <Link href={`/listings/${listing.slug}`} className="block">
         <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
           {coverImage ? (
@@ -28,33 +32,33 @@ export function ListingCard({ listing }: ListingCardProps) {
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center bg-blue-50">
-              <Building2 className="w-12 h-12 text-blue-200" />
+            <div className="absolute inset-0 flex items-center justify-center bg-cyan-50">
+              <Building2 className="w-12 h-12 text-cyan-200" />
             </div>
           )}
           <div className="absolute top-3 left-3 flex gap-1.5">
-            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black ${listing.status === 'sale' ? 'bg-amber-500 text-white' : 'bg-green-500 text-white'}`}>
+            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black ${listing.status === 'sale' ? 'bg-orange-500 text-white' : 'bg-green-500 text-white'}`}>
               For {listing.status === 'sale' ? 'Sale' : 'Rent'}
             </span>
             {listing.featured && (
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-blue-600 text-white">Featured</span>
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-cyan-600 text-white">Featured</span>
             )}
           </div>
-          {listing.property_type && (
+          {categoryLabel && (
             <div className="absolute bottom-3 left-3">
               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-white/90 text-slate-700">
-                {listing.property_type}
+                {listing.property_type || listing.category}
               </span>
             </div>
           )}
         </div>
 
         <div className="p-4">
-          <p className="text-blue-700 font-black text-lg">
+          <p className="text-cyan-700 font-black text-lg">
             {formatPrice(listing.price, listing.currency)}
             {listing.status === 'rent' && <span className="text-sm font-normal text-slate-400">/mo</span>}
           </p>
-          <h3 className="font-bold text-slate-900 mt-1 line-clamp-1 group-hover:text-blue-700 transition-colors text-sm">
+          <h3 className="font-bold text-slate-900 mt-1 line-clamp-1 group-hover:text-cyan-700 transition-colors text-sm">
             {listing.title}
           </h3>
           {listing.location && (
@@ -68,10 +72,15 @@ export function ListingCard({ listing }: ListingCardProps) {
 
       <div className="px-4 pb-4">
         <div className="flex items-center gap-3 text-xs text-slate-500 mb-3 pt-3 border-t border-slate-100">
-          {listing.area_sqft !== null && (
+          {listing.area_sqft != null && (
             <span className="flex items-center gap-1">
               <Square className="w-3.5 h-3.5 text-slate-400" />
-              {listing.area_sqft.toLocaleString()} sqft
+              {listing.area_sqft.toLocaleString()} {areaUnit}
+            </span>
+          )}
+          {listing.category && (
+            <span className="ml-auto px-2 py-0.5 bg-cyan-50 text-cyan-700 rounded-full font-semibold text-[10px]">
+              {listing.category}
             </span>
           )}
         </div>
