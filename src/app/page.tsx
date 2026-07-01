@@ -290,7 +290,7 @@ export default async function HomePage() {
                     </div>
                     <a href={getWhatsAppUrl(whatsapp, `Hi! I'm interested in "${(listings[0] as any).title}". Please share details.`)}
                       target="_blank" rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
+                      
                       className="flex items-center gap-1.5 bg-green-500 hover:bg-green-400 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
                       <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
                     </a>
@@ -341,7 +341,7 @@ export default async function HomePage() {
                         ) : <span />}
                         <a href={getWhatsAppUrl(whatsapp, `Hi! Interested in "${listing.title}". Please share more info.`)}
                           target="_blank" rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
+                          
                           className="flex items-center gap-1 text-green-600 hover:text-green-500 text-xs font-bold transition-colors">
                           <MessageCircle className="w-3.5 h-3.5" /> Enquire
                         </a>
