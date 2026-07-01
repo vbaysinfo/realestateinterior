@@ -1,8 +1,7 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback } from 'react'
-import { Button } from '@/components/ui/button'
+import { useCallback, useEffect, useState } from 'react'
 import { Search, MapPin, X } from 'lucide-react'
 
 const PROPERTY_TYPES = [
@@ -15,15 +14,15 @@ const PROPERTY_TYPES = [
   { value: 'Hillside Sea View', label: '⛰️ Hillside Sea View' },
 ]
 
-const COASTAL_LOCATIONS = [
-  { label: 'Bheemunipatnam', emoji: '🏖️' },
-  { label: 'Rushikonda', emoji: '🌊' },
-  { label: 'Bheemili', emoji: '🐚' },
-  { label: 'Rishikonda Hills', emoji: '⛰️' },
-  { label: 'Vizag Beach Road', emoji: '🛣️' },
-  { label: 'Bhogapuram Coast', emoji: '🌅' },
-  { label: 'Nakkapalle Coast', emoji: '🌴' },
-  { label: 'Airport Zone', emoji: '✈️' },
+const FALLBACK_LOCATIONS = [
+  { name: 'Bheemunipatnam', emoji: '🏖️' },
+  { name: 'Rushikonda', emoji: '🌊' },
+  { name: 'Bheemili', emoji: '🐚' },
+  { name: 'Rishikonda Hills', emoji: '⛰️' },
+  { name: 'Vizag Beach Road', emoji: '🛣️' },
+  { name: 'Bhogapuram Coast', emoji: '🌅' },
+  { name: 'Nakkapalle Coast', emoji: '🌴' },
+  { name: 'Airport Zone', emoji: '✈️' },
 ]
 
 export function ListingFilters() {
@@ -31,6 +30,17 @@ export function ListingFilters() {
   const params = useSearchParams()
   const activeLocation = params.get('location') || ''
   const activeType = params.get('type') || ''
+
+  const [locations, setLocations] = useState<{ name: string; emoji: string }[]>(FALLBACK_LOCATIONS)
+
+  useEffect(() => {
+    fetch('/api/locations')
+      .then(r => r.json())
+      .then(({ data }) => {
+        if (data && data.length > 0) setLocations(data)
+      })
+      .catch(() => {})
+  }, [])
 
   const update = useCallback((key: string, value: string) => {
     const p = new URLSearchParams(params.toString())
@@ -104,15 +114,15 @@ export function ListingFilters() {
             }`}>
             🌊 All Areas
           </button>
-          {COASTAL_LOCATIONS.map(({ label, emoji }) => (
-            <button key={label}
-              onClick={() => toggleLocation(label)}
+          {locations.map(({ name, emoji }) => (
+            <button key={name}
+              onClick={() => toggleLocation(name)}
               className={`px-4 py-2 rounded-full text-xs font-bold border transition-all ${
-                activeLocation === label
+                activeLocation === name
                   ? 'bg-cyan-600 text-white border-cyan-600 shadow-md shadow-cyan-200'
                   : 'bg-white text-slate-600 border-slate-200 hover:border-cyan-400 hover:text-cyan-700'
               }`}>
-              {emoji} {label}
+              {emoji} {name}
             </button>
           ))}
         </div>

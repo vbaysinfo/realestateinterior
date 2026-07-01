@@ -2,14 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Building2, Users, BarChart3, LogOut, Home } from 'lucide-react'
+import { Building2, Users, BarChart3, LogOut, Home, MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 
 const NAV = [
   { href: '/admin', label: 'Dashboard', icon: BarChart3, exact: true },
   { href: '/admin/listings', label: 'Listings', icon: Building2 },
-  
+  { href: '/admin/locations', label: 'Locations', icon: MapPin },
   { href: '/admin/leads', label: 'Leads', icon: Users },
   { href: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
 ]

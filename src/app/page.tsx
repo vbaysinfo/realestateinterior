@@ -21,6 +21,16 @@ async function getFeaturedListings(): Promise<ListingWithMedia[]> {
   } catch { return [] }
 }
 
+async function getLocations(): Promise<any[]> {
+  try {
+    const supabase = await createClient()
+    const { data } = await (supabase as any)
+      .from('locations').select('*').eq('active', true)
+      .order('sort_order', { ascending: true })
+    return data || []
+  } catch { return [] }
+}
+
 const DUMMY_LISTINGS = [
   {
     id: 'd1', title: 'Beachfront Plot — Panoramic Bay of Bengal Views',
@@ -118,28 +128,30 @@ const WA_SVG = (
   </svg>
 )
 
-const LOCATION_GROUPS = [
-  { area: 'Bheemunipatnam', emoji: '🏖️', desc: 'Widest beach in AP — golden sands & lighthouse', color: 'from-cyan-500 to-blue-600' },
-  { area: 'Rushikonda', emoji: '🌊', desc: 'Blue Flag beach — hills, water sports, sunrise views', color: 'from-sky-500 to-cyan-600' },
-  { area: 'Bheemili', emoji: '🐚', desc: 'Serene seafront — Dutch fort, uncrowded shores', color: 'from-teal-500 to-cyan-600' },
-  { area: 'Rishikonda Hills', emoji: '⛰️', desc: 'Elevated coastal plots — panoramic 180° sea views', color: 'from-blue-500 to-indigo-600' },
-  { area: 'Vizag Beach Road', emoji: '🛣️', desc: 'Prime Beach Road — high-value commercial & residential', color: 'from-cyan-600 to-sky-700' },
-  { area: 'Bhogapuram Coast', emoji: '🌅', desc: 'Near Airport — fastest appreciating coastal belt', color: 'from-orange-400 to-cyan-600' },
+const FALLBACK_LOCATION_GROUPS = [
+  { name: 'Bheemunipatnam', emoji: '🏖️', description: 'Widest beach in AP — golden sands & lighthouse', color: 'from-cyan-500 to-blue-600' },
+  { name: 'Rushikonda', emoji: '🌊', description: 'Blue Flag beach — hills, water sports, sunrise views', color: 'from-sky-500 to-cyan-600' },
+  { name: 'Bheemili', emoji: '🐚', description: 'Serene seafront — Dutch fort, uncrowded shores', color: 'from-teal-500 to-cyan-600' },
+  { name: 'Rishikonda Hills', emoji: '⛰️', description: 'Elevated coastal plots — panoramic 180° sea views', color: 'from-blue-500 to-indigo-600' },
+  { name: 'Vizag Beach Road', emoji: '🛣️', description: 'Prime Beach Road — high-value commercial & residential', color: 'from-cyan-600 to-sky-700' },
+  { name: 'Bhogapuram Coast', emoji: '🌅', description: 'Near Airport — fastest appreciating coastal belt', color: 'from-orange-400 to-cyan-600' },
 ]
 
 export default async function HomePage() {
-  const dbListings = await getFeaturedListings()
+  const [dbListings, dbLocations] = await Promise.all([getFeaturedListings(), getLocations()])
   const allListings = dbListings.length > 0 ? dbListings : DUMMY_LISTINGS
   const isLive = dbListings.length > 0
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+1234567890'
 
+  const locationGroups = dbLocations.length > 0 ? dbLocations : FALLBACK_LOCATION_GROUPS
+
   // Group listings by location area
-  const grouped = LOCATION_GROUPS.map(({ area, emoji, desc, color }) => ({
-    area, emoji, desc, color,
+  const grouped = locationGroups.map(({ name, emoji, description, color }: any) => ({
+    area: name, emoji, desc: description, color,
     listings: allListings.filter((l: any) =>
-      (l.location || '').toLowerCase().includes(area.toLowerCase())
+      (l.location || '').toLowerCase().includes(name.toLowerCase())
     ),
-  })).filter(g => g.listings.length > 0)
+  })).filter((g: any) => g.listings.length > 0)
 
   // Ungrouped listings that don't match any defined area
   const groupedIds = new Set(grouped.flatMap(g => g.listings.map((l: any) => l.id)))
