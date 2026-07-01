@@ -6,7 +6,7 @@ export function Footer() {
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+1234567890'
 
   return (
-    <footer className="bg-gradient-to-b from-cyan-950 to-blue-950 text-cyan-200">
+    <footer className="bg-gradient-to-b from-cyan-950 to-blue-950 text-white">
       {/* Wave divider */}
       <div className="w-full overflow-hidden leading-none -mb-px">
         <svg viewBox="0 0 1440 60" className="w-full fill-sky-50" preserveAspectRatio="none" style={{height: 40}}>
@@ -28,7 +28,7 @@ export function Footer() {
                 <div className="text-[10px] font-bold text-orange-400 tracking-widest uppercase">Vizag · Bay of Bengal</div>
               </div>
             </div>
-            <p className="text-sm leading-relaxed text-cyan-300 mb-5">
+            <p className="text-sm leading-relaxed text-white mb-5">
               Visakhapatnam's premier coastal real estate agency. Beachfront plots, sea view villas, and coastal land along the Bay of Bengal — where every sunrise is yours.
             </p>
             <div className="flex gap-2">
@@ -54,7 +54,7 @@ export function Footer() {
                 { href: '/contact', label: 'Contact' },
               ].map(({ href, label }) => (
                 <li key={href}>
-                  <Link href={href} className="hover:text-orange-400 transition-colors flex items-center gap-1.5 text-cyan-300">
+                  <Link href={href} className="hover:text-orange-400 transition-colors flex items-center gap-1.5 text-white">
                     <span className="w-1 h-1 bg-orange-400 rounded-full inline-block" />
                     {label}
                   </Link>
@@ -79,8 +79,8 @@ export function Footer() {
               ].map((area) => (
                 <li key={area}>
                   <Link href={`/listings?location=${encodeURIComponent(area)}`}
-                    className="hover:text-orange-400 transition-colors flex items-center gap-1.5 text-cyan-300">
-                    <Wind className="w-3 h-3 text-cyan-500 flex-shrink-0" />
+                    className="hover:text-orange-400 transition-colors flex items-center gap-1.5 text-white">
+                    <Wind className="w-3 h-3 text-white/60 flex-shrink-0" />
                     {area}
                   </Link>
                 </li>
@@ -94,31 +94,31 @@ export function Footer() {
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-orange-400 mt-0.5 flex-shrink-0" />
-                <span className="text-cyan-300">Beach Road, Bhogapuram, Visakhapatnam Dist., AP 531163</span>
+                <span className="text-white">Beach Road, Bhogapuram, Visakhapatnam Dist., AP 531163</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                <a href={`tel:${whatsapp}`} className="hover:text-orange-400 transition-colors text-cyan-300">{whatsapp}</a>
+                <a href={`tel:${whatsapp}`} className="hover:text-orange-400 transition-colors text-white">{whatsapp}</a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                <a href="mailto:info@coastallandsvizag.com" className="hover:text-orange-400 transition-colors text-cyan-300">
+                <a href="mailto:info@coastallandsvizag.com" className="hover:text-orange-400 transition-colors text-white">
                   info@coastallandsvizag.com
                 </a>
               </li>
             </ul>
             <div className="mt-5 p-4 rounded-xl bg-white/5 border border-white/10">
-              <p className="text-xs text-cyan-400 mb-1 font-semibold">Office Hours</p>
+              <p className="text-xs text-white mb-1 font-semibold">Office Hours</p>
               <p className="text-sm font-bold text-white">Mon–Sat: 9 AM – 7 PM</p>
-              <p className="text-xs text-cyan-400 mt-1">Site visits by appointment</p>
+              <p className="text-xs text-white mt-1">Site visits by appointment</p>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-10 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-cyan-500">
+        <div className="border-t border-white/10 mt-10 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-white/60">
           <p>© {new Date().getFullYear()} {siteName}. All rights reserved. | Visakhapatnam, Andhra Pradesh — Bay of Bengal Coastal Properties</p>
           <div className="flex gap-4">
-            <Link href="/sitemap.xml" className="hover:text-cyan-300 transition-colors">Sitemap</Link>
+            <Link href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</Link>
           </div>
         </div>
       </div>
