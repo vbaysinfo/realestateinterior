@@ -98,9 +98,9 @@ const COASTAL_HIGHLIGHTS = [
   { icon: Sun, title: 'Year-Round Sunshine', desc: 'Visakhapatnam enjoys 300+ sunny days a year with warm, breezy coastal weather all year long.' },
   { icon: Waves, title: 'Bay of Bengal Shoreline', desc: 'Miles of pristine sandy beaches, turquoise waters, and dramatic cliffs along the AP coastline.' },
   { icon: TreePine, title: 'Lush Green Surroundings', desc: 'Casuarina groves, coconut palms, and mangroves create a serene natural coastal environment.' },
-  { icon: Anchor, title: 'Port City Growth', desc: 'Visakhapatnam's expanding port, IT corridor, and tourism boom make coastal land an exceptional investment.' },
+  { icon: Anchor, title: 'Port City Growth', desc: 'Visakhapatnam expanding port, IT corridor, and tourism boom make coastal land an exceptional investment.' },
   { icon: Wind, title: 'Fresh Sea Breeze Daily', desc: 'Wake up every day to cool ocean winds and the soothing sound of waves — true coastal living.' },
-  { icon: Star, title: 'Top Rated Beaches', desc: 'Bheemunipatnam, Rushikonda, and Bheemili rank among India's most scenic and cleanest beaches.' },
+  { icon: Star, title: 'Top Rated Beaches', desc: 'Bheemunipatnam, Rushikonda, and Bheemili rank among India most scenic and cleanest beaches.' },
 ]
 
 const BEACHES_NEARBY = [
@@ -291,7 +291,7 @@ export default async function HomePage() {
               World-Class Beaches at Your Doorstep
             </h2>
             <p className="text-cyan-700 text-sm mt-2 max-w-2xl mx-auto">
-              Our properties are located minutes from some of India's most beautiful beaches — golden sands, clear waters, and breathtaking coastal scenery.
+              Our properties are located minutes from some of India most beautiful beaches — golden sands, clear waters, and breathtaking coastal scenery.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -326,7 +326,7 @@ export default async function HomePage() {
               Life is Better by the Ocean
             </h2>
             <p className="text-slate-500 text-sm mt-2 max-w-2xl mx-auto">
-              Visakhapatnam's coastline offers more than just a view — it's a lifestyle of fresh air, natural beauty, and rising property values.
+              Visakhapatnam coastline offers more than just a view — it is a lifestyle of fresh air, natural beauty, and rising property values.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
