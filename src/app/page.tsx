@@ -33,67 +33,67 @@ async function getLocations(): Promise<any[]> {
 
 const DUMMY_LISTINGS = [
   {
-    id: 'd1', title: 'Beachfront Plot — Panoramic Bay of Bengal Views',
-    slug: '#', price: 8500000, currency: 'INR', status: 'sale',
-    location: 'Bheemunipatnam Beach, Visakhapatnam', area_sqft: 3200,
-    featured: true, property_type: 'Beachfront Plot',
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
+    id: 'd1', title: 'Open Plot — 200 Sq Yards, East Facing',
+    slug: '#', price: 1800000, currency: 'INR', status: 'sale',
+    location: 'Bheemunipatnam, Visakhapatnam', area_sqft: 200,
+    featured: true, category: 'Open Plots', property_type: 'Open Plots', area_unit: 'Sq Yard',
+    image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=800&q=80',
   },
   {
-    id: 'd2', title: 'Sea View Villa Plot — Sunrise Facing',
-    slug: '#', price: 5200000, currency: 'INR', status: 'sale',
-    location: 'Rushikonda Hills, Visakhapatnam', area_sqft: 4000,
-    featured: true, property_type: 'Sea View Villa Plot',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
+    id: 'd2', title: 'Agriculture Land — 5 Cents, Fertile Coastal Soil',
+    slug: '#', price: 950000, currency: 'INR', status: 'sale',
+    location: 'Nakkapalle Coast, Visakhapatnam', area_sqft: 5,
+    featured: true, category: 'Agriculture Land', property_type: 'Agriculture Land', area_unit: 'Cents',
+    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80',
   },
   {
-    id: 'd3', title: 'Coastal Residential Plot — Gated Township',
-    slug: '#', price: 3400000, currency: 'INR', status: 'sale',
-    location: 'Bheemili Seafront, Bhogapuram', area_sqft: 2400,
-    featured: false, property_type: 'Coastal Residential',
-    image: 'https://images.unsplash.com/photo-1520962922320-2038eebab146?w=800&q=80',
+    id: 'd3', title: '2BHK Flat — Sea View, Ready to Move',
+    slug: '#', price: 4500000, currency: 'INR', status: 'sale',
+    location: 'Rushikonda Hills, Visakhapatnam', area_sqft: 1150,
+    featured: false, category: 'Residential', property_type: 'Flats', area_unit: 'Sq Feet',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80',
   },
   {
-    id: 'd4', title: 'Oceanfront Commercial Land — Tourism Zone',
-    slug: '#', price: 18000000, currency: 'INR', status: 'sale',
-    location: 'Beach Road, Bhogapuram', area_sqft: 12000,
-    featured: false, property_type: 'Commercial Coastal',
-    image: 'https://images.unsplash.com/photo-1439405326854-014607f694d7?w=800&q=80',
+    id: 'd4', title: 'Independent House — 3BHK, Corner Plot',
+    slug: '#', price: 6800000, currency: 'INR', status: 'sale',
+    location: 'Bheemili, Visakhapatnam', area_sqft: 1800,
+    featured: false, category: 'Residential', property_type: 'Independent House', area_unit: 'Sq Feet',
+    image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80',
   },
   {
-    id: 'd5', title: 'Sea-Facing Plot — Walking Distance to Beach',
-    slug: '#', price: 2800000, currency: 'INR', status: 'sale',
-    location: 'Nakkapalle Coast, Visakhapatnam', area_sqft: 1800,
-    featured: false, property_type: 'Sea View Plot',
+    id: 'd5', title: 'Shop Space — Prime Location, High Footfall',
+    slug: '#', price: 3200000, currency: 'INR', status: 'sale',
+    location: 'Vizag Beach Road, Visakhapatnam', area_sqft: 450,
+    featured: false, category: 'Commercial', property_type: 'Shop', area_unit: 'Sq Feet',
+    image: 'https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=800&q=80',
+  },
+  {
+    id: 'd6', title: 'Open Plot — 300 Sq Yards, Gated Layout',
+    slug: '#', price: 2700000, currency: 'INR', status: 'sale',
+    location: 'Bhogapuram Coast, Visakhapatnam', area_sqft: 300,
+    featured: false, category: 'Open Plots', property_type: 'Open Plots', area_unit: 'Sq Yard',
     image: 'https://images.unsplash.com/photo-1500916434205-0c77489c6cf7?w=800&q=80',
   },
   {
-    id: 'd6', title: 'Cliffside Plot — Ocean Breeze, Unobstructed View',
-    slug: '#', price: 6700000, currency: 'INR', status: 'sale',
-    location: 'Rishikonda Hills, Visakhapatnam', area_sqft: 5000,
-    featured: false, property_type: 'Hillside Sea View',
-    image: 'https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=800&q=80',
+    id: 'd7', title: 'Villa — Luxury 4BHK, Private Garden',
+    slug: '#', price: 12000000, currency: 'INR', status: 'sale',
+    location: 'Rishikonda Hills, Visakhapatnam', area_sqft: 3200,
+    featured: false, category: 'Residential', property_type: 'Villa', area_unit: 'Sq Feet',
+    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80',
   },
   {
-    id: 'd7', title: 'Beach Road Villa Plot — East Facing',
-    slug: '#', price: 4500000, currency: 'INR', status: 'sale',
-    location: 'Vizag Beach Road, Visakhapatnam', area_sqft: 3600,
-    featured: false, property_type: 'Beach Road Plot',
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
+    id: 'd8', title: 'Agriculture Land — 10 Cents Near Highway',
+    slug: '#', price: 1800000, currency: 'INR', status: 'sale',
+    location: 'Airport Zone, Visakhapatnam', area_sqft: 10,
+    featured: false, category: 'Agriculture Land', property_type: 'Agriculture Land', area_unit: 'Cents',
+    image: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800&q=80',
   },
   {
-    id: 'd8', title: 'Affordable Coastal Plot — Budget Buy',
-    slug: '#', price: 1600000, currency: 'INR', status: 'sale',
-    location: 'Coastal Township, Bhogapuram', area_sqft: 1200,
-    featured: false, property_type: 'Coastal Residential',
-    image: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80',
-  },
-  {
-    id: 'd9', title: 'Eco-Resort Land — Beachside Tourism Development',
-    slug: '#', price: 25000000, currency: 'INR', status: 'sale',
-    location: 'Bheemunipatnam, Visakhapatnam', area_sqft: 87120,
-    featured: false, property_type: 'Tourism / Resort Land',
-    image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=800&q=80',
+    id: 'd9', title: 'Warehouse — 5000 Sq Ft Industrial Space',
+    slug: '#', price: 8500000, currency: 'INR', status: 'sale',
+    location: 'Bhogapuram Coast, Visakhapatnam', area_sqft: 5000,
+    featured: false, category: 'Commercial', property_type: 'Warehouse', area_unit: 'Sq Feet',
+    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80',
   },
 ]
 
@@ -145,15 +145,23 @@ export default async function HomePage() {
 
   const locationGroups = dbLocations.length > 0 ? dbLocations : FALLBACK_LOCATION_GROUPS
 
-  // Group listings by location area
-  const grouped = locationGroups.map(({ name, emoji, description, color }: any) => ({
-    area: name, emoji, desc: description, color,
-    listings: allListings.filter((l: any) =>
-      (l.location || '').toLowerCase().includes(name.toLowerCase())
-    ),
-  })).filter((g: any) => g.listings.length > 0)
+  // Group listings by property category
+  const CATEGORY_META: Record<string, { emoji: string; color: string; unit: string }> = {
+    'Agriculture Land': { emoji: '🌾', color: 'from-green-500 to-emerald-600', unit: 'Cents' },
+    'Open Plots':       { emoji: '🏞️', color: 'from-cyan-500 to-blue-600',    unit: 'Sq Yard' },
+    'Residential':      { emoji: '🏠', color: 'from-orange-400 to-amber-500', unit: 'Sq Feet' },
+    'Commercial':       { emoji: '🏢', color: 'from-violet-500 to-purple-600', unit: 'Sq Feet' },
+  }
 
-  // Ungrouped listings that don't match any defined area
+  const grouped = Object.entries(CATEGORY_META).map(([cat, meta]) => ({
+    area: cat, ...meta,
+    desc: `Unit: ${meta.unit}`,
+    listings: allListings.filter((l: any) =>
+      (l.category || '').toLowerCase() === cat.toLowerCase() ||
+      (l.property_type || '').toLowerCase().includes(cat.toLowerCase())
+    ),
+  })).filter(g => g.listings.length > 0)
+
   const groupedIds = new Set(grouped.flatMap(g => g.listings.map((l: any) => l.id)))
   const otherListings = allListings.filter((l: any) => !groupedIds.has(l.id))
 
