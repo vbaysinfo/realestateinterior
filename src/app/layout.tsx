@@ -7,17 +7,17 @@ import { WhatsAppButton } from '@/components/common/whatsapp-button'
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
 
-const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Bhogapuram Lands'
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://bhogapuramlands.com'
+const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'CoastalLands Vizag'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://coastallandsvizag.com'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteName} — Plots & Land for Sale in Bhogapuram, Visakhapatnam`,
+    default: `${siteName} — Beach & Sea View Plots for Sale in Visakhapatnam`,
     template: `%s | ${siteName}`,
   },
-  description: 'Buy verified plots and land in Bhogapuram, Visakhapatnam, Andhra Pradesh. Residential plots, villa plots, commercial land near Bhogapuram International Airport. Clear titles, expert guidance.',
-  keywords: ['plots in Bhogapuram', 'land for sale Bhogapuram', 'plots near Bhogapuram airport', 'real estate Visakhapatnam', 'plots Vizag', 'residential plots AP', 'open plots Bhogapuram', 'villa plots Visakhapatnam'],
+  description: 'Buy verified beachfront and sea view plots in Bhogapuram, Visakhapatnam, Andhra Pradesh. Coastal land, beach villa plots, sea-facing properties near Bay of Bengal. Clear titles, expert guidance.',
+  keywords: ['beach plots Visakhapatnam', 'sea view land Vizag', 'coastal property Bhogapuram', 'beachfront plots AP', 'beach villa plots Vizag', 'sea facing land Visakhapatnam', 'Bay of Bengal plots', 'coastal real estate Andhra Pradesh'],
   openGraph: {
     type: 'website',
     locale: 'en_IN',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${geist.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
+      <body className="min-h-full flex flex-col bg-sky-50 text-slate-900">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

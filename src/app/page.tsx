@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import {
-  ArrowRight, Building2, MapPin, Square,
-  MessageCircle, Phone, Mail, TrendingUp,
-  Shield, CheckCircle2, Search, SlidersHorizontal, Star
+  ArrowRight, Building2, MapPin, Square, MessageCircle,
+  Phone, Mail, Waves, Wind, Sun, Shell, Anchor, Search,
+  SlidersHorizontal, TreePine, Sunset, Star
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { LeadForm } from '@/components/forms/lead-form'
@@ -23,82 +23,93 @@ async function getFeaturedListings(): Promise<ListingWithMedia[]> {
 
 const DUMMY_LISTINGS = [
   {
-    id: 'd1', title: 'Premium Residential Plot — Gated Community',
-    slug: '#', price: 2800000, currency: 'INR', status: 'sale',
-    location: 'Bhogapuram Layout, Phase 1', area_sqft: 2400,
-    featured: true, property_type: 'Residential Plot',
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
-  },
-  {
-    id: 'd2', title: 'Commercial Land Near NH-16 Highway',
+    id: 'd1', title: 'Beachfront Plot — Panoramic Bay of Bengal Views',
     slug: '#', price: 8500000, currency: 'INR', status: 'sale',
-    location: 'NH-16 Corridor, Bhogapuram', area_sqft: 10000,
-    featured: false, property_type: 'Commercial Land',
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+    location: 'Bheemunipatnam Beach, Visakhapatnam', area_sqft: 3200,
+    featured: true, property_type: 'Beachfront Plot',
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
   },
   {
-    id: 'd3', title: 'Villa Plot Near Bhogapuram Airport',
-    slug: '#', price: 4200000, currency: 'INR', status: 'sale',
-    location: 'Airport Zone, Bhogapuram', area_sqft: 3600,
-    featured: true, property_type: 'Villa Plot',
-    image: 'https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&q=80',
+    id: 'd2', title: 'Sea View Villa Plot — Sunrise Facing',
+    slug: '#', price: 5200000, currency: 'INR', status: 'sale',
+    location: 'Rushikonda Hills, Visakhapatnam', area_sqft: 4000,
+    featured: true, property_type: 'Sea View Villa Plot',
+    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
   },
   {
-    id: 'd4', title: 'Open Plot in Upcoming Township',
-    slug: '#', price: 1500000, currency: 'INR', status: 'sale',
-    location: 'New Township, Bhogapuram', area_sqft: 1800,
-    featured: false, property_type: 'Open Plot',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80',
+    id: 'd3', title: 'Coastal Residential Plot — Gated Township',
+    slug: '#', price: 3400000, currency: 'INR', status: 'sale',
+    location: 'Bheemili Seafront, Bhogapuram', area_sqft: 2400,
+    featured: false, property_type: 'Coastal Residential',
+    image: 'https://images.unsplash.com/photo-1520962922320-2038eebab146?w=800&q=80',
   },
   {
-    id: 'd5', title: 'Agricultural Land — Irrigation Facility',
-    slug: '#', price: 3200000, currency: 'INR', status: 'sale',
-    location: 'Rural Belt, Atchutapuram', area_sqft: 43560,
-    featured: false, property_type: 'Agricultural Land',
-    image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80',
+    id: 'd4', title: 'Oceanfront Commercial Land — Tourism Zone',
+    slug: '#', price: 18000000, currency: 'INR', status: 'sale',
+    location: 'Beach Road, Bhogapuram', area_sqft: 12000,
+    featured: false, property_type: 'Commercial Coastal',
+    image: 'https://images.unsplash.com/photo-1439405326854-014607f694d7?w=800&q=80',
   },
   {
-    id: 'd6', title: 'Corner Plot — Prime Road Facing',
-    slug: '#', price: 3800000, currency: 'INR', status: 'sale',
-    location: 'Main Road, Bhogapuram', area_sqft: 2700,
-    featured: false, property_type: 'Residential Plot',
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80',
+    id: 'd5', title: 'Sea-Facing Plot — Walking Distance to Beach',
+    slug: '#', price: 2800000, currency: 'INR', status: 'sale',
+    location: 'Nakkapalle Coast, Visakhapatnam', area_sqft: 1800,
+    featured: false, property_type: 'Sea View Plot',
+    image: 'https://images.unsplash.com/photo-1500916434205-0c77489c6cf7?w=800&q=80',
   },
   {
-    id: 'd7', title: 'Industrial Land — Atchutapuram SEZ Zone',
-    slug: '#', price: 12000000, currency: 'INR', status: 'sale',
-    location: 'SEZ Zone, Atchutapuram', area_sqft: 50000,
-    featured: false, property_type: 'Industrial Land',
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
+    id: 'd6', title: 'Cliffside Plot — Ocean Breeze, Unobstructed View',
+    slug: '#', price: 6700000, currency: 'INR', status: 'sale',
+    location: 'Rishikonda Hills, Visakhapatnam', area_sqft: 5000,
+    featured: false, property_type: 'Hillside Sea View',
+    image: 'https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=800&q=80',
   },
   {
-    id: 'd8', title: 'Gated Villa Plot — East Facing',
-    slug: '#', price: 5500000, currency: 'INR', status: 'sale',
-    location: 'Green Valley, Bhogapuram', area_sqft: 4000,
-    featured: false, property_type: 'Villa Plot',
-    image: 'https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&q=80',
+    id: 'd7', title: 'Beach Road Villa Plot — East Facing',
+    slug: '#', price: 4500000, currency: 'INR', status: 'sale',
+    location: 'Vizag Beach Road, Visakhapatnam', area_sqft: 3600,
+    featured: false, property_type: 'Beach Road Plot',
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80',
   },
   {
-    id: 'd9', title: 'Budget Plot — Ideal for First-Time Buyers',
-    slug: '#', price: 950000, currency: 'INR', status: 'sale',
-    location: 'Nakkapalle Road, Bhogapuram', area_sqft: 1200,
-    featured: false, property_type: 'Open Plot',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80',
+    id: 'd8', title: 'Affordable Coastal Plot — Budget Buy',
+    slug: '#', price: 1600000, currency: 'INR', status: 'sale',
+    location: 'Coastal Township, Bhogapuram', area_sqft: 1200,
+    featured: false, property_type: 'Coastal Residential',
+    image: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80',
+  },
+  {
+    id: 'd9', title: 'Eco-Resort Land — Beachside Tourism Development',
+    slug: '#', price: 25000000, currency: 'INR', status: 'sale',
+    location: 'Bheemunipatnam, Visakhapatnam', area_sqft: 87120,
+    featured: false, property_type: 'Tourism / Resort Land',
+    image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=800&q=80',
   },
 ]
 
 const PROPERTY_TYPES = [
-  { label: 'Residential', query: 'Residential Plot', emoji: '🏘️', count: '80+' },
-  { label: 'Villa Plots', query: 'Villa Plot', emoji: '🏡', count: '45+' },
-  { label: 'Commercial', query: 'Commercial Land', emoji: '🏢', count: '30+' },
-  { label: 'Agricultural', query: 'Agricultural Land', emoji: '🌾', count: '60+' },
+  { label: 'Beachfront Plots', query: 'Beachfront Plot', emoji: '🏖️', desc: 'Direct beach access' },
+  { label: 'Sea View Villas', query: 'Sea View Villa Plot', emoji: '🌊', desc: 'Panoramic ocean views' },
+  { label: 'Coastal Residential', query: 'Coastal Residential', emoji: '🐚', desc: 'Gated beach communities' },
+  { label: 'Resort / Tourism', query: 'Tourism', emoji: '⛵', desc: 'Development land' },
 ]
 
-const TRUST_BADGES = [
-  { icon: Shield, text: 'Clear Legal Titles' },
-  { icon: CheckCircle2, text: 'DTCP Approved' },
-  { icon: TrendingUp, text: '3x Appreciation' },
-  { icon: Star, text: '1,200+ Families Served' },
+const COASTAL_HIGHLIGHTS = [
+  { icon: Sun, title: 'Year-Round Sunshine', desc: 'Visakhapatnam enjoys 300+ sunny days a year with warm, breezy coastal weather all year long.' },
+  { icon: Waves, title: 'Bay of Bengal Shoreline', desc: 'Miles of pristine sandy beaches, turquoise waters, and dramatic cliffs along the AP coastline.' },
+  { icon: TreePine, title: 'Lush Green Surroundings', desc: 'Casuarina groves, coconut palms, and mangroves create a serene natural coastal environment.' },
+  { icon: Anchor, title: 'Port City Growth', desc: 'Visakhapatnam's expanding port, IT corridor, and tourism boom make coastal land an exceptional investment.' },
+  { icon: Wind, title: 'Fresh Sea Breeze Daily', desc: 'Wake up every day to cool ocean winds and the soothing sound of waves — true coastal living.' },
+  { icon: Star, title: 'Top Rated Beaches', desc: 'Bheemunipatnam, Rushikonda, and Bheemili rank among India's most scenic and cleanest beaches.' },
+]
+
+const BEACHES_NEARBY = [
+  { name: 'Bheemunipatnam Beach', dist: '2 km', note: 'Widest beach in AP — golden sands, lighthouse view' },
+  { name: 'Rushikonda Beach', dist: '8 km', note: 'Blue Flag certified, water sports, hill backdrop' },
+  { name: 'Bheemili Beach', dist: '4 km', note: 'Serene, uncrowded, historic Dutch fort nearby' },
+  { name: 'Yarada Beach', dist: '35 km', note: 'Secluded cove between mountains, most scenic' },
+  { name: 'Rishikonda Hills', dist: '10 km', note: 'Elevated sea views, sunrise & sunset hotspot' },
+  { name: 'Mangamaripeta Beach', dist: '6 km', note: 'Peaceful fishing village beach, raw coastal charm' },
 ]
 
 export default async function HomePage() {
@@ -108,34 +119,33 @@ export default async function HomePage() {
   const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+1234567890'
 
   return (
-    <div className="bg-[#f8f7f4] min-h-screen">
+    <div className="bg-sky-50">
 
-      {/* ── TOP SEARCH BAR ── */}
-      <section className="bg-white border-b border-stone-200 sticky top-16 z-40 shadow-sm">
+      {/* ── SEARCH BAR ── */}
+      <section className="bg-white border-b border-cyan-100 sticky top-16 z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
-            <div className="flex-1 flex items-center gap-2 bg-stone-100 rounded-xl px-4 py-2.5">
-              <Search className="w-4 h-4 text-stone-400 flex-shrink-0" />
-              <input
-                type="text"
-                placeholder="Search location — Bhogapuram, Vizag, Airport Zone…"
-                className="w-full text-sm text-stone-700 placeholder:text-stone-400 bg-transparent outline-none"
-              />
+          <div className="flex flex-col sm:flex-row gap-2">
+            <div className="flex-1 flex items-center gap-2 bg-sky-50 rounded-xl px-4 py-2.5 border border-sky-100">
+              <Search className="w-4 h-4 text-sky-400 flex-shrink-0" />
+              <input type="text"
+                placeholder="Search beach area — Bheemunipatnam, Rushikonda, Vizag Beach Road…"
+                className="w-full text-sm text-slate-700 placeholder:text-slate-400 bg-transparent outline-none" />
             </div>
             <div className="flex gap-2">
-              <select className="px-3 py-2.5 bg-stone-100 rounded-xl text-sm text-stone-600 outline-none cursor-pointer border-0">
+              <select className="px-3 py-2.5 bg-sky-50 border border-sky-100 rounded-xl text-sm text-slate-600 outline-none cursor-pointer">
                 <option value="">All Types</option>
-                <option>Residential Plot</option>
-                <option>Villa Plot</option>
-                <option>Commercial Land</option>
-                <option>Agricultural Land</option>
+                <option>Beachfront Plot</option>
+                <option>Sea View Villa Plot</option>
+                <option>Coastal Residential</option>
+                <option>Commercial Coastal</option>
+                <option>Tourism / Resort Land</option>
               </select>
               <Link href="/listings"
-                className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors">
+                className="flex items-center gap-2 bg-cyan-600 hover:bg-cyan-700 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-colors">
                 <Search className="w-4 h-4" /> Search
               </Link>
               <Link href="/listings"
-                className="flex items-center gap-2 border border-stone-300 hover:border-emerald-500 text-stone-600 hover:text-emerald-700 px-3 py-2.5 rounded-xl text-sm transition-colors">
+                className="flex items-center gap-2 border border-cyan-200 hover:bg-cyan-50 text-cyan-700 px-3 py-2.5 rounded-xl text-sm transition-colors">
                 <SlidersHorizontal className="w-4 h-4" />
                 <span className="hidden sm:inline">Filters</span>
               </Link>
@@ -146,83 +156,94 @@ export default async function HomePage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        {/* ── HEADLINE + CATEGORY PILLS ── */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        {/* ── PAGE TITLE + FILTERS ── */}
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
-              Plots & Land in{' '}
-              <span className="text-emerald-600">Bhogapuram</span>
+            <div className="flex items-center gap-2 mb-1">
+              <Waves className="w-5 h-5 text-cyan-500" />
+              <span className="text-xs font-bold tracking-widest text-cyan-600 uppercase">Bay of Bengal Coastal Properties</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-black text-cyan-950 tracking-tight">
+              Beach & Sea View Land in{' '}
+              <span className="text-cyan-600">Visakhapatnam</span>
             </h1>
-            <p className="text-stone-500 text-sm mt-1">
-              {listings.length} verified properties · Visakhapatnam District, AP
+            <p className="text-slate-500 text-sm mt-1">
+              {listings.length} verified coastal properties · Andhra Pradesh
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
             {PROPERTY_TYPES.map(({ label, query, emoji }) => (
               <Link key={label} href={`/listings?type=${encodeURIComponent(query)}`}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-stone-200 hover:border-emerald-400 hover:bg-emerald-50 text-stone-700 hover:text-emerald-700 rounded-full text-xs font-semibold transition-all">
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-cyan-200 hover:border-cyan-400 hover:bg-cyan-50 text-slate-600 hover:text-cyan-700 rounded-full text-xs font-semibold transition-all">
                 <span>{emoji}</span>{label}
               </Link>
             ))}
           </div>
         </div>
 
-        {/* ── MAIN LISTING GRID ── */}
+        {/* ── LISTINGS GRID ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {listings.map((listing: any, idx: number) => {
             const img = listing.image || listing.media?.find((m: any) => m.is_cover && m.type === 'image')?.url || listing.media?.[0]?.url
             const href = isLive ? `/listings/${listing.slug}` : '/listings'
-            const isFeatured = listing.featured
 
             return (
               <article key={listing.id}
-                className={`group bg-white rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
-                  isFeatured ? 'border-emerald-200 ring-1 ring-emerald-100' : 'border-stone-200'
+                className={`group bg-white rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-200/50 hover:-translate-y-1 ${
+                  listing.featured ? 'border-cyan-300 ring-2 ring-cyan-100' : 'border-cyan-100'
                 }`}>
                 <Link href={href} className="block">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-sky-100">
                     {img ? (
                       <Image src={img} alt={listing.title} fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
                         sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw"
-                        priority={idx < 3}
-                      />
+                        priority={idx < 3} />
                     ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-stone-100 to-stone-200 flex items-center justify-center">
-                        <Building2 className="w-12 h-12 text-stone-300" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-sky-100 to-cyan-200 flex items-center justify-center">
+                        <Waves className="w-12 h-12 text-cyan-300" />
                       </div>
                     )}
-                    {/* Badges */}
+
+                    {/* Gradient overlay at bottom */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-cyan-950/60 via-transparent to-transparent" />
+
+                    {/* Top badges */}
                     <div className="absolute top-3 left-3 flex gap-1.5">
-                      {isFeatured && (
-                        <span className="bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full tracking-wide">
-                          ★ FEATURED
+                      {listing.featured && (
+                        <span className="bg-orange-500 text-white text-[10px] font-black px-2.5 py-1 rounded-full">
+                          🌊 FEATURED
                         </span>
                       )}
-                      <span className="bg-white/95 text-stone-700 text-[10px] font-bold px-2.5 py-1 rounded-full">
-                        {listing.property_type || 'Plot'}
+                      <span className="bg-white/90 backdrop-blur-sm text-cyan-800 text-[10px] font-bold px-2.5 py-1 rounded-full">
+                        {listing.property_type || 'Coastal Plot'}
                       </span>
                     </div>
-                    {/* Status */}
+
+                    {/* Status badge */}
                     <div className="absolute top-3 right-3">
-                      <span className={`text-[10px] font-black px-2.5 py-1 rounded-full ${
-                        listing.status === 'sale' ? 'bg-amber-500 text-white' : 'bg-sky-500 text-white'
+                      <span className={`text-[10px] font-black px-2.5 py-1 rounded-full backdrop-blur-sm ${
+                        listing.status === 'sale' ? 'bg-cyan-600 text-white' : 'bg-sky-400 text-white'
                       }`}>
                         For {listing.status === 'sale' ? 'Sale' : 'Rent'}
                       </span>
                     </div>
+
+                    {/* Price overlay at bottom of image */}
+                    <div className="absolute bottom-3 left-3">
+                      <p className="text-white font-black text-lg drop-shadow-lg">
+                        {formatPrice(listing.price, listing.currency)}
+                      </p>
+                    </div>
                   </div>
 
                   <div className="p-4 pb-3">
-                    <p className="text-emerald-700 font-black text-xl tracking-tight">
-                      {formatPrice(listing.price, listing.currency)}
-                    </p>
-                    <h3 className="font-bold text-stone-800 text-sm mt-1 line-clamp-2 group-hover:text-emerald-700 transition-colors leading-snug">
+                    <h3 className="font-bold text-slate-800 text-sm line-clamp-2 group-hover:text-cyan-700 transition-colors leading-snug">
                       {listing.title}
                     </h3>
                     {listing.location && (
-                      <div className="flex items-center gap-1 mt-2 text-stone-400 text-xs">
-                        <MapPin className="w-3 h-3 flex-shrink-0" />
+                      <div className="flex items-center gap-1 mt-2 text-slate-400 text-xs">
+                        <MapPin className="w-3 h-3 flex-shrink-0 text-orange-400" />
                         <span className="truncate">{listing.location}</span>
                       </div>
                     )}
@@ -230,15 +251,15 @@ export default async function HomePage() {
                 </Link>
 
                 <div className="px-4 pb-4">
-                  <div className="flex items-center justify-between pt-3 border-t border-stone-100">
+                  <div className="flex items-center justify-between pt-3 border-t border-sky-100">
                     {listing.area_sqft ? (
-                      <span className="flex items-center gap-1 text-stone-500 text-xs font-medium">
-                        <Square className="w-3.5 h-3.5" />
+                      <span className="flex items-center gap-1 text-slate-500 text-xs font-medium">
+                        <Square className="w-3.5 h-3.5 text-cyan-400" />
                         {listing.area_sqft.toLocaleString()} sqft
                       </span>
                     ) : <span />}
                     <a
-                      href={getWhatsAppUrl(whatsapp, `Hi! I'm interested in "${listing.title}" at ${formatPrice(listing.price, listing.currency)}. Please share more details.`)}
+                      href={getWhatsAppUrl(whatsapp, `Hi! I'm interested in "${listing.title}" (${formatPrice(listing.price, listing.currency)}) near Visakhapatnam coast. Please share more details.`)}
                       target="_blank" rel="noopener noreferrer"
                       className="flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-colors">
                       <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
@@ -250,74 +271,127 @@ export default async function HomePage() {
           })}
         </div>
 
-        {/* ── LOAD MORE ── */}
         <div className="text-center mt-10">
           <Link href="/listings"
-            className="inline-flex items-center gap-2 bg-stone-900 hover:bg-stone-700 text-white font-bold px-8 py-3.5 rounded-xl text-sm transition-colors">
-            View All Properties <ArrowRight className="w-4 h-4" />
+            className="inline-flex items-center gap-2 bg-cyan-700 hover:bg-cyan-800 text-white font-bold px-8 py-3.5 rounded-xl text-sm transition-colors shadow-lg shadow-cyan-200">
+            View All Coastal Properties <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>
 
-      {/* ── TRUST STRIP ── */}
-      <section className="bg-emerald-600 py-5 mt-10">
+      {/* ── BEACHES NEARBY ── */}
+      <section className="py-16 bg-gradient-to-b from-sky-50 to-cyan-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-6 sm:gap-12">
-            {TRUST_BADGES.map(({ icon: Icon, text }) => (
-              <div key={text} className="flex items-center gap-2 text-white">
-                <Icon className="w-4 h-4 text-emerald-200" />
-                <span className="text-sm font-semibold">{text}</span>
+          <div className="text-center mb-10">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Shell className="w-5 h-5 text-orange-400" />
+              <span className="text-xs font-bold tracking-widest text-cyan-700 uppercase">Pristine Shorelines Nearby</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-cyan-950">
+              World-Class Beaches at Your Doorstep
+            </h2>
+            <p className="text-cyan-700 text-sm mt-2 max-w-2xl mx-auto">
+              Our properties are located minutes from some of India's most beautiful beaches — golden sands, clear waters, and breathtaking coastal scenery.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {BEACHES_NEARBY.map(({ name, dist, note }) => (
+              <div key={name}
+                className="flex gap-4 p-5 bg-white/80 backdrop-blur rounded-2xl border border-cyan-200 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-100 transition-all">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0">
+                  <Waves className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h4 className="font-bold text-cyan-900 text-sm">{name}</h4>
+                    <span className="text-[10px] font-black bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full">{dist}</span>
+                  </div>
+                  <p className="text-slate-500 text-xs leading-relaxed">{note}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── STATS BAR ── */}
-      <section className="bg-stone-900 py-10">
+      {/* ── COASTAL LIVING HIGHLIGHTS ── */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Sun className="w-5 h-5 text-orange-400" />
+              <span className="text-xs font-bold tracking-widest text-cyan-600 uppercase">Why Coastal Living?</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black text-cyan-950">
+              Life is Better by the Ocean
+            </h2>
+            <p className="text-slate-500 text-sm mt-2 max-w-2xl mx-auto">
+              Visakhapatnam's coastline offers more than just a view — it's a lifestyle of fresh air, natural beauty, and rising property values.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {COASTAL_HIGHLIGHTS.map(({ icon: Icon, title, desc }) => (
+              <div key={title}
+                className="group p-6 rounded-2xl border border-sky-100 hover:border-cyan-300 bg-sky-50 hover:bg-white hover:shadow-lg hover:shadow-cyan-100 transition-all">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <Icon className="w-5 h-5 text-white" />
+                </div>
+                <h4 className="font-bold text-cyan-900 text-sm mb-2">{title}</h4>
+                <p className="text-slate-500 text-xs leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── OCEAN VIEW BANNER ── */}
+      <section className="relative h-72 overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=85"
+          alt="Bay of Bengal coastline Visakhapatnam"
+          fill className="object-cover" sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-950/80 via-cyan-900/60 to-transparent" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div className="max-w-xl">
+              <span className="text-orange-300 text-xs font-bold tracking-widest uppercase">Own a Piece of Paradise</span>
+              <h2 className="text-3xl sm:text-4xl font-black text-white mt-2 leading-tight">
+                Wake Up to the Sound<br />of the Ocean Every Day
+              </h2>
+              <p className="text-cyan-200 text-sm mt-3 leading-relaxed">
+                Our beachfront and sea view plots put you steps from the Bay of Bengal. Verified titles, legal clearance, and expert coastal real estate guidance.
+              </p>
+              <div className="flex gap-3 mt-6">
+                <Link href="/listings"
+                  className="px-6 py-3 bg-orange-500 hover:bg-orange-400 text-white font-bold rounded-xl text-sm transition-colors">
+                  Browse Properties
+                </Link>
+                <a href={getWhatsAppUrl(whatsapp, 'Hi! I want to know about beach and sea view plots in Visakhapatnam.')}
+                  target="_blank" rel="noopener noreferrer"
+                  className="px-6 py-3 bg-white/20 hover:bg-white/30 backdrop-blur text-white font-bold rounded-xl text-sm transition-colors border border-white/30">
+                  WhatsApp Us
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── STATS ── */}
+      <section className="bg-gradient-to-r from-cyan-700 to-blue-700 py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
             {[
-              { val: '350+', label: 'Plots Sold' },
-              { val: '1,200+', label: 'Happy Clients' },
-              { val: '12+', label: 'Years Experience' },
-              { val: '100%', label: 'Clear Titles' },
-            ].map(({ val, label }) => (
-              <div key={label}>
-                <div className="text-3xl font-black text-emerald-400">{val}</div>
-                <div className="text-stone-400 text-xs mt-1 font-medium">{label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── WHY US ── */}
-      <section className="py-16 bg-[#f8f7f4]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <span className="text-xs font-bold tracking-widest text-emerald-600 uppercase">Why Bhogapuram Lands?</span>
-            <h2 className="text-2xl sm:text-3xl font-black text-stone-900 mt-2">
-              Your Trusted Partner Since 2012
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              { icon: Shield, title: 'Verified Legal Titles', desc: 'Every plot is legally verified — patta, EC, and ownership documents checked before listing.' },
-              { icon: TrendingUp, title: '3x Appreciation Zone', desc: 'Bhogapuram International Airport corridor has seen massive land value growth in 5 years.' },
-              { icon: CheckCircle2, title: 'End-to-End Support', desc: 'From site visit to registration — we guide every step of the purchase journey.' },
-              { icon: MapPin, title: 'Premium Locations', desc: 'Hand-picked plots near highways, airport zones, and fast-growing townships.' },
-              { icon: Phone, title: '7-Day Availability', desc: 'Our team is available 7 days a week — call, email, or WhatsApp anytime.' },
-              { icon: Star, title: '1,200+ Families Served', desc: 'A decade of trust, zero disputes, and hundreds of happy investors across Vizag district.' },
-            ].map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="flex gap-4 p-5 bg-white rounded-2xl border border-stone-200 hover:border-emerald-300 hover:shadow-md transition-all">
-                <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center flex-shrink-0">
-                  <Icon className="w-5 h-5 text-emerald-600" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-stone-900 text-sm mb-1">{title}</h4>
-                  <p className="text-stone-500 text-xs leading-relaxed">{desc}</p>
-                </div>
+              { val: '120+', label: 'Coastal Plots Sold', icon: '🏖️' },
+              { val: '800+', label: 'Happy Buyers', icon: '🌊' },
+              { val: '50 km', label: 'Coastline Coverage', icon: '⛵' },
+              { val: '100%', label: 'Clear Titles', icon: '✅' },
+            ].map(({ val, label, icon }) => (
+              <div key={label} className="text-white">
+                <div className="text-2xl mb-1">{icon}</div>
+                <div className="text-3xl font-black text-white">{val}</div>
+                <div className="text-cyan-200 text-xs mt-1 font-medium">{label}</div>
               </div>
             ))}
           </div>
@@ -325,51 +399,63 @@ export default async function HomePage() {
       </section>
 
       {/* ── CONTACT + LEAD FORM ── */}
-      <section className="py-16 bg-white border-t border-stone-200">
+      <section className="py-16 bg-sky-50 border-t border-cyan-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div>
-              <span className="text-xs font-bold tracking-widest text-emerald-600 uppercase">Get In Touch</span>
-              <h2 className="text-2xl sm:text-3xl font-black text-stone-900 mt-2 mb-4">
-                Looking for the Perfect Plot?
+              <div className="flex items-center gap-2 mb-2">
+                <Shell className="w-4 h-4 text-orange-400" />
+                <span className="text-xs font-bold tracking-widest text-cyan-600 uppercase">Get In Touch</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-black text-cyan-950 mb-4">
+                Find Your Perfect<br />
+                <span className="text-cyan-600">Beach Property</span>
               </h2>
-              <p className="text-stone-500 text-sm mb-8 leading-relaxed">
-                Share your requirements — our team will respond within 24 hours with the best available options in Bhogapuram and Visakhapatnam.
+              <p className="text-slate-500 text-sm mb-8 leading-relaxed">
+                Whether you're looking for a beachfront plot, sea view villa site, or a coastal investment land — our expert team will find the best options for you along the Visakhapatnam coastline.
               </p>
               <div className="space-y-3 mb-8">
                 {[
                   { Icon: Phone, label: 'Call / WhatsApp', value: whatsapp, href: `tel:${whatsapp}` },
-                  { Icon: Mail, label: 'Email Us', value: 'info@bhogapuramlands.com', href: 'mailto:info@bhogapuramlands.com' },
-                  { Icon: MapPin, label: 'Office', value: 'Bhogapuram, Visakhapatnam Dist., AP 531163', href: null },
+                  { Icon: Mail, label: 'Email Us', value: 'info@coastallandsvizag.com', href: 'mailto:info@coastallandsvizag.com' },
+                  { Icon: MapPin, label: 'Office', value: 'Beach Road, Bhogapuram, Visakhapatnam, AP 531163', href: null },
                 ].map(({ Icon, label, value, href }) => (
-                  <div key={label} className="flex items-center gap-3 p-4 bg-stone-50 rounded-xl border border-stone-200">
-                    <div className="w-10 h-10 bg-stone-900 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div key={label} className="flex items-center gap-3 p-4 bg-white rounded-xl border border-cyan-100 shadow-sm">
+                    <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
                       <Icon className="w-4 h-4 text-white" />
                     </div>
                     <div>
-                      <p className="text-[10px] text-stone-400 font-semibold uppercase tracking-wide">{label}</p>
+                      <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wide">{label}</p>
                       {href ? (
-                        <a href={href} className="text-stone-800 font-bold text-sm hover:text-emerald-700 transition-colors">{value}</a>
+                        <a href={href} className="text-slate-800 font-bold text-sm hover:text-cyan-700 transition-colors">{value}</a>
                       ) : (
-                        <p className="text-stone-800 font-bold text-sm">{value}</p>
+                        <p className="text-slate-800 font-bold text-sm">{value}</p>
                       )}
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="flex flex-wrap gap-2">
-                {['Bhogapuram', 'Atchutapuram', 'Nakkapalle', 'Anakapalle', 'Visakhapatnam', 'Airport Zone'].map((area) => (
-                  <Link key={area} href={`/listings?location=${encodeURIComponent(area)}`}
-                    className="px-3 py-1.5 bg-stone-100 hover:bg-emerald-50 hover:text-emerald-700 border border-stone-200 hover:border-emerald-300 text-stone-600 text-xs font-semibold rounded-full transition-all">
-                    {area}
-                  </Link>
-                ))}
+
+              {/* Beach area chips */}
+              <div>
+                <p className="text-xs font-bold text-cyan-700 uppercase tracking-widest mb-3">Coastal Areas We Cover</p>
+                <div className="flex flex-wrap gap-2">
+                  {['Bheemunipatnam', 'Rushikonda', 'Bheemili', 'Rishikonda', 'Vizag Beach Road', 'Bhogapuram Coast'].map((area) => (
+                    <Link key={area} href={`/listings?location=${encodeURIComponent(area)}`}
+                      className="px-3 py-1.5 bg-white border border-cyan-200 hover:bg-cyan-50 hover:border-cyan-400 text-cyan-700 text-xs font-semibold rounded-full transition-all flex items-center gap-1">
+                      <Waves className="w-3 h-3" />{area}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div className="bg-stone-50 rounded-3xl border border-stone-200 p-8">
-              <h3 className="text-xl font-black text-stone-900 mb-1">Send an Enquiry</h3>
-              <p className="text-stone-400 text-sm mb-6">We reply within 24 hours — usually much faster!</p>
+            <div className="bg-white rounded-3xl border border-cyan-100 shadow-xl shadow-cyan-100/50 p-8">
+              <div className="flex items-center gap-2 mb-1">
+                <Waves className="w-5 h-5 text-cyan-500" />
+                <h3 className="text-xl font-black text-cyan-950">Send an Enquiry</h3>
+              </div>
+              <p className="text-slate-400 text-sm mb-6">Tell us your beach property dream — we'll make it real.</p>
               <LeadForm />
             </div>
           </div>
