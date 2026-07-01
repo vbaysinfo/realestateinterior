@@ -122,7 +122,7 @@ export default async function HomePage() {
     <div className="bg-sky-50">
 
       {/* ── SEARCH BAR ── */}
-      <section className="bg-white border-b border-cyan-100 sticky top-16 z-40 shadow-sm">
+      <section className="bg-white border-b border-cyan-100 sticky top-[106px] z-40 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex flex-col sm:flex-row gap-2">
             <div className="flex-1 flex items-center gap-2 bg-sky-50 rounded-xl px-4 py-2.5 border border-sky-100">

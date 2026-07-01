@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/layout/navbar'
+import { TopBar } from '@/components/layout/topbar'
 import { Footer } from '@/components/layout/footer'
 import { WhatsAppButton } from '@/components/common/whatsapp-button'
 
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${geist.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-sky-50 text-slate-900">
         <Navbar />
+        <TopBar />
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton floating />
