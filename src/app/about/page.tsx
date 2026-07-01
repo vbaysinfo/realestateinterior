@@ -1,47 +1,70 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { Building2, Palette, Users, Trophy } from 'lucide-react'
+import { Building2, Palette, Users, Trophy, MapPin, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export const metadata: Metadata = {
-  title: 'About Us',
-  description: 'Learn about our real estate and interior design company — our story, team, and values.',
+  title: 'About Us — Plots & Land in Bhogapuram, Visakhapatnam',
+  description: 'Bhogapuram Lands is the leading plot & land dealer in Bhogapuram, Visakhapatnam, Andhra Pradesh. 15+ years of experience in residential, commercial & villa plots near Bhogapuram Airport.',
+  keywords: ['plot dealer Bhogapuram', 'land broker Visakhapatnam', 'real estate agent Bhogapuram', 'plots Andhra Pradesh'],
 }
 
 const VALUES = [
-  { icon: Building2, title: 'Real Estate Expertise', desc: 'Over 15 years of market knowledge, helping buyers, sellers, and investors navigate the property landscape.' },
-  { icon: Palette, title: 'Design Excellence', desc: 'Award-winning interior design team creating functional, beautiful spaces tailored to each client.' },
-  { icon: Users, title: 'Client First', desc: "Every decision we make is guided by what's best for our clients — transparency, honesty, results." },
-  { icon: Trophy, title: 'Proven Track Record', desc: '1,200+ satisfied clients and 300+ completed design projects across residential and commercial spaces.' },
+  { icon: Building2, title: 'Plot & Land Experts', desc: 'Over 15 years of local market knowledge in Bhogapuram and Visakhapatnam district — helping buyers find the right plot at the right price.' },
+  { icon: Palette, title: 'Interior Design', desc: 'Award-winning interior design team creating beautiful homes and commercial spaces across Visakhapatnam.' },
+  { icon: Users, title: 'Client First', desc: 'Every decision is guided by our clients\' interests — transparency, clear titles, and honest dealings every time.' },
+  { icon: Trophy, title: 'Proven Track Record', desc: '350+ plots sold and 300+ completed design projects across Bhogapuram, Vizag and surrounding areas.' },
+]
+
+const AREAS = [
+  'Bhogapuram', 'Atchutapuram', 'Nakkapalle', 'Pedagantyada',
+  'Sabbavaram', 'Vizianagaram', 'Visakhapatnam City', 'Duvvada',
 ]
 
 export default function AboutPage() {
   return (
     <div>
-      <section className="bg-slate-900 text-white py-20">
+      {/* Hero */}
+      <section className="bg-slate-900 text-white py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4">
-            About <span className="text-amber-400">PrimeEstates</span>
+          <p className="text-amber-400 text-xs font-bold tracking-widest uppercase mb-3">Bhogapuram, Visakhapatnam</p>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-4">
+            About <span className="text-amber-400">Bhogapuram Lands</span>
           </h1>
-          <p className="text-lg text-slate-300">
-            We are a full-service real estate and interior design company committed to turning your property dreams into reality.
+          <p className="text-slate-300 text-lg max-w-2xl mx-auto">
+            Your most trusted plot &amp; land dealer in Bhogapuram, Visakhapatnam district — offering verified, clear-title plots with expert interior design services.
+          </p>
+          <div className="flex items-center justify-center gap-2 mt-4 text-slate-400 text-sm">
+            <MapPin className="w-4 h-4 text-amber-500" />
+            Bhogapuram, Visakhapatnam Dist., Andhra Pradesh
+          </div>
+        </div>
+      </section>
+
+      {/* Story */}
+      <section className="py-14 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-2xl font-bold text-slate-900 mb-4">Our Story</h2>
+        <p className="text-slate-600 leading-relaxed mb-4">
+          Founded in Bhogapuram over 15 years ago, we started with a simple mission: to help families and investors find the best plots and land in Visakhapatnam district at honest prices. As Bhogapuram grew — especially with the development of the new Bhogapuram International Airport — we positioned ourselves as the region's most trusted name in land and plot sales.
+        </p>
+        <p className="text-slate-600 leading-relaxed mb-4">
+          We specialise in residential open plots, villa plots, commercial land, and agricultural land across Bhogapuram, Atchutapuram, Nakkapalle, and surrounding mandals. Every plot we sell comes with clear legal titles, RERA registration where applicable, and full documentation support.
+        </p>
+        <p className="text-slate-600 leading-relaxed">
+          Recognising that our clients also needed help building and designing their spaces after purchasing land, we launched our interior design division — offering complete home and office interiors across Visakhapatnam.
+        </p>
+
+        {/* Why airport proximity matters */}
+        <div className="mt-8 p-5 bg-amber-50 border border-amber-200 rounded-2xl">
+          <h3 className="font-bold text-slate-900 mb-2">📍 Why Bhogapuram?</h3>
+          <p className="text-sm text-slate-600 leading-relaxed">
+            Bhogapuram is the site of the new <strong>Bhogapuram International Airport</strong> — one of Andhra Pradesh's biggest infrastructure projects. Land prices in and around Bhogapuram are appreciating rapidly, making it one of the best real estate investment opportunities in the state right now.
           </p>
         </div>
       </section>
 
-      <section className="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="prose prose-slate max-w-none">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">Our Story</h2>
-          <p className="text-slate-600 leading-relaxed mb-4">
-            Founded over 15 years ago, PrimeEstates began as a boutique real estate agency with a simple mission: to make property transactions straightforward, transparent, and rewarding for every client. As our client base grew, we recognized a recurring need — people wanted not just a property, but a home. That realization led us to establish our interior design division.
-          </p>
-          <p className="text-slate-600 leading-relaxed">
-            Today, we offer end-to-end services: finding the right property, negotiating the best deal, and then transforming the space into something truly extraordinary. Our integrated approach saves clients time, money, and stress — while delivering results that exceed expectations.
-          </p>
-        </div>
-      </section>
-
-      <section className="py-16 bg-slate-50">
+      {/* Values */}
+      <section className="py-14 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 text-center mb-10">What Sets Us Apart</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -58,13 +81,27 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-16 text-center">
+      {/* Areas Served */}
+      <section className="py-14 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-2xl font-bold text-slate-900 mb-6">Areas We Serve</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {AREAS.map((area) => (
+            <div key={area} className="flex items-center gap-2 p-3 bg-white border border-slate-200 rounded-xl text-sm">
+              <CheckCircle className="w-4 h-4 text-amber-500 flex-shrink-0" />
+              <span className="text-slate-700 font-medium">{area}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-14 text-center bg-amber-600 text-white">
         <div className="max-w-2xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">Ready to Get Started?</h2>
-          <p className="text-slate-600 mb-8">Whether you're buying, selling, or redesigning — we're here to help every step of the way.</p>
+          <h2 className="text-2xl font-bold mb-3">Looking for Plots in Bhogapuram?</h2>
+          <p className="text-amber-100 mb-8">Browse our verified plots and land listings near Bhogapuram International Airport — or get in touch for a site visit.</p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <Link href="/listings"><Button size="lg">Browse Properties</Button></Link>
-            <Link href="/contact"><Button size="lg" variant="outline">Contact Us</Button></Link>
+            <Link href="/listings"><Button size="lg" className="bg-white text-amber-700 hover:bg-amber-50">View All Plots</Button></Link>
+            <Link href="/contact"><Button size="lg" variant="outline" className="border-white text-white hover:bg-amber-700">Contact Us</Button></Link>
           </div>
         </div>
       </section>

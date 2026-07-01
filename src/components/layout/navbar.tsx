@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 
 const navLinks = [
   { href: '/', label: 'Home', icon: Home },
-  { href: '/listings', label: 'Properties', icon: Building2 },
+  { href: '/listings', label: 'Plots & Lands', icon: Building2 },
   { href: '/portfolio', label: 'Interior Design', icon: Palette },
   { href: '/contact', label: 'Contact', icon: Phone },
 ]
@@ -21,15 +21,17 @@ export function Navbar() {
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-xl text-slate-900">
             <div className="w-8 h-8 rounded-lg bg-amber-600 flex items-center justify-center">
               <Building2 className="w-5 h-5 text-white" />
             </div>
             <span>
-              <span className="text-amber-600">Prime</span>Estates
+              <span className="text-amber-600">Bhogapuram</span> Lands
             </span>
           </Link>
 
+          {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map(({ href, label }) => (
               <Link
