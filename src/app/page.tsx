@@ -37,6 +37,7 @@ const DUMMY_LISTINGS = [
   { id: 'd3', title: 'Luxury Villa Plot with Lake View', slug: '#', price: 850000, currency: 'USD', status: 'sale', location: 'Lakeside Residency, Phase 2', area_sqft: 6000, featured: true, image: 'https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&q=80', type: 'Villa Plot' },
   { id: 'd4', title: 'Agricultural Land — Irrigation Ready', slug: '#', price: 420000, currency: 'USD', status: 'sale', location: 'Rural Outskirts, Farm Belt', area_sqft: 43560, featured: false, image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80', type: 'Agricultural' },
   { id: 'd5', title: 'Corner Plot in Prime Downtown Area', slug: '#', price: 2100000, currency: 'USD', status: 'sale', location: 'City Centre, Main Road', area_sqft: 3200, featured: false, image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80', type: 'Commercial' },
+  { id: 'd6', title: 'Affordable Plot — New Township', slug: '#', price: 280000, currency: 'USD', status: 'sale', location: 'New Township, East Wing', area_sqft: 2400, featured: false, image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80', type: 'Land / Plot' },
 ]
 
 const DUMMY_PROJECTS = [
@@ -63,16 +64,16 @@ export default async function HomePage() {
   return (
     <div className="bg-white">
 
-      {/* Split Hero */}
-      <section className="relative min-h-[92vh] flex flex-col lg:flex-row overflow-hidden">
+      {/* Split Hero — compact */}
+      <section className="relative min-h-[60vh] flex flex-col lg:flex-row overflow-hidden">
         {/* Left */}
-        <div className="relative z-10 flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-24 py-16 lg:w-1/2 bg-white">
+        <div className="relative z-10 flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-24 py-10 lg:w-1/2 bg-white">
           <div className="absolute top-0 left-0 w-1 h-32 bg-amber-500 rounded-b-full" />
           <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-amber-600 uppercase mb-6">
             <span className="w-8 h-px bg-amber-500 inline-block" />
             Plot Sales &amp; Interior Design
           </span>
-          <h1 className="text-4xl sm:text-5xl xl:text-6xl font-black text-slate-900 leading-[1.05] mb-6">
+          <h1 className="text-3xl sm:text-4xl xl:text-5xl font-black text-slate-900 leading-[1.05] mb-4">
             Your Dream<br />
             <span className="relative inline-block">
               <span className="relative z-10 text-white px-3">Land</span>
@@ -81,10 +82,10 @@ export default async function HomePage() {
             Starts<br />
             Here.
           </h1>
-          <p className="text-slate-500 text-lg leading-relaxed mb-10 max-w-md">
+          <p className="text-slate-500 text-base leading-relaxed mb-6 max-w-md">
             Discover prime plots across the city — residential, commercial, villa &amp; agricultural. Plus expert interior design to make every space extraordinary.
           </p>
-          <div className="flex flex-wrap gap-3 mb-12">
+          <div className="flex flex-wrap gap-3 mb-8">
             <Link href="/listings">
               <Button size="lg" className="rounded-full px-8 shadow-lg shadow-amber-200">Explore Plots</Button>
             </Link>
@@ -102,18 +103,17 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Right — image collage */}
-        <div className="relative lg:w-1/2 min-h-[50vh] lg:min-h-full overflow-hidden bg-slate-900">
+        {/* Right */}
+        <div className="relative lg:w-1/2 min-h-[40vh] lg:min-h-full overflow-hidden bg-slate-900">
           <Image src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&q=85" alt="Prime land" fill className="object-cover opacity-60" priority sizes="(max-width:1024px)100vw,50vw" />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-transparent to-amber-900/30" />
-          {/* Floating card */}
-          <div className="absolute bottom-8 left-6 right-6 sm:left-8 sm:right-auto sm:w-72 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-2xl">
+          <div className="absolute bottom-6 left-6 right-6 sm:left-8 sm:right-auto sm:w-64 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-2xl">
             <div className="flex items-start gap-3">
-              <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 relative">
-                <Image src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=200&q=80" alt="Plot" fill className="object-cover" sizes="56px" />
+              <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 relative">
+                <Image src="https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=200&q=80" alt="Plot" fill className="object-cover" sizes="48px" />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1.5 mb-0.5">
+                <div className="flex items-center gap-1 mb-0.5">
                   <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                   <span className="text-xs text-amber-600 font-semibold">Featured Plot</span>
                 </div>
@@ -122,13 +122,11 @@ export default async function HomePage() {
               </div>
             </div>
             <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100">
-              <span className="text-amber-600 font-black text-lg">$850,000</span>
+              <span className="text-amber-600 font-black">$850,000</span>
               <span className="text-xs bg-amber-50 text-amber-700 px-2 py-1 rounded-full font-medium">6,000 sqft</span>
             </div>
           </div>
-          <div className="absolute top-8 right-6 bg-amber-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
-            350+ Plots Available
-          </div>
+          <div className="absolute top-6 right-6 bg-amber-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">350+ Plots Available</div>
         </div>
       </section>
 
@@ -162,9 +160,7 @@ export default async function HomePage() {
               </span>
             </Link>
           </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-            {/* Big featured */}
             {listings[0] && (
               <article className="lg:col-span-5 group relative rounded-3xl overflow-hidden min-h-[400px]">
                 <Image src={(listings[0] as any).image || (listings[0] as any).media?.[0]?.url} alt={(listings[0] as any).title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="(max-width:1024px)100vw,42vw" />
@@ -179,31 +175,21 @@ export default async function HomePage() {
                   <div className="flex items-center gap-1 text-slate-300 text-xs mt-1"><MapPin className="w-3 h-3" />{(listings[0] as any).location}</div>
                   <div className="flex items-center justify-between mt-4">
                     <span className="text-white font-black text-2xl">{formatPrice((listings[0] as any).price, (listings[0] as any).currency)}</span>
-                    <a href={getWhatsAppUrl(whatsapp, `Hi! Interested in "${(listings[0] as any).title}"`)} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 bg-green-500 hover:bg-green-400 text-white text-xs font-bold px-4 py-2 rounded-full transition-colors">
+                    <a href={getWhatsAppUrl(whatsapp, `Hi! Interested in "${(listings[0] as any).title}"`)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 bg-green-500 hover:bg-green-400 text-white text-xs font-bold px-4 py-2 rounded-full transition-colors">
                       <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
                     </a>
                   </div>
                 </div>
               </article>
             )}
-            {/* Grid */}
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
               {listings.slice(1, 5).map((listing: any) => {
                 const img = listing.image || listing.media?.[0]?.url
                 return (
                   <article key={listing.id} className="group bg-white rounded-2xl overflow-hidden border border-slate-100 hover:border-amber-200 hover:shadow-xl transition-all duration-300">
                     <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
-                      {img ? (
-                        <Image src={img} alt={listing.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="25vw" />
-                      ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center">
-                          <Building2 className="w-8 h-8 text-slate-300" />
-                        </div>
-                      )}
-                      <div className="absolute top-2 left-2">
-                        <span className="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">{listing.type || 'Plot'}</span>
-                      </div>
+                      {img ? <Image src={img} alt={listing.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="25vw" /> : <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center"><Building2 className="w-8 h-8 text-slate-300" /></div>}
+                      <div className="absolute top-2 left-2"><span className="bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">{listing.type || 'Plot'}</span></div>
                     </div>
                     <div className="p-3">
                       <p className="text-amber-600 font-black text-base">{formatPrice(listing.price, listing.currency)}</p>
@@ -211,9 +197,7 @@ export default async function HomePage() {
                       <div className="flex items-center gap-1 text-slate-400 text-xs mt-1"><MapPin className="w-3 h-3" /><span className="truncate">{listing.location}</span></div>
                       <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-50">
                         <span className="flex items-center gap-1 text-slate-500 text-xs"><Square className="w-3 h-3" />{listing.area_sqft?.toLocaleString()} sqft</span>
-                        <a href={getWhatsAppUrl(whatsapp, `Hi! Interested in "${listing.title}"`)} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-500 transition-colors">
-                          <MessageCircle className="w-4 h-4" />
-                        </a>
+                        <a href={getWhatsAppUrl(whatsapp, `Hi! Interested in "${listing.title}"`)} target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-500 transition-colors"><MessageCircle className="w-4 h-4" /></a>
                       </div>
                     </div>
                   </article>
@@ -221,7 +205,6 @@ export default async function HomePage() {
               })}
             </div>
           </div>
-
           <div className="text-center mt-8">
             <Link href="/listings"><Button variant="outline" className="rounded-full px-10">Load More Listings</Button></Link>
           </div>
@@ -240,13 +223,10 @@ export default async function HomePage() {
               <p className="text-slate-500 text-sm max-w-xs lg:ml-auto mb-4">From luxury residences to modern offices — our designs speak for themselves.</p>
               <Link href="/portfolio" className="inline-flex items-center gap-2 text-slate-700 hover:text-amber-600 font-semibold text-sm transition-colors group">
                 View full portfolio
-                <span className="w-7 h-7 rounded-full border-2 border-slate-300 group-hover:border-amber-500 group-hover:bg-amber-500 group-hover:text-white flex items-center justify-center transition-all">
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </span>
+                <span className="w-7 h-7 rounded-full border-2 border-slate-300 group-hover:border-amber-500 group-hover:bg-amber-500 group-hover:text-white flex items-center justify-center transition-all"><ArrowRight className="w-3.5 h-3.5" /></span>
               </Link>
             </div>
           </div>
-          {/* Mosaic */}
           <div className="grid grid-cols-12 gap-4 h-[500px]">
             {projects[0] && (
               <Link href={isLiveProject ? `/portfolio/${(projects[0] as any).slug}` : '/portfolio'} className="col-span-12 sm:col-span-7 relative group rounded-3xl overflow-hidden">
