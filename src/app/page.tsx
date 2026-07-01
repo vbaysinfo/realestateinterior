@@ -213,25 +213,6 @@ export default async function HomePage() {
           ))}
         </div>
 
-        {/* ── LOCATION AREA QUICK LINKS ── */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-10">
-          {locationGroups.map(({ name, area, emoji, description, desc, color }: any) => {
-            const label = name || area
-            const blurb = description || desc
-            return (
-              <Link key={label} href={`/listings?location=${encodeURIComponent(label)}`}
-                className="group bg-white rounded-2xl border border-cyan-100 hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-100 transition-all overflow-hidden">
-                <div className={`h-1.5 bg-gradient-to-r ${color}`} />
-                <div className="p-3 text-center">
-                  <div className="text-2xl mb-1">{emoji}</div>
-                  <div className="font-bold text-cyan-900 text-xs leading-tight">{label}</div>
-                  <div className="text-slate-400 text-[10px] mt-0.5 leading-tight line-clamp-2">{blurb}</div>
-                </div>
-              </Link>
-            )
-          })}
-        </div>
-
         {/* ── LISTINGS GROUPED BY LOCATION ── */}
         <div className="space-y-12">
           {grouped.map(({ area, emoji, color, listings }) => (

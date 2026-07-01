@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
-import { Building2, Palette, Users, Eye } from 'lucide-react'
+import { Building2, MapPin, Users, Eye, Layers } from 'lucide-react'
 import Link from 'next/link'
+import { PROPERTY_CATEGORIES } from '@/lib/property-categories'
 
 export const metadata = { title: 'Admin Dashboard' }
 
@@ -34,8 +35,8 @@ export default async function AdminDashboard() {
   const [stats, recentLeads] = await Promise.all([getStats(), getRecentLeads()])
 
   const STAT_CARDS = [
-    { label: 'Published Listings', value: stats.listings, icon: Building2, href: '/admin/listings', color: 'text-blue-600 bg-blue-100' },
-    { label: 'Design Projects', value: stats.projects, icon: Palette, href: '/admin/projects', color: 'text-purple-600 bg-purple-100' },
+    { label: 'Published Listings', value: stats.listings, icon: Building2, href: '/admin/listings', color: 'text-cyan-600 bg-cyan-100' },
+    { label: 'Locations', value: stats.projects, icon: MapPin, href: '/admin/locations', color: 'text-orange-600 bg-orange-100' },
     { label: 'New Leads', value: stats.newLeads, icon: Users, href: '/admin/leads', color: 'text-green-600 bg-green-100' },
     { label: 'Views (7 days)', value: stats.weeklyViews, icon: Eye, href: '/admin/analytics', color: 'text-amber-600 bg-amber-100' },
   ]
@@ -45,15 +46,36 @@ export default async function AdminDashboard() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
-          <p className="text-slate-500 text-sm mt-1">Welcome back! Here's what's happening.</p>
+          <p className="text-slate-500 text-sm mt-1">Welcome back! Here is what is happening.</p>
         </div>
         <div className="flex gap-3">
-          <Link href="/admin/listings/new" className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+          <Link href="/admin/listings/new" className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
             + New Listing
           </Link>
-          <Link href="/admin/projects/new" className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-            + New Project
+          <Link href="/admin/locations" className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+            Manage Locations
           </Link>
+        </div>
+      </div>
+
+      {/* Category Overview */}
+      <div className="bg-white rounded-xl border border-slate-200 p-5 mb-6">
+        <div className="flex items-center gap-2 mb-4">
+          <Layers className="w-4 h-4 text-cyan-600" />
+          <h2 className="font-semibold text-slate-900 text-sm">Property Categories</h2>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {PROPERTY_CATEGORIES.map(({ label, emoji, unit, types }) => (
+            <Link key={label} href={`/admin/listings?category=${encodeURIComponent(label)}`}
+              className="flex flex-col items-center gap-1.5 p-4 rounded-xl border-2 border-slate-100 hover:border-cyan-300 hover:bg-cyan-50 transition-all text-center">
+              <span className="text-2xl">{emoji}</span>
+              <span className="font-bold text-slate-800 text-xs">{label}</span>
+              <span className="text-[10px] text-slate-400">Unit: {unit}</span>
+              {types.length > 0 && (
+                <span className="text-[10px] text-cyan-600 font-medium">{types.length} types</span>
+              )}
+            </Link>
+          ))}
         </div>
       </div>
 
