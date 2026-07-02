@@ -113,20 +113,6 @@ const COASTAL_HIGHLIGHTS = [
   { icon: Wind, title: 'High Appreciation Zones', desc: 'Areas near the new airport corridor, IT SEZ, and beach road have seen 2–3x price appreciation in the last 5 years.' },
 ]
 
-const VIZAG_ATTRACTIONS = [
-  { name: 'RK Beach (Ramakrishna Beach)', type: '🏖️ Beach', note: 'Vizag\'s iconic 8 km beach — promenade, submarine museum, sunrise views' },
-  { name: 'Rushikonda Beach', type: '🏖️ Beach', note: 'Blue Flag certified — water sports, clear blue waters, hillside backdrop' },
-  { name: 'Araku Valley', type: '⛰️ Hills', note: '115 km from Vizag — coffee estates, tribal culture, Borra Caves nearby' },
-  { name: 'Kailasagiri Hill Park', type: '🌄 Viewpoint', note: 'Ropeway, giant Shiva-Parvati statue, panoramic 360° city and sea views' },
-  { name: 'Borra Caves', type: '🕌 Heritage', note: '1 million year old limestone caves in the Eastern Ghats, near Araku' },
-  { name: 'Bheemunipatnam Beach', type: '🏖️ Beach', note: 'Widest beach in AP — lighthouse, Dutch cemetery, golden sands' },
-  { name: 'Thotlakonda Buddhist Complex', type: '🏛️ Heritage', note: '2,000-year-old hilltop Buddhist monastery with Bay of Bengal views' },
-  { name: 'Yarada Beach', type: '🏖️ Beach', note: 'Secluded cove flanked by hills — the most scenic and uncrowded beach in Vizag' },
-  { name: 'Simhachalam Temple', type: '🛕 Temple', note: 'Ancient Narasimha temple atop a hill — famous 11th century architecture' },
-  { name: 'Anantagiri Hills', type: '⛰️ Hills', note: 'Lush green hills near Araku — misty forests, trekking, waterfalls' },
-  { name: 'INS Kursura Submarine Museum', type: '⚓ Museum', note: 'India\'s first onshore submarine museum on the RK Beach promenade' },
-  { name: 'Bhogapuram — New Airport Zone', type: '✈️ Growth Zone', note: 'Greenfield international airport under construction — fastest appreciating belt' },
-]
 
 const WA_SVG = (
   <svg viewBox="0 0 24 24" className="w-4 h-4 fill-white" xmlns="http://www.w3.org/2000/svg">
@@ -366,40 +352,6 @@ export default async function HomePage() {
         </div>
       </div>
 
-      {/* ── VIZAG ATTRACTIONS ── */}
-      <section className="py-16 bg-gradient-to-b from-stone-50 to-amber-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <MapPin className="w-5 h-5 text-orange-400" />
-              <span className="text-xs font-bold tracking-widest text-amber-700 uppercase">Vizag Travel & Tourism Hotspots</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-stone-900">
-              Beaches, Hills & Heritage — All at Your Doorstep
-            </h2>
-            <p className="text-slate-500 text-sm mt-2 max-w-2xl mx-auto">
-              Visakhapatnam is more than a city — it's where the Bay of Bengal meets the Eastern Ghats. Own property near India's most sought-after travel destinations.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {VIZAG_ATTRACTIONS.map(({ name, type, note }) => (
-              <div key={name}
-                className="flex gap-4 p-5 bg-white rounded-2xl border border-stone-200 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-100 transition-all group">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-stone-800 to-black flex items-center justify-center flex-shrink-0 text-xl group-hover:from-amber-500 group-hover:to-orange-600 transition-all">
-                  {type.split(' ')[0]}
-                </div>
-                <div>
-                  <div className="flex items-start gap-2 mb-1">
-                    <h4 className="font-bold text-stone-900 text-sm leading-tight">{name}</h4>
-                  </div>
-                  <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200 inline-block mb-1">{type.split(' ').slice(1).join(' ')}</span>
-                  <p className="text-slate-500 text-xs leading-relaxed">{note}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── COASTAL LIVING HIGHLIGHTS ── */}
       <section className="py-16 bg-white">
