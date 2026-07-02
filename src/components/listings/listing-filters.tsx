@@ -69,30 +69,30 @@ const reset = () => router.push('/listings')
       {/* Category filter */}
       <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-4">
         <p className="text-xs font-bold text-stone-900 uppercase tracking-widest mb-3">Filter by Category</p>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <div className="flex gap-2 overflow-x-auto pb-1">
           <button
             onClick={() => selectCategory('')}
-            className={`flex flex-col items-center gap-1 py-3 px-2 rounded-xl border-2 text-xs font-semibold transition-all ${
+            className={`flex-shrink-0 flex items-center gap-1.5 py-1.5 px-3 rounded-lg border text-xs font-semibold transition-all ${
               !activeCategory
                 ? 'border-amber-500 bg-amber-50 text-amber-800'
-                : 'border-slate-200 text-slate-500 hover:border-amber-200 hover:text-amber-700'
+                : 'border-slate-200 text-slate-500 hover:border-amber-300 hover:text-amber-700'
             }`}
           >
-            <span className="text-xl">🏘️</span>
+            <span className="text-base">🏘️</span>
             All
           </button>
           {PROPERTY_CATEGORIES.map(({ label, emoji, unit }) => (
             <button key={label}
               onClick={() => selectCategory(label)}
-              className={`flex flex-col items-center gap-1 py-3 px-2 rounded-xl border-2 text-xs font-semibold transition-all ${
+              className={`flex-shrink-0 flex items-center gap-1.5 py-1.5 px-3 rounded-lg border text-xs font-semibold transition-all ${
                 activeCategory === label
                   ? 'border-amber-500 bg-amber-50 text-amber-800'
-                  : 'border-slate-200 text-slate-500 hover:border-amber-200 hover:text-amber-700'
+                  : 'border-slate-200 text-slate-500 hover:border-amber-300 hover:text-amber-700'
               }`}
             >
-              <span className="text-xl">{emoji}</span>
-              <span className="text-center leading-tight">{label}</span>
-              <span className="text-[10px] font-normal text-slate-400">{unit}</span>
+              <span className="text-base">{emoji}</span>
+              <span>{label}</span>
+              <span className="text-[10px] font-normal text-slate-400 hidden sm:inline">· {unit}</span>
             </button>
           ))}
         </div>
