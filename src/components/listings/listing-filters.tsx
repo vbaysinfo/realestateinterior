@@ -44,7 +44,7 @@ const reset = () => router.push('/listings')
             <Search className="w-4 h-4 text-stone-400 flex-shrink-0" />
             <input
               type="text"
-              placeholder="Search by location, area name…"
+              placeholder="Search — RK Beach, Rushikonda, Araku Valley, Kailasagiri, Bhogapuram…"
               defaultValue={activeLocation}
               onChange={(e) => update('location', e.target.value)}
               className="w-full text-sm text-slate-700 placeholder:text-slate-400 bg-transparent outline-none"

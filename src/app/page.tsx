@@ -33,65 +33,65 @@ async function getLocations(): Promise<any[]> {
 
 const DUMMY_LISTINGS = [
   {
-    id: 'd1', title: 'Open Plot — 200 Sq Yards, East Facing',
-    slug: '#', price: 1800000, currency: 'INR', status: 'sale',
-    location: 'Bheemunipatnam, Visakhapatnam', area_sqft: 200,
+    id: 'd1', title: 'Open Plot — 200 Sq Yards, RK Beach Road Facing',
+    slug: '#', price: 2800000, currency: 'INR', status: 'sale',
+    location: 'RK Beach Road, Visakhapatnam', area_sqft: 200,
     featured: true, category: 'Open Plots', property_type: 'Open Plots', area_unit: 'Sq Yard',
     image: 'https://images.unsplash.com/photo-1500375592092-40eb2168fd21?w=800&q=80',
   },
   {
-    id: 'd2', title: 'Agriculture Land — 5 Cents, Fertile Coastal Soil',
-    slug: '#', price: 950000, currency: 'INR', status: 'sale',
-    location: 'Nakkapalle Coast, Visakhapatnam', area_sqft: 5,
+    id: 'd2', title: 'Agriculture Land — 5 Cents, Araku Valley Foothills',
+    slug: '#', price: 750000, currency: 'INR', status: 'sale',
+    location: 'Araku Valley, Visakhapatnam', area_sqft: 5,
     featured: true, category: 'Agriculture Land', property_type: 'Agriculture Land', area_unit: 'Cents',
     image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80',
   },
   {
-    id: 'd3', title: '2BHK Flat — Sea View, Ready to Move',
+    id: 'd3', title: '2BHK Flat — Sea View, Rushikonda Hills',
     slug: '#', price: 4500000, currency: 'INR', status: 'sale',
-    location: 'Rushikonda Hills, Visakhapatnam', area_sqft: 1150,
+    location: 'Rushikonda, Visakhapatnam', area_sqft: 1150,
     featured: false, category: 'Residential', property_type: 'Flats', area_unit: 'Sq Feet',
     image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80',
   },
   {
-    id: 'd4', title: 'Independent House — 3BHK, Corner Plot',
+    id: 'd4', title: 'Independent House — 3BHK, Kailasagiri View',
     slug: '#', price: 6800000, currency: 'INR', status: 'sale',
-    location: 'Bheemili, Visakhapatnam', area_sqft: 1800,
+    location: 'Kailasagiri Area, Visakhapatnam', area_sqft: 1800,
     featured: false, category: 'Residential', property_type: 'Independent House', area_unit: 'Sq Feet',
     image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80',
   },
   {
-    id: 'd5', title: 'Shop Space — Prime Location, High Footfall',
+    id: 'd5', title: 'Shop Space — Prime Location, Dwaraka Nagar',
     slug: '#', price: 3200000, currency: 'INR', status: 'sale',
-    location: 'Vizag Beach Road, Visakhapatnam', area_sqft: 450,
+    location: 'Dwaraka Nagar, Visakhapatnam', area_sqft: 450,
     featured: false, category: 'Commercial', property_type: 'Shop', area_unit: 'Sq Feet',
     image: 'https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=800&q=80',
   },
   {
-    id: 'd6', title: 'Open Plot — 300 Sq Yards, Gated Layout',
+    id: 'd6', title: 'Open Plot — 300 Sq Yards, Bheemunipatnam Beach',
     slug: '#', price: 2700000, currency: 'INR', status: 'sale',
-    location: 'Bhogapuram Coast, Visakhapatnam', area_sqft: 300,
+    location: 'Bheemunipatnam, Visakhapatnam', area_sqft: 300,
     featured: false, category: 'Open Plots', property_type: 'Open Plots', area_unit: 'Sq Yard',
     image: 'https://images.unsplash.com/photo-1500916434205-0c77489c6cf7?w=800&q=80',
   },
   {
-    id: 'd7', title: 'Villa — Luxury 4BHK, Private Garden',
+    id: 'd7', title: 'Villa — Luxury 4BHK, Rishikonda Sea Facing',
     slug: '#', price: 12000000, currency: 'INR', status: 'sale',
-    location: 'Rishikonda Hills, Visakhapatnam', area_sqft: 3200,
+    location: 'Rishikonda, Visakhapatnam', area_sqft: 3200,
     featured: false, category: 'Residential', property_type: 'Villa', area_unit: 'Sq Feet',
     image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80',
   },
   {
-    id: 'd8', title: 'Agriculture Land — 10 Cents Near Highway',
-    slug: '#', price: 1800000, currency: 'INR', status: 'sale',
-    location: 'Airport Zone, Visakhapatnam', area_sqft: 10,
+    id: 'd8', title: 'Agriculture Land — 8 Cents, Anakapalle Highway',
+    slug: '#', price: 1200000, currency: 'INR', status: 'sale',
+    location: 'Anakapalle, Visakhapatnam', area_sqft: 8,
     featured: false, category: 'Agriculture Land', property_type: 'Agriculture Land', area_unit: 'Cents',
     image: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800&q=80',
   },
   {
-    id: 'd9', title: 'Warehouse — 5000 Sq Ft Industrial Space',
-    slug: '#', price: 8500000, currency: 'INR', status: 'sale',
-    location: 'Bhogapuram Coast, Visakhapatnam', area_sqft: 5000,
+    id: 'd9', title: 'Commercial Space — 4500 Sq Ft, Airport Zone',
+    slug: '#', price: 9500000, currency: 'INR', status: 'sale',
+    location: 'Bhogapuram Airport Zone, Visakhapatnam', area_sqft: 4500,
     featured: false, category: 'Commercial', property_type: 'Warehouse', area_unit: 'Sq Feet',
     image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80',
   },
@@ -105,21 +105,27 @@ const PROPERTY_TYPES = [
 ]
 
 const COASTAL_HIGHLIGHTS = [
-  { icon: Sun, title: 'Year-Round Sunshine', desc: 'Visakhapatnam enjoys 300+ sunny days a year with warm, breezy coastal weather all year long.' },
-  { icon: Waves, title: 'Bay of Bengal Shoreline', desc: 'Miles of pristine sandy beaches, turquoise waters, and dramatic cliffs along the AP coastline.' },
-  { icon: TreePine, title: 'Lush Green Surroundings', desc: 'Casuarina groves, coconut palms, and mangroves create a serene natural coastal environment.' },
-  { icon: Anchor, title: 'Port City Growth', desc: 'Visakhapatnam expanding port, IT corridor, and tourism boom make coastal land an exceptional investment.' },
-  { icon: Wind, title: 'Fresh Sea Breeze Daily', desc: 'Wake up every day to cool ocean winds and the soothing sound of waves — true coastal living.' },
-  { icon: Star, title: 'Top Rated Beaches', desc: 'Bheemunipatnam, Rushikonda, and Bheemili rank among India most scenic and cleanest beaches.' },
+  { icon: Waves, title: 'World-Class Beaches', desc: 'RK Beach, Rushikonda, Bheemili, and Yarada — some of India\'s cleanest Blue Flag beaches, right at your doorstep.' },
+  { icon: TreePine, title: 'Araku Valley & Hills', desc: 'The scenic Eastern Ghats and Araku Valley offer coffee estates, waterfalls, and tribal heritage just 115 km away.' },
+  { icon: Anchor, title: 'Fastest Growing City', desc: 'Vizag is AP\'s Executive Capital and a Smart City — with a new metro, greenfield airport at Bhogapuram, and booming IT corridor.' },
+  { icon: Star, title: 'Tourism Hotspot', desc: 'INS Kursura Submarine Museum, Kailasagiri, Thotlakonda Buddhist Complex — Vizag draws millions of visitors every year.' },
+  { icon: Sun, title: 'Year-Round Pleasant Climate', desc: 'Coastal breeze from the Bay of Bengal keeps Vizag cool and comfortable with 300+ sunny days a year.' },
+  { icon: Wind, title: 'High Appreciation Zones', desc: 'Areas near the new airport corridor, IT SEZ, and beach road have seen 2–3x price appreciation in the last 5 years.' },
 ]
 
-const BEACHES_NEARBY = [
-  { name: 'Bheemunipatnam Beach', dist: '2 km', note: 'Widest beach in AP — golden sands, lighthouse view' },
-  { name: 'Rushikonda Beach', dist: '8 km', note: 'Blue Flag certified, water sports, hill backdrop' },
-  { name: 'Bheemili Beach', dist: '4 km', note: 'Serene, uncrowded, historic Dutch fort nearby' },
-  { name: 'Yarada Beach', dist: '35 km', note: 'Secluded cove between mountains, most scenic' },
-  { name: 'Rishikonda Hills', dist: '10 km', note: 'Elevated sea views, sunrise & sunset hotspot' },
-  { name: 'Mangamaripeta Beach', dist: '6 km', note: 'Peaceful fishing village beach, raw coastal charm' },
+const VIZAG_ATTRACTIONS = [
+  { name: 'RK Beach (Ramakrishna Beach)', type: '🏖️ Beach', note: 'Vizag\'s iconic 8 km beach — promenade, submarine museum, sunrise views' },
+  { name: 'Rushikonda Beach', type: '🏖️ Beach', note: 'Blue Flag certified — water sports, clear blue waters, hillside backdrop' },
+  { name: 'Araku Valley', type: '⛰️ Hills', note: '115 km from Vizag — coffee estates, tribal culture, Borra Caves nearby' },
+  { name: 'Kailasagiri Hill Park', type: '🌄 Viewpoint', note: 'Ropeway, giant Shiva-Parvati statue, panoramic 360° city and sea views' },
+  { name: 'Borra Caves', type: '🕌 Heritage', note: '1 million year old limestone caves in the Eastern Ghats, near Araku' },
+  { name: 'Bheemunipatnam Beach', type: '🏖️ Beach', note: 'Widest beach in AP — lighthouse, Dutch cemetery, golden sands' },
+  { name: 'Thotlakonda Buddhist Complex', type: '🏛️ Heritage', note: '2,000-year-old hilltop Buddhist monastery with Bay of Bengal views' },
+  { name: 'Yarada Beach', type: '🏖️ Beach', note: 'Secluded cove flanked by hills — the most scenic and uncrowded beach in Vizag' },
+  { name: 'Simhachalam Temple', type: '🛕 Temple', note: 'Ancient Narasimha temple atop a hill — famous 11th century architecture' },
+  { name: 'Anantagiri Hills', type: '⛰️ Hills', note: 'Lush green hills near Araku — misty forests, trekking, waterfalls' },
+  { name: 'INS Kursura Submarine Museum', type: '⚓ Museum', note: 'India\'s first onshore submarine museum on the RK Beach promenade' },
+  { name: 'Bhogapuram — New Airport Zone', type: '✈️ Growth Zone', note: 'Greenfield international airport under construction — fastest appreciating belt' },
 ]
 
 const WA_SVG = (
@@ -129,12 +135,12 @@ const WA_SVG = (
 )
 
 const FALLBACK_LOCATION_GROUPS = [
-  { name: 'Bheemunipatnam', emoji: '🏖️', description: 'Widest beach in AP — golden sands & lighthouse', color: 'from-amber-500 to-orange-600' },
-  { name: 'Rushikonda', emoji: '🌊', description: 'Blue Flag beach — hills, water sports, sunrise views', color: 'from-stone-500 to-cyan-600' },
-  { name: 'Bheemili', emoji: '🐚', description: 'Serene seafront — Dutch fort, uncrowded shores', color: 'from-stone-600 to-stone-800' },
-  { name: 'Rishikonda Hills', emoji: '⛰️', description: 'Elevated coastal plots — panoramic 180° sea views', color: 'from-blue-500 to-indigo-600' },
-  { name: 'Vizag Beach Road', emoji: '🛣️', description: 'Prime Beach Road — high-value commercial & residential', color: 'from-stone-700 to-black' },
-  { name: 'Bhogapuram Coast', emoji: '🌅', description: 'Near Airport — fastest appreciating coastal belt', color: 'from-amber-400 to-orange-600' },
+  { name: 'RK Beach Road', emoji: '🏖️', description: 'Vizag\'s iconic beach promenade — prime residential & commercial', color: 'from-amber-500 to-orange-600' },
+  { name: 'Rushikonda', emoji: '🌊', description: 'Blue Flag beach — IT corridor, hills, sea view plots', color: 'from-teal-600 to-stone-800' },
+  { name: 'Bheemunipatnam', emoji: '🐚', description: 'Widest beach in AP — lighthouse, gated layouts, calm waters', color: 'from-stone-600 to-stone-800' },
+  { name: 'Araku Valley', emoji: '⛰️', description: 'Eastern Ghats — coffee farms, tribal land, eco tourism plots', color: 'from-green-600 to-emerald-800' },
+  { name: 'Kailasagiri Area', emoji: '🌄', description: 'Hilltop viewpoint zone — residential plots with panoramic sea views', color: 'from-violet-600 to-indigo-700' },
+  { name: 'Bhogapuram Airport Zone', emoji: '✈️', description: 'New greenfield airport belt — fastest appreciating land in AP', color: 'from-stone-700 to-black' },
 ]
 
 export default async function HomePage() {
@@ -175,7 +181,7 @@ export default async function HomePage() {
             <div className="flex-1 flex items-center gap-2 bg-sky-50 rounded-xl px-4 py-2.5 border border-sky-100">
               <Search className="w-4 h-4 text-sky-400 flex-shrink-0" />
               <input type="text"
-                placeholder="Search beach area — Bheemunipatnam, Rushikonda, Vizag Beach Road…"
+                placeholder="Search by area — RK Beach, Rushikonda, Araku Valley, Kailasagiri, Bhogapuram…"
                 className="w-full text-sm text-slate-700 placeholder:text-slate-400 bg-transparent outline-none" />
             </div>
             <div className="flex gap-2">
@@ -200,13 +206,13 @@ export default async function HomePage() {
         {/* ── PAGE TITLE ── */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-1">
-            <Waves className="w-5 h-5 text-amber-500" />
-            <span className="text-xs font-bold tracking-widest text-amber-600 uppercase">Bay of Bengal Coastal Properties</span>
+            <MapPin className="w-5 h-5 text-amber-500" />
+            <span className="text-xs font-bold tracking-widest text-amber-600 uppercase">Visakhapatnam — Beach · Hills · Smart City</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">
-            Beach & Sea View Land in <span className="text-amber-600">Visakhapatnam</span>
+            Premium Properties in <span className="text-amber-600">Vizag</span> — Beaches, Hills & Growth Zones
           </h1>
-          <p className="text-slate-500 text-sm mt-1">{allListings.length} verified coastal properties across {locationGroups.length}+ prime beach locations · Andhra Pradesh</p>
+          <p className="text-slate-500 text-sm mt-1">{allListings.length} verified properties · RK Beach, Rushikonda, Araku, Kailasagiri, Bhogapuram & more · AP's fastest growing city</p>
         </div>
 
         {/* ── CATEGORY QUICK LINKS ── */}
@@ -355,38 +361,38 @@ export default async function HomePage() {
         <div className="text-center mt-12">
           <Link href="/listings"
             className="inline-flex items-center gap-2 bg-amber-700 hover:bg-stone-800 text-white font-bold px-8 py-3.5 rounded-xl text-sm transition-colors shadow-lg shadow-amber-200">
-            View All Coastal Properties <ArrowRight className="w-4 h-4" />
+            View All Properties in Vizag <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>
 
-      {/* ── BEACHES NEARBY ── */}
-      <section className="py-16 bg-gradient-to-b from-stone-50 to-amber-100">
+      {/* ── VIZAG ATTRACTIONS ── */}
+      <section className="py-16 bg-gradient-to-b from-stone-50 to-amber-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <div className="flex items-center justify-center gap-2 mb-2">
-              <Shell className="w-5 h-5 text-orange-400" />
-              <span className="text-xs font-bold tracking-widest text-amber-700 uppercase">Pristine Shorelines Nearby</span>
+              <MapPin className="w-5 h-5 text-orange-400" />
+              <span className="text-xs font-bold tracking-widest text-amber-700 uppercase">Vizag Travel & Tourism Hotspots</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-stone-900">
-              World-Class Beaches at Your Doorstep
+              Beaches, Hills & Heritage — All at Your Doorstep
             </h2>
-            <p className="text-amber-700 text-sm mt-2 max-w-2xl mx-auto">
-              Our properties are located minutes from some of India most beautiful beaches — golden sands, clear waters, and breathtaking coastal scenery.
+            <p className="text-slate-500 text-sm mt-2 max-w-2xl mx-auto">
+              Visakhapatnam is more than a city — it's where the Bay of Bengal meets the Eastern Ghats. Own property near India's most sought-after travel destinations.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {BEACHES_NEARBY.map(({ name, dist, note }) => (
+            {VIZAG_ATTRACTIONS.map(({ name, type, note }) => (
               <div key={name}
-                className="flex gap-4 p-5 bg-white/80 backdrop-blur rounded-2xl border border-amber-200 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-100 transition-all">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center flex-shrink-0">
-                  <Waves className="w-5 h-5 text-white" />
+                className="flex gap-4 p-5 bg-white rounded-2xl border border-stone-200 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-100 transition-all group">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-stone-800 to-black flex items-center justify-center flex-shrink-0 text-xl group-hover:from-amber-500 group-hover:to-orange-600 transition-all">
+                  {type.split(' ')[0]}
                 </div>
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h4 className="font-bold text-stone-900 text-sm">{name}</h4>
-                    <span className="text-[10px] font-black bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full">{dist}</span>
+                  <div className="flex items-start gap-2 mb-1">
+                    <h4 className="font-bold text-stone-900 text-sm leading-tight">{name}</h4>
                   </div>
+                  <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200 inline-block mb-1">{type.split(' ').slice(1).join(' ')}</span>
                   <p className="text-slate-500 text-xs leading-relaxed">{note}</p>
                 </div>
               </div>
@@ -401,13 +407,13 @@ export default async function HomePage() {
           <div className="text-center mb-10">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Sun className="w-5 h-5 text-orange-400" />
-              <span className="text-xs font-bold tracking-widest text-amber-600 uppercase">Why Coastal Living?</span>
+              <span className="text-xs font-bold tracking-widest text-amber-600 uppercase">Why Invest in Vizag?</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-stone-900">
-              Life is Better by the Ocean
+              Life is Better in Visakhapatnam — Sea, Hills & Sky
             </h2>
             <p className="text-slate-500 text-sm mt-2 max-w-2xl mx-auto">
-              Visakhapatnam coastline offers more than just a view — it is a lifestyle of fresh air, natural beauty, and rising property values.
+              Vizag is India's fastest growing Smart City — AP's Executive Capital, new greenfield airport, metro rail, and booming IT sector make it the #1 real estate destination right now.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -432,23 +438,23 @@ export default async function HomePage() {
           alt="Bay of Bengal coastline Visakhapatnam"
           fill className="object-cover" sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-950/80 via-cyan-900/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-stone-950/85 via-stone-900/65 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="max-w-xl">
-              <span className="text-orange-300 text-xs font-bold tracking-widest uppercase">Own a Piece of Paradise</span>
+              <span className="text-amber-400 text-xs font-bold tracking-widest uppercase">Vizag — AP's Executive Capital</span>
               <h2 className="text-3xl sm:text-4xl font-black text-white mt-2 leading-tight">
-                Wake Up to the Sound<br />of the Ocean Every Day
+                Own Land Where the Sea<br />Meets the Eastern Ghats
               </h2>
-              <p className="text-amber-200 text-sm mt-3 leading-relaxed">
-                Our beachfront and sea view plots put you steps from the Bay of Bengal. Verified titles, legal clearance, and expert coastal real estate guidance.
+              <p className="text-stone-300 text-sm mt-3 leading-relaxed">
+                From beachfront plots on RK Beach to hill land near Araku Valley — Visakhapatnam is India's fastest developing coastal city. Invest now before prices soar.
               </p>
               <div className="flex gap-3 mt-6">
                 <Link href="/listings"
-                  className="px-6 py-3 bg-orange-500 hover:bg-orange-400 text-white font-bold rounded-xl text-sm transition-colors">
+                  className="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-white font-bold rounded-xl text-sm transition-colors">
                   Browse Properties
                 </Link>
-                <a href={getWhatsAppUrl(whatsapp, 'Hi! I want to know about beach and sea view plots in Visakhapatnam.')}
+                <a href={getWhatsAppUrl(whatsapp, 'Hi! I want to know about properties in Visakhapatnam — beaches, hills, and investment zones.')}
                   target="_blank" rel="noopener noreferrer"
                   className="flex items-center justify-center w-12 h-12 bg-[#25D366] hover:bg-[#1ebe5d] text-white rounded-xl transition-colors" aria-label="WhatsApp">
                   <svg viewBox="0 0 24 24" className="w-6 h-6 fill-white" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -460,19 +466,19 @@ export default async function HomePage() {
       </section>
 
       {/* ── STATS ── */}
-      <section className="bg-gradient-to-r from-cyan-700 to-blue-700 py-10">
+      <section className="bg-gradient-to-r from-stone-900 to-black py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
             {[
-              { val: '120+', label: 'Coastal Plots Sold', icon: '🏖️' },
-              { val: '800+', label: 'Happy Buyers', icon: '🌊' },
-              { val: '50 km', label: 'Coastline Coverage', icon: '⛵' },
-              { val: '100%', label: 'Clear Titles', icon: '✅' },
+              { val: '150+', label: 'Properties Sold', icon: '🏠' },
+              { val: '1000+', label: 'Happy Families', icon: '👨‍👩‍👧' },
+              { val: '12+', label: 'Prime Locations', icon: '📍' },
+              { val: '#1', label: 'Vizag Growth City', icon: '🚀' },
             ].map(({ val, label, icon }) => (
               <div key={label} className="text-white">
                 <div className="text-2xl mb-1">{icon}</div>
-                <div className="text-3xl font-black text-white">{val}</div>
-                <div className="text-amber-200 text-xs mt-1 font-medium">{label}</div>
+                <div className="text-3xl font-black text-amber-400">{val}</div>
+                <div className="text-stone-400 text-xs mt-1 font-medium">{label}</div>
               </div>
             ))}
           </div>
@@ -490,15 +496,15 @@ export default async function HomePage() {
               </div>
               <h2 className="text-2xl sm:text-3xl font-black text-stone-900 mb-4">
                 Find Your Perfect<br />
-                <span className="text-amber-600">Beach Property</span>
+                <span className="text-amber-600">Property in Vizag</span>
               </h2>
               <p className="text-slate-500 text-sm mb-8 leading-relaxed">
-                Whether you're looking for a beachfront plot, sea view villa site, or a coastal investment land — our expert team will find the best options for you along the Visakhapatnam coastline.
+                Whether you're looking for a beach plot near RK Beach, hill land near Araku, an apartment in the IT corridor, or a commercial space in the airport zone — our local experts know Vizag inside out.
               </p>
               <div className="space-y-3 mb-8">
                 {[
                   { Icon: Phone, label: 'Call / WhatsApp', value: whatsapp, href: `tel:${whatsapp}` },
-                  { Icon: Mail, label: 'Email Us', value: 'info@coastallandsvizag.com', href: 'mailto:info@coastallandsvizag.com' },
+                  { Icon: Mail, label: 'Email Us', value: 'info@vbays.com', href: 'mailto:info@vbays.com' },
                   { Icon: MapPin, label: 'Office', value: 'Beach Road, Bhogapuram, Visakhapatnam, AP 531163', href: null },
                 ].map(({ Icon, label, value, href }) => (
                   <div key={label} className="flex items-center gap-3 p-4 bg-white rounded-xl border border-stone-200 shadow-sm">

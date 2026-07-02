@@ -31,7 +31,7 @@ export function Navbar() {
               style={{ color: '#111' }}
             />
             <span className="text-[10px] font-bold text-amber-500 tracking-widest uppercase hidden sm:block">
-              Real Estate · Vizag
+              Beaches · Hills · Vizag
             </span>
           </Link>
 

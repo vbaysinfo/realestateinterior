@@ -30,7 +30,7 @@ export function Footer() {
               Real Estate · Visakhapatnam
             </p>
             <p className="text-sm leading-relaxed text-stone-400 mb-5">
-              Visakhapatnam's premier coastal real estate agency. Beachfront plots, sea view villas, and coastal land along the Bay of Bengal.
+              Visakhapatnam's trusted real estate agency — beach plots, hill land, residential & commercial properties across Vizag's fastest growing zones.
             </p>
             <div className="flex gap-2">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
@@ -49,12 +49,12 @@ export function Footer() {
               {[
                 { href: '/', label: 'Home' },
                 { href: '/listings', label: 'All Properties' },
-                { href: '/listings?category=Open+Plots', label: 'Open Plots' },
-                { href: '/listings?category=Agriculture+Land', label: 'Agriculture Land' },
-                { href: '/listings?category=Residential', label: 'Residential' },
-                { href: '/listings?category=Commercial', label: 'Commercial' },
+                { href: '/listings?category=Open+Plots', label: 'Open Plots (Sq Yard)' },
+                { href: '/listings?category=Agriculture+Land', label: 'Agriculture Land (Cents)' },
+                { href: '/listings?category=Residential', label: 'Flats & Villas' },
+                { href: '/listings?category=Commercial', label: 'Commercial Space' },
+                { href: '/listings?location=Araku+Valley', label: 'Araku Hill Properties' },
                 { href: '/about', label: 'About Us' },
-                { href: '/contact', label: 'Contact' },
               ].map(({ href, label }) => (
                 <li key={href}>
                   <Link href={href} className="hover:text-amber-400 transition-colors flex items-center gap-1.5 text-stone-400">
@@ -66,24 +66,24 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Coastal Areas */}
+          {/* Vizag Locations */}
           <div>
-            <h3 className="font-bold text-amber-400 mb-4 text-xs uppercase tracking-widest">Coastal Areas</h3>
+            <h3 className="font-bold text-amber-400 mb-4 text-xs uppercase tracking-widest">Key Locations</h3>
             <ul className="space-y-2.5 text-sm">
               {[
-                'Bheemunipatnam Beach',
-                'Rushikonda Beach',
-                'Bhogapuram Coast',
-                'Rishikonda Hills',
-                'Bheemili Seafront',
-                'Vizag Beach Road',
-                'Nakkapalle Coast',
-                'Bay of Bengal Shore',
-              ].map((area) => (
+                { area: 'RK Beach Road', icon: '🏖️' },
+                { area: 'Rushikonda', icon: '🌊' },
+                { area: 'Bheemunipatnam', icon: '🐚' },
+                { area: 'Kailasagiri Area', icon: '🌄' },
+                { area: 'Araku Valley', icon: '⛰️' },
+                { area: 'Rishikonda Hills', icon: '🏔️' },
+                { area: 'Dwaraka Nagar', icon: '🏙️' },
+                { area: 'Bhogapuram Airport Zone', icon: '✈️' },
+              ].map(({ area, icon }) => (
                 <li key={area}>
                   <Link href={`/listings?location=${encodeURIComponent(area)}`}
                     className="hover:text-amber-400 transition-colors flex items-center gap-1.5 text-stone-400">
-                    <Wind className="w-3 h-3 text-stone-500 flex-shrink-0" />
+                    <span className="text-xs">{icon}</span>
                     {area}
                   </Link>
                 </li>
@@ -119,7 +119,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/10 mt-10 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-xs text-stone-500">
-          <p>© {new Date().getFullYear()} {siteName}. All rights reserved. | Visakhapatnam, Andhra Pradesh</p>
+          <p>© {new Date().getFullYear()} {siteName}. All rights reserved. | Visakhapatnam, Andhra Pradesh — Beaches · Hills · Smart City</p>
           <div className="flex gap-4">
             <Link href="/sitemap.xml" className="hover:text-white transition-colors">Sitemap</Link>
           </div>
